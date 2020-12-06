@@ -8,7 +8,7 @@ class ActivatedAbility
 {
 private:
     std::string expression;
-    unsigned int costMagic;
+    unsigned int cost;
 };
 
 class TriggeredAbility : public Observer

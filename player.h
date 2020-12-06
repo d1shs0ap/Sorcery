@@ -9,7 +9,8 @@ class Card;
 class Minion;
 #include "tas.h"
 
-const int cap = 5;
+const int handCap = 5;
+const int boardCap = 5;
 
 class Player
 {
@@ -18,7 +19,7 @@ private:
     int life;
     // A player’s magic is their main resource used to play cards and use
     // special abilities.
-    unsigned int magic;
+    int magic;
     // A players’ hand is a collection of cards (to a maximum of 5) that they
     // may play.
     std::vector<std::shared_ptr<Card>> hand;
@@ -38,9 +39,10 @@ public:
     // constructor.
     Player();
     // To draw, a player takes a card from their deck and puts it into their
-    // hand. A player may only draw if their hand is not full.
+    // hand. A player may only draw if their hand is not full and their deck is
+    // not empty.
     void draw(std::vector<std::shared_ptr<Card>>);
-    void place(int);
+    void play(int i);
     void shuffle(Player p);
     void minionsResort();
 };
