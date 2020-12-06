@@ -3,14 +3,17 @@
 
 class StartTas
 {
+    // nothing.
 };
 
 class EndTas
 {
+    // nothing.
 };
 
 class EnterTas
 {
+    // nothing.
 };
 
 #endif
