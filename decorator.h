@@ -7,7 +7,7 @@ class Card;
 class Decorator
 {
 private:
-    std::shared_ptr<Card> card; // changed variable name to make it more meaningful. this is different from the UML.
+    std::shared_ptr<Card> card; // note: changed variable name to make it more meaningful. this is different from the UML.
 };
 
 #endif

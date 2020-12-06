@@ -10,7 +10,7 @@ class Board
 {
 private:
     std::vector<std::shared_ptr<Ritual>> ritual;
-    std::shared_ptr<Card> minions;
+    std::shared_ptr<Card> minions; // note: should it be a vector?
 };
 
 #endif

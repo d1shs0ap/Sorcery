@@ -3,7 +3,6 @@
 #include <string>
 
 #include "player.h"
-#include "card.h"
 #include "ability.h"
 #include "subject.h"
 #include "decorator.h"
@@ -20,8 +19,8 @@ private:
 class Minion : public Card, Subject
 {
 private:
-    unsigned int atk; // simplified variable name. this is different from the UML.
-    unsigned int def; // simplified variable name. this is different from the UML.
+    unsigned int atk; // note: simplified variable name. this is different from the UML.
+    unsigned int def; // note: simplified variable name. this is different from the UML.
     unsigned int action;
     ActivatedAbility actAbility;
     TriggeredAbility trgAbility;
@@ -36,7 +35,7 @@ public:
 class Enchantment : public Card, public Decorator
 {
 private:
-    std::string atkChange; // ? why string?
+    std::string atkChange; // note: ? why string?
     std::string defChange;
     ActivatedAbility actAbility;
 };
