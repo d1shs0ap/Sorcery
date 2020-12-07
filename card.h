@@ -46,7 +46,7 @@ public:
     void attack(Player &p);
     void attack(Minion &other);
     void use();
-    void actionResort();
+    void restoreAction();
 };
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
