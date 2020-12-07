@@ -10,8 +10,8 @@ class Game
 {
 private:
     // the two players.
-    std::vector<std::unique_ptr<Player>> players; // current turn. this can only be 0 or 1.
-    int turn;
+    std::vector<std::unique_ptr<Player>> players;
+    int turn; // current turn. this can only be 0 or 1.
     Display display;
 
 public:
