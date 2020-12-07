@@ -4,7 +4,7 @@
 
 #include "observer.h"
 
-class Display : public Observer
+class View : public Observer
 {
 private:
     std::vector<std::vector<char>> display;
