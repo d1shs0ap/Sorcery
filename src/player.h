@@ -41,10 +41,9 @@ public:
   // To draw, a player takes a card from their deck and puts it into their
   // hand. A player may only draw if their hand is not full and their deck is
   // not empty.
-  void draw(std::vector<std::shared_ptr<Card>>);
+  void draw();
   void play(int i);
-  void shuffle(Player p);
-  void minionsResort();
+  void restoreMinionActions();
 };
 
 #endif
