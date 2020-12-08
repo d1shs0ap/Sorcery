@@ -3,11 +3,10 @@
 
 #include <memory>
 
-#include "../card.h"
 #include "minion.h"
 
-class Enchantment : public Card {
-    std::unique_ptr<Minion> enchantedMinion;
+class Enchantment : public Minion {
+    std::shared_ptr<Minion> enchantedMinion;
 };
 
 #endif
