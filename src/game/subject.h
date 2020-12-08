@@ -9,7 +9,7 @@ class Subject {
     std::vector<std::shared_ptr<Observer>> observers;
 
     protected:
-        void notify() const;
+        void notify();
 
     public:
         void attach(Observer &o);
