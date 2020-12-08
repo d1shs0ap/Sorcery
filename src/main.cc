@@ -2,8 +2,6 @@
 #include <string>
 #include <vector>
 
-#include "player.h"
-#include "card.h"
 #include "game/game.h"
 #include "util.h"
 
@@ -15,8 +13,7 @@ int main(int argc, char *argv[])
     bool supplied1 = false;
     bool supplied2 = false;
     std::string cmd;
-    while (std::cin >> cmd)
-    {
+    while (std::cin >> cmd) {
         if (cmd == "help")
         {
             displayHelp();
