@@ -4,7 +4,7 @@
 
 #include "player.h"
 #include "card.h"
-#include "game.h"
+#include "game/game.h"
 #include "util.h"
 
 bool TESTING = false;

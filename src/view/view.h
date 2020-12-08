@@ -1,16 +1,16 @@
-#ifndef DISPLAY_H
-#define DISPLAY_H
+#ifndef VIEW_H
+#define VIEW_H
+
 #include <vector>
 
 #include "observer.h"
+#include "../game/game.h"
 
-class View : public Observer
-{
-private:
+class View : public Observer {
+    Game game;
     std::vector<std::vector<char>> display;
-
-public:
-    void print();
+    public:
+        void display();
 };
 
 #endif

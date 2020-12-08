@@ -1,16 +1,14 @@
 #ifndef BOARD_H
 #define BOARD_H
+
 #include <memory>
 #include <vector>
 
-class Card;
-class Ritual;
+#include "../cards/ritual.h"
 
-class Board
-{
-private:
+class Board {
     std::vector<std::shared_ptr<Ritual>> ritual;
-    std::shared_ptr<Card> minions; // note: should it be a vector?
+    std::vector<std::shared_ptr<Card>> minions;
 };
 
 #endif

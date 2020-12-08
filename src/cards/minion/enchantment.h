@@ -1,13 +1,13 @@
-#ifndef DECORATOR_H
-#define DECORATOR_H
+#ifndef ENCHANTMENT_H
+#define ENCHANTMENT_H
+
 #include <memory>
 
-class Card;
+#include "../card.h"
+#include "minion.h"
 
-class Decorator
-{
-private:
-    std::shared_ptr<Card> card; // note: changed variable name to make it more meaningful. this is different from the UML.
+class Enchantment : public Card {
+    std::unique_ptr<Minion> enchantedMinion;
 };
 
 #endif

@@ -1,20 +1,14 @@
-#ifndef ABILITY_H
-#define ABILITY_H
+#ifndef ACTIVATED_ABILITY_H
+#define ACTIVATED_ABILITY_H
+
 #include <string>
 
-#include "observer.h"
+class ActivatedAbility {
+    std::string description;
+    int magicCost;
 
-class ActivatedAbility
-{
-private:
-    std::string expression;
-    unsigned int cost;
-};
-
-class TriggeredAbility : public Observer
-{
-private:
-    std::string expression;
+    public:
+        void effect();
 };
 
 #endif

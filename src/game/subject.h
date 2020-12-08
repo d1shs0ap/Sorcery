@@ -5,14 +5,15 @@
 
 class Observer;
 
-class Subject
-{
-private:
+class Subject {
     std::vector<std::shared_ptr<Observer>> observers;
 
-public:
-    void attach(Observer &o);
-    void nofity() const;
+    protected:
+        void notify() const;
+
+    public:
+        void attach(Observer &o);
+        void detach(Observer &o);
 };
 
 #endif
