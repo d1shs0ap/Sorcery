@@ -9,6 +9,10 @@ class ActivatedAbility
     int cost;
 
 public:
+    ActivatedAbility();
+    ActivatedAbility(std::string description, int cost);
+    std::string getDescription();
+    int getCost();
     void effect();
 };
 
