@@ -1,8 +1,8 @@
 #include "minion.h"
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-Minion::Minion(int atk, int def)
-    : atk{atk}, def{def} {}
+Minion::Minion(std::string name, int owner, int cost, int atk, int def) : 
+    Card{name, "Minion", owner, cost}, atk{atk}, def{def} {}
 
 int Minion::getAtk() const { return atk; }
 int Minion::computeAtk() const { return getAtk(); }
@@ -40,7 +40,11 @@ void Minion::useAbility()
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-const int AirElementalAtk = 1;
-const int AirElementalDef = 1;
-AirElemental::AirElemental()
-    : Minion{1, 1} {}
+AirElemental::AirElemental(int owner)
+    : Minion{"Air Elemental", owner, 0, 1, 1} {}
+
+EarthElemental::EarthElemental(int owner)
+    : Minion{"Earth Elemental", owner, 3, 4, 4} {}
+
+
+

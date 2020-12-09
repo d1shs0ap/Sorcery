@@ -22,7 +22,7 @@ class Minion : public Card
     TriggeredAbility trgAbility;
 
 public:
-    Minion(int atk, int def);
+    Minion(std::string name, int owner, int cost, int atk, int def);
 
     int getAtk() const;
     virtual int computeAtk() const;
@@ -44,9 +44,13 @@ public:
 class AirElemental : public Minion
 {
 public:
-    AirElemental();
+    AirElemental(int owner);
 };
 
+class EarthElemental : public Minion{
+    public:
+        EarthElemental(int owner);
+}
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 #endif
