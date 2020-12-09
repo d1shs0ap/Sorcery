@@ -22,6 +22,7 @@ class Minion : public Card
     TriggeredAbility trgAbility;
 
 public:
+    Minion();
     Minion(std::string name, int owner, int cost, int atk, int def);
 
     int getAtk() const;
@@ -32,7 +33,11 @@ public:
     void setDef(int new_def);
 
     void restoreActions();
-    virtual ActivatedAbility getActAbility() const = 0;
+    virtual ActivatedAbility getActAbility() const;
+    virtual TriggeredAbility getTrgAbility() const;
+    void setActAbility(ActivatedAbility ability);
+    void setTrgAbility(TriggeredAbility ability);
+
 
     void attack(Player &p);
     void attack(Minion &m);
@@ -51,6 +56,37 @@ class EarthElemental : public Minion{
     public:
         EarthElemental(int owner);
 };
+
+class Bomb : public Minion{
+    public:
+        Bomb(int owner);
+};
+
+class FireElemental : public Minion{
+    public:
+        FireElemental(int owner);
+};
+
+class PotionSeller : public Minion{
+    public:
+        PotionSeller(int owner);
+};
+
+class NovicePyromancer : public Minion{
+    public:
+        NovicePyromancer(int owner);
+};
+
+class ApprenticeSummoner : public Minion{
+    public:
+        ApprenticeSummoner(int owner);
+};
+
+class MasterSummoner : public Minion{
+    public:
+        MasterSummoner(int owner);
+};
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 #endif

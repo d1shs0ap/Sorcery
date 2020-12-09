@@ -11,7 +11,12 @@ class Card
     int owner;
     int cost;
     public:
+        Card();
         Card(std::string name, std::string type, int owner, int cost);
+        std::string getName();
+        std::string getType();
+        int getOwner();
+        int getCost();
 };
 
 #endif
