@@ -40,11 +40,14 @@ int main(int argc, char *argv[])
                 // note: recall that a player can only do this when the number of
                 //       cards in hand is less than 5. This is checked within the
                 //       function Player::draw.
-            } else if (cmd == "discard") {
+            } else if (cmd.substr(0, 7) == "discard") {
                 if (TESTING == false)
                     cout << "Command discard is only avaliable in testing mode." << endl;
                 else {
-                    textController->discard();
+                    try {
+                        int cardInHand = stoi(cmd.substr(7));
+                        textController->discard(cardInHand);
+                    } catch (const std::invalid_argument& ia) {}
                 }
             } else if (cmd == "attack") {
                 int minion;
