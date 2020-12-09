@@ -7,8 +7,14 @@
 #include "../cards/ritual.h"
 
 class Board {
-    std::vector<std::shared_ptr<Ritual>> ritual;
+    std::shared_ptr<Ritual> ritual;
     std::vector<std::shared_ptr<Card>> minions;
+    public:
+        std::shared_ptr<Ritual> getRitual();
+        void setRitual(std::shared_ptr<Ritual> ritual);
+
+        std::vector<std::shared_ptr<Card>> getMinions();
+        void setMinions(std::vector<std::shared_ptr<Card>> minions);
 };
 
 #endif
