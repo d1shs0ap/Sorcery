@@ -23,7 +23,7 @@ public:
     virtual int getAtk() const = 0;
     virtual int getDef() const = 0;
     void setDef(int new_def);
-    void restoreAction();
+    void restoreActions();
 
     void attack(Player &p);
     void attack(Minion &m);

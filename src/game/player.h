@@ -39,7 +39,7 @@ public:
     void draw();
     // Plays the ith card in hand from the left
     void play(int i);
-    // Calls all restoreAction() on player's minions
+    // Calls all restoreActions() on player's minions
     void restoreActionAll();
 };
 
