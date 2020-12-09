@@ -3,12 +3,13 @@
 
 #include <string>
 
-class ActivatedAbility {
+class ActivatedAbility
+{
     std::string description;
-    int magicCost;
+    int cost;
 
-    public:
-        void effect();
+public:
+    void effect();
 };
 
 #endif

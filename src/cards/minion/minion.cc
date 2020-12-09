@@ -1,5 +1,9 @@
 #include "minion.h"
 
+///////////////////////////////////////////////////////////////////////////////////////////////////
+Minion::Minion(int atk, int def)
+    : atk{atk}, def{def} {}
+
 int Minion::getAtk() const { return atk; }
 int Minion::computeAtk() const { return getAtk(); }
 void Minion::setAtk(int new_atk) { atk = new_atk; }
@@ -8,7 +12,7 @@ int Minion::computeDef() const { return getDef(); }
 void Minion::setDef(int new_def) { def = new_def; }
 
 ActivatedAbility Minion::getActAbility() const { return actAbility; }
-void Minion::restoreActions() { actions = 1; }
+void Minion::restoreActions() { actions = actionsCap; }
 
 void Minion::attack(Player &other)
 {
@@ -33,3 +37,10 @@ void Minion::attack(Minion &other)
 void Minion::useAbility()
 {
 }
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////
+const int AirElementalAtk = 1;
+const int AirElementalDef = 1;
+AirElemental::AirElemental()
+    : Minion{1, 1} {}

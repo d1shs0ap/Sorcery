@@ -4,11 +4,12 @@
 #include <string>
 
 // Abstract class for all cards
-class Card {
+class Card
+{
     std::string name;
     std::string type;
     int owner;
-    int magicCost;
+    int cost;
 };
 
 #endif

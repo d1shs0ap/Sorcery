@@ -6,12 +6,14 @@
 #include "triggeredAbility.h"
 #include "../../game/player.h"
 
+///////////////////////////////////////////////////////////////////////////////////////////////////
 class Minion : public Card
 {
     int atk;
     int def;
     // actions is the number of times it is allowed to attack or use an ability in one turn. this can only be 0 or 1 for now.
     unsigned int actions = 0;
+    unsigned int actionsCap = 1;
 
     // Activated abilities cost magic and an action point to use, and work similar to playing a spell card.
     ActivatedAbility actAbility;
@@ -20,6 +22,8 @@ class Minion : public Card
     TriggeredAbility trgAbility;
 
 public:
+    Minion(int atk, int def);
+
     int getAtk() const;
     virtual int computeAtk() const = 0;
     void setAtk(int new_atk);
@@ -34,5 +38,15 @@ public:
     void attack(Minion &m);
     void useAbility();
 };
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////
+class AirElemental : public Minion
+{
+public:
+    AirElemental();
+};
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
 
 #endif
