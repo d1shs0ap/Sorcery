@@ -5,10 +5,8 @@ Minion::Minion(int atk, int def)
     : atk{atk}, def{def} {}
 
 int Minion::getAtk() const { return atk; }
-int Minion::computeAtk() const { return getAtk(); }
 void Minion::setAtk(int new_atk) { atk = new_atk; }
 int Minion::getDef() const { return def; }
-int Minion::computeDef() const { return getDef(); }
 void Minion::setDef(int new_def) { def = new_def; }
 
 ActivatedAbility Minion::getActAbility() const { return actAbility; }
