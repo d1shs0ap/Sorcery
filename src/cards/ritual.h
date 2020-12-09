@@ -5,8 +5,7 @@
 #include "minion/triggeredAbility.h"
 
 // Ritual card
-class Ritual : public Card
-{
+class Ritual : public Card {
     // Cost (of charges) to activate ritual
     int activationCost;
     // Number of charges, consumed when activating ritual

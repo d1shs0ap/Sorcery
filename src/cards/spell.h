@@ -4,7 +4,7 @@
 #include "card.h"
 
 // Spell card
-class Spell : public Card{
+class Spell : public Card {
     public:
         void effect();
 };
