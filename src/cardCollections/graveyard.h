@@ -9,7 +9,13 @@
 class Graveyard {
     std::vector<std::shared_ptr<Minion>> minions;
     public:
-        std::shared_ptr<Minion> topMinion();
+        std::shared_ptr<Minion> getMinionTop();
+        // Add new minion to graveyard top
+        void addMinionTop();
+
+        std::vector<std::shared_ptr<Minion>> getMinions();
+        void setMinions();
+        
 };
 
 #endif
