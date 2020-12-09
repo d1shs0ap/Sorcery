@@ -6,7 +6,8 @@
 #include "triggeredAbility.h"
 #include "../../game/player.h"
 
-class Minion : public Card{
+class Minion : public Card
+{
     int atk;
     int def;
     // actions is the number of times it is allowed to attack or use an ability in one turn. this can only be 0 or 1 for now.
@@ -19,6 +20,9 @@ class Minion : public Card{
     TriggeredAbility trgAbility;
 
 public:
+    int getAtk() const;
+    int getDef() const;
+    void setDef(int new_def);
     void attack(Player &p);
     void attack(Minion &m);
     void useAbility();
