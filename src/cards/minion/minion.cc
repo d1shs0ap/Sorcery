@@ -1,36 +1,46 @@
 #include "minion.h"
 
-int Minion::getAtk() const { return atk; }
-int Minion::getDef() const { return def; }
-ActivatedAbility Minion::getActAbility() const { return actAbility; }
+///////////////////////////////////////////////////////////////////////////////////////////////////
+Minion::Minion(int atk, int def)
+    : atk{atk}, def{def} {}
 
+int Minion::getAtk() const { return atk; }
+int Minion::computeAtk() const { return getAtk(); }
+void Minion::setAtk(int new_atk) { atk = new_atk; }
+int Minion::getDef() const { return def; }
+int Minion::computeDef() const { return getDef(); }
 void Minion::setDef(int new_def) { def = new_def; }
-void Minion::restoreActions() { actions = 1; }
+
+void Minion::restoreActions() { actions = actionsCap; }
+ActivatedAbility Minion::getActAbility() const { return actAbility; }
 
 void Minion::attack(Player &other)
 {
-    /* got some problem here..
     if (actions > 0)
     {
-        other.setLife(other.getLife() - this->getAtk());
+        int attack = this->computeAtk();
+        other.setLife(other.getLife() - attack);
         --actions;
     }
-    */
 }
 
 void Minion::attack(Minion &other)
 {
-    /* got some problem here..
-    int attack = this->getAtk();
     if (actions > 0)
     {
-        other.setDef(other.getDef() - attack);
+        other.setDef(other.getDef() - this->computeAtk());
         --actions;
     }
-    def = def - other.getAtk();
-    */
+    this->setDef(this->getDef() - other.computeAtk());
 }
 
 void Minion::useAbility()
 {
 }
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////
+const int AirElementalAtk = 1;
+const int AirElementalDef = 1;
+AirElemental::AirElemental()
+    : Minion{1, 1} {}
