@@ -22,13 +22,12 @@ void Minion::attack(Player &other)
 
 void Minion::attack(Minion &other)
 {
-    int attack = this->computeAtk();
     if (actions > 0)
     {
-        other.setDef(other.computeDef() - attack);
+        other.setDef(other.getDef() - this->computeAtk());
         --actions;
     }
-    def = def - other.computeAtk();
+    this->setDef(this->getDef() - other.computeAtk());
 }
 
 void Minion::useAbility()
