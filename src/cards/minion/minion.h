@@ -25,14 +25,14 @@ public:
     Minion(int atk, int def);
 
     int getAtk() const;
-    virtual int computeAtk() const = 0;
+    virtual int computeAtk() const;
     void setAtk(int new_atk);
     int getDef() const;
-    virtual int computeDef() const = 0;
+    virtual int computeDef() const;
     void setDef(int new_def);
 
-    virtual ActivatedAbility getActAbility() const = 0;
     void restoreActions();
+    virtual ActivatedAbility getActAbility() const = 0;
 
     void attack(Player &p);
     void attack(Minion &m);
