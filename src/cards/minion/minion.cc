@@ -1,23 +1,29 @@
 #include "minion.h"
 
+int Minion::getAtk() const { return atk; }
+int Minion::getDef() const { return def; }
 void Minion::setDef(int new_def) { def = new_def; }
+void Minion::restoreAction() { actions = 1; }
 
-void Minion::attack(Player &p)
+void Minion::attack(Player &other)
 {
     if (actions > 0)
     {
-        p.setLife(p.getLife() - atk);
+        other.setLife(other.getLife() - atk);
+        --actions;
     }
 }
 
-void Minion::attack(Minion &m)
+void Minion::attack(Minion &other)
 {
+    if (actions > 0)
+    {
+        other.setDef(other.getDef() - atk);
+        --actions;
+    }
+    def = def - other.getAtk();
 }
 
 void Minion::useAbility()
-{
-}
-
-void Minion::restoreAction()
 {
 }

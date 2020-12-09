@@ -20,13 +20,14 @@ class Minion : public Card
     TriggeredAbility trgAbility;
 
 public:
-    int getAtk() const;
-    int getDef() const;
+    virtual int getAtk() const = 0;
+    virtual int getDef() const = 0;
     void setDef(int new_def);
+    void restoreAction();
+
     void attack(Player &p);
     void attack(Minion &m);
     void useAbility();
-    void restoreAction();
 };
 
 #endif
