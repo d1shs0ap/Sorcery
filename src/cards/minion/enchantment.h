@@ -10,8 +10,8 @@ class Enchantment : public Minion
 
 public:
     Enchantment(std::shared_ptr<Minion> component);
-    virtual int getAtk() const override;
-    virtual int getDef() const override;
+    virtual int computeAtk() const override;
+    virtual int computeDef() const override;
 };
 
 #endif
