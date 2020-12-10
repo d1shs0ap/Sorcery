@@ -3,6 +3,7 @@
 
 #include <memory>
 #include <vector>
+#include <stdexcept>
 
 #include "../cards/card.h"
 
@@ -20,7 +21,7 @@ class Hand {
         bool addCardRight(std::shared_ptr<Card> card);
         
         // Removes single card
-        std::shared_ptr<Card> removeCard(int i);
+        std::shared_ptr<Card> removeCard(int card);
 
         // Accessor and mutator methods for cards
         std::vector<std::shared_ptr<Card>> getCards() const;

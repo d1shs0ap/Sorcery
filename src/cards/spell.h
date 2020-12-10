@@ -7,6 +7,8 @@
 class Spell : public Card {
     public:
         void effect();
+        void effectWithTarget(int player, int target);
+        void effectWithTarget(int player, char ritual);
 };
 
 #endif

@@ -42,6 +42,7 @@ public:
     void attack(Player &p);
     void attack(Minion &m);
     void useAbility();
+    void useAbility(int player, int target);
 };
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////

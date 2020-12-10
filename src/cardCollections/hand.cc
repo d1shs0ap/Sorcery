@@ -4,10 +4,7 @@ using namespace std;
 
 // Check if hand is already full
 bool Hand::isFull() {
-    if (cards.size()==HAND_CAP){
-        return true;
-    }
-    return false;
+    return (cards.size()==HAND_CAP);
 }
         
 // Add card to hand, called by draw() in Player
@@ -20,9 +17,12 @@ bool Hand::addCardRight(shared_ptr<Card> card){
 }
 
 // Accessor for a single card
-std::shared_ptr<Card> Hand::removeCard(int i)  {
-    auto tmp = cards[i];
-    cards.erase(cards.begin()+i);
+std::shared_ptr<Card> Hand::removeCard(int card)  {
+    if(cards.size() - 1 < card){
+        // then there aren't as many cards as requested index, throw error
+    }
+    auto tmp = cards[card];
+    cards.erase(cards.begin()+card);
     return tmp;
 }
 

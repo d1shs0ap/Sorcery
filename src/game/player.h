@@ -4,6 +4,7 @@
 #include <memory>
 #include <string>
 #include <vector>
+#include <stdexcept>
 
 #include "../cardCollections/board.h"
 #include "../cardCollections/deck.h"
@@ -22,6 +23,7 @@ class Player
     std::string name;
     int life;
     int magic;
+    int number;
 
     // A player’s board is a collection of cards that they have played and which have not been moved to another zone.
     std::unique_ptr<Board> board;
@@ -43,11 +45,18 @@ public:
     int getMagic() const;
     void setMagic(int magic);
 
+    int getNumber() const;
+
     // To draw, a player takes a card from their deck and puts it into their hand. A player may only draw if their
     // hand is not full and their deck is not empty.
     void draw();
+
     // Plays the ith card in hand from the left
-    void play(int i);
+    void play(int card);
+    void play(int card, int player, int target);
+
+    void use(int minion);
+    void use(int minion, int player, int target);
 };
 
 #endif

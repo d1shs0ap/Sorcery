@@ -14,7 +14,7 @@ class Enchantment : public Minion
 
 public:
     Enchantment();
-    void attach(std::shared_ptr<Minion> card);
+    void attach(std::shared_ptr<Minion> minion);
     int computeAtk();
     int computeDef();
     void update();

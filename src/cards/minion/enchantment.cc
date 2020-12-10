@@ -3,7 +3,7 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 Enchantment::Enchantment(){}
 
-void Enchantment::attach(std::shared_ptr<Minion> card){ component = card; }
+void Enchantment::attach(std::shared_ptr<Minion> minion){ component = minion; }
 
 
 

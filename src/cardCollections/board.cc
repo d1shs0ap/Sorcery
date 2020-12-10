@@ -2,11 +2,33 @@
 
 using namespace std;
 
+bool Board::isFull() const{
+    return (minions.size()==BOARD_CAP);
+}
+
+// Add card to hand, called by draw() in Player
+bool Board::addMinionRight(shared_ptr<Minion> minion){
+    if (isFull()){ 
+        return false;
+    }
+    minions.push_back(minion);
+    return true;
+}
+
 shared_ptr<Ritual> Board::getRitual() const{
     return ritual;
 }
 void Board::setRitual(shared_ptr<Ritual> ritual) {
     this->ritual = ritual;
+}
+
+
+shared_ptr<Minion> Board::getMinion(int minion) const {
+    return minions[minion];
+}
+void Board::setMinion(std::shared_ptr<Minion> newMinion, int minion) {
+    // check if in range
+    minions[minion] = newMinion;
 }
 
 vector<shared_ptr<Minion>> Board::getMinions() const{
