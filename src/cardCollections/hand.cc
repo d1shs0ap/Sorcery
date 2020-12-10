@@ -20,7 +20,7 @@ bool Hand::addCardRight(shared_ptr<Card> card){
 }
 
 // Accessor for cards
-vector<shared_ptr<Card>> Hand::getCards() {
+vector<shared_ptr<Card>> Hand::getCards() const {
     return cards;
 }
 

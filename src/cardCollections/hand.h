@@ -20,7 +20,7 @@ class Hand {
         bool addCardRight(std::shared_ptr<Card> card);
         
         // Accessor and mutator methods for cards
-        std::vector<std::shared_ptr<Card>> getCards();
+        std::vector<std::shared_ptr<Card>> getCards() const;
         void setCards(std::vector<std::shared_ptr<Card>> cards);
 };
 

@@ -5,7 +5,6 @@
 #include <string>
 #include <vector>
 
-#include "board.h"
 #include "../cardCollections/board.h"
 #include "../cardCollections/deck.h"
 #include "../cardCollections/graveyard.h"
@@ -34,9 +33,9 @@ public:
 
     int getLife() const;
     void setLife(int life);
-    
-    int getMagic();
-    int setMagic(int magic) const;
+
+    int getMagic() const;
+    void setMagic(int magic);
 
     // To draw, a player takes a card from their deck and puts it into their hand. A player may only draw if their
     // hand is not full and their deck is not empty.
