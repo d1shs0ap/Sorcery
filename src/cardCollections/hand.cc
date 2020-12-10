@@ -19,6 +19,13 @@ bool Hand::addCardRight(shared_ptr<Card> card){
     return true;
 }
 
+// Accessor for a single card
+std::shared_ptr<Card> Hand::removeCard(int i)  {
+    auto tmp = cards[i];
+    cards.erase(cards.begin()+i);
+    return tmp;
+}
+
 // Accessor for cards
 vector<shared_ptr<Card>> Hand::getCards() const {
     return cards;

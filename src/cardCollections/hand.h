@@ -19,6 +19,9 @@ class Hand {
         // Returns true if successfully drawn (hand not full), otherwise return false
         bool addCardRight(std::shared_ptr<Card> card);
         
+        // Removes single card
+        std::shared_ptr<Card> removeCard(int i);
+
         // Accessor and mutator methods for cards
         std::vector<std::shared_ptr<Card>> getCards() const;
         void setCards(std::vector<std::shared_ptr<Card>> cards);

@@ -15,6 +15,9 @@ class Board {
 
         std::vector<std::shared_ptr<Card>> getMinions() const;
         void setMinions(std::vector<std::shared_ptr<Card>> minions);
+        
+        // Calls all restoreActions() on player's minions
+        void restoreActionAll();
 };
 
 #endif

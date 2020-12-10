@@ -5,10 +5,14 @@
 #include <vector>
 
 #include "../cards/card.h"
+#include "../cards/minion/minion.h"
 
 class Deck {
     // Cards organized from bottom to top
     std::vector<std::shared_ptr<Card>> cards;
+
+    // Map between the name of cards and their respective classes
+    
 
     public:
         void loadDeck(std::ifstream &infile);

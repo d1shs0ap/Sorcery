@@ -9,6 +9,10 @@
 #include "../cardCollections/deck.h"
 #include "../cardCollections/graveyard.h"
 #include "../cardCollections/hand.h"
+#include "../cards/spell.h"
+#include "../cards/ritual.h"
+#include "../cards/minion/minion.h"
+#include "../cards/minion/enchantment.h"
 
 const int HAND_CAP = 5;
 const int BOARD_CAP = 5;
@@ -20,16 +24,18 @@ class Player
     int magic;
 
     // A player’s board is a collection of cards that they have played and which have not been moved to another zone.
-    Board board;
+    std::unique_ptr<Board> board;
     // A players’ deck is a collection of cards that they may draw from.
-    Deck deck;
+    std::unique_ptr<Deck> deck;
     // A player’s graveyard is a collection of minions that have died.
-    Graveyard graveyard;
+    std::unique_ptr<Graveyard> graveyard;
     // A players’ hand is a collection of cards (to a maximum of 5) that they may play.
-    Hand hand;
+    std::unique_ptr<Hand> hand;
 
 public:
     Player();
+
+    std::string getName() const;
 
     int getLife() const;
     void setLife(int life);
@@ -42,8 +48,6 @@ public:
     void draw();
     // Plays the ith card in hand from the left
     void play(int i);
-    // Calls all restoreActions() on player's minions
-    void restoreActionAll();
 };
 
 #endif

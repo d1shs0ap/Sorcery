@@ -8,16 +8,14 @@
 
 using namespace std;
 
-void Deck::loadDeck(ifstream &infile)
-{
-    string name;
-    while (getline(infile, name))
-    {
-        if (name == "Air Elemental")
-        {
-        }
-    }
-}
+// void Deck::loadDeck(ifstream &infile)
+// {
+//     string name;
+//     while (getline(infile, name))
+//     {
+//         if
+//     }
+// }
 void Deck::shuffleDeck(){
     // use a time-based seed for the default seed value
 	unsigned seed = chrono::system_clock::now().time_since_epoch().count();
