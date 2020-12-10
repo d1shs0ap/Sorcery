@@ -31,8 +31,12 @@ class Player
 
 public:
     Player();
+
     int getLife() const;
-    void setLife(int new_life);
+    void setLife(int life);
+    
+    int getMagic();
+    int setMagic(int magic) const;
 
     // To draw, a player takes a card from their deck and puts it into their hand. A player may only draw if their
     // hand is not full and their deck is not empty.
