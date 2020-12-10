@@ -1,5 +1,7 @@
 #include "hand.h"
 
+using namespace std;
+
 // Check if hand is already full
 bool Hand::isFull() {
     if (cards.size()==HAND_CAP){
@@ -9,7 +11,7 @@ bool Hand::isFull() {
 }
         
 // Add card to hand, called by draw() in Player
-bool Hand::addCardRight(std::shared_ptr<Card> card){
+bool Hand::addCardRight(shared_ptr<Card> card){
     if (isFull()){ 
         return false;
     }
@@ -18,12 +20,11 @@ bool Hand::addCardRight(std::shared_ptr<Card> card){
 }
 
 // Accessor for cards
-std::vector<std::shared_ptr<Card>> Hand::getCards() {
+vector<shared_ptr<Card>> Hand::getCards() {
     return cards;
 }
 
 // Mutator for cards
-void Hand::setCards(std::vector<std::shared_ptr<Card>> cards) {
-    cards.clear();
+void Hand::setCards(vector<shared_ptr<Card>> cards) {
     this->cards = cards;
 }
