@@ -6,19 +6,19 @@
 
 #include "../cards/card.h"
 
-class Deck
-{
+class Deck {
+    // Cards organized from bottom to top
     std::vector<std::shared_ptr<Card>> cards;
 
-public:
-    void loadDeck(std::ifstream &infile);
-    void shuffle();
+    public:
+        void loadDeck(std::ifstream &infile);
+        void shuffleDeck();
 
-    // Checks if deck is empty;
-    void isEmpty();
+        // Checks if deck is empty;
+        bool isEmpty();
 
-    // Return and remove the top card from the deck, called by draw()
-    std::shared_ptr<Card> removeCardTop();
+        // Return and remove the top card from the deck, called by draw()
+        std::shared_ptr<Card> removeCardTop();
 };
 
 #endif
