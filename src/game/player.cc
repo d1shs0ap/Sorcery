@@ -34,6 +34,6 @@ void Player::play(int i) {
         tmpRitual
 
     } else if (tmpCard->getType() == "Enchantment") {
-
-    } // what if none?
+        auto tmpEnchantment = dynamic_pointer_cast<Enchantment>(tmpCard);
+    } // what if none of options above?
 }

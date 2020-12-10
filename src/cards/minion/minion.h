@@ -32,7 +32,7 @@ public:
     virtual int computeDef() const;
     void setDef(int new_def);
 
-    void restoreActions();
+    void restoreAction();
     virtual ActivatedAbility getActAbility() const;
     virtual TriggeredAbility getTrgAbility() const;
     void setActAbility(ActivatedAbility ability);

@@ -12,7 +12,7 @@ int Minion::getDef() const { return def; }
 int Minion::computeDef() const { return getDef(); }
 void Minion::setDef(int new_def) { def = new_def; }
 
-void Minion::restoreActions() { actions = actionsCap; }
+void Minion::restoreAction() { actions = actionsCap; }
 ActivatedAbility Minion::getActAbility() const { return actAbility; }
 TriggeredAbility Minion::getTrgAbility() const { return trgAbility; }
 void Minion::setActAbility(ActivatedAbility ability){
