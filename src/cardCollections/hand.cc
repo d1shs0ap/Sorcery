@@ -9,11 +9,21 @@ bool Hand::isFull() {
 }
         
 // Add card to hand, called by draw() in Player
-void Hand::addCardRight(std::shared_ptr<Card> card){}
+bool Hand::addCardRight(std::shared_ptr<Card> card){
+    if (isFull()){ 
+        return false;
+    }
+    cards.push_back(card);
+    return true;
+}
 
 // Accessor for cards
 std::vector<std::shared_ptr<Card>> Hand::getCards() {
-    
+    return cards;
 }
+
 // Mutator for cards
-void Hand::setCards(std::vector<std::shared_ptr<Card>> cards);
+void Hand::setCards(std::vector<std::shared_ptr<Card>> cards) {
+    cards.clear();
+    this->cards = cards;
+}
