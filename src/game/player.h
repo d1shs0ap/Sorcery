@@ -34,8 +34,8 @@ class Player
     // A players’ hand is a collection of cards (to a maximum of 5) that they may play.
     std::unique_ptr<Hand> hand;
 
-public:
-    Player();
+public:Deck
+    Player(string name, int number, std::unique_ptr<Board> board, std::unique_ptr<Deck> deck, std::unique_ptr<Graveyard> graveyard, std::unique_ptr<Hand> hand);
 
     std::string getName() const;
 

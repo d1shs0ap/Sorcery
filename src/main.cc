@@ -13,8 +13,12 @@ using namespace std;
 
 int main(int argc, char *argv[])
 {
-    Game game;
-    TextDisplay textDisplay;
+    unsigned seed = chrono::system_clock::now().time_since_epoch().count();
+
+    auto player1 = make_shared<Player>(string name, int number, unique_ptr<Board> board, unique_ptr<Deck> deck, unique_ptr<Graveyard> graveyard, unique_ptr<Hand> hand);
+    auto player2 = make_shared<Player>();
+    auto game = make_shared<Game>(player1, player2, seed);
+    shared_ptr<TextDisplay> textDisplay;
     shared_ptr<TextController> textController;
 
     bool supplied1 = false;
@@ -22,7 +26,7 @@ int main(int argc, char *argv[])
 
     // for storing the commands
     string cmd;
-    try { // Is the try catch correct?
+    try {
         while (getline(cin, cmd)) {
             try {
                 if (cmd == "help") {
@@ -31,8 +35,9 @@ int main(int argc, char *argv[])
                 else if (cmd == "end") {
                     textController->end();
                 }
-                else if (cmd == "quit") {
-                    textController->quit();
+                else if (cmd == "quit") { // Quits the game immediately with no winner
+                    cout << "Quitting game..." << endl;
+                    return 0;
                 } else if (cmd == "draw") {
                     if (TESTING == false)
                         cout << "Command draw is only avaliable in testing mode." << endl;
@@ -217,6 +222,8 @@ int main(int argc, char *argv[])
                     textController->hand();
                 } else if (cmd == "board") {
                     textController->board();
+                } else {
+                    // throw invalid input
                 }
             } catch (const ios::failure& e) {
             } catch (const std::invalid_argument& ia) {}

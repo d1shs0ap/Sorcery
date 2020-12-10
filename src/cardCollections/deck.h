@@ -11,11 +11,16 @@ class Deck {
     // Cards organized from bottom to top
     std::vector<std::shared_ptr<Card>> cards;
 
+    // use a time-based seed for the default seed value
+    unsigned seed;
+
     // Map between the name of cards and their respective classes
     
 
     public:
         void loadDeck(std::ifstream &infile);
+
+        void setSeed(unsigned seed);
         void shuffleDeck();
 
         // Checks if deck is empty;

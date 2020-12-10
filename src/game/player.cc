@@ -2,7 +2,10 @@
 
 using namespace std;
 
-Player::Player() {}
+Player::Player(string name, int number, unique_ptr<Board> board, unique_ptr<Deck> deck, unique_ptr<Graveyard> graveyard, unique_ptr<Hand> hand)
+    : name{name}, life{20}, magic{3}, number{number}, board{board}, deck{deck}, graveyard{graveyard}, hand{hand} {
+        
+    }
 
 string Player::getName() const { return name; }
 
@@ -44,7 +47,7 @@ void Player::play(int card) {
         } else {
             // throw error, cannot play enchantment without target
         }
-    } catch (const std::out_of_range& oor) {}
+    } catch (const out_of_range& oor) {}
 }
 
 // Plays the ith card in hand from the left
@@ -70,12 +73,12 @@ void Player::use(int minion){
     try { // checks if minion is out of range
         auto tmpMinion = board->getMinion(minion);
         tmpMinion->useAbility();
-    } catch (const std::out_of_range& oor) {}
+    } catch (const out_of_range& oor) {}
 }
 
 void Player::use(int minion, int player, int target) {
     try { // checks if minion is out of range
         auto tmpMinion = board->getMinion(minion);
         tmpMinion->useAbility(player, target);
-    } catch (const std::out_of_range& oor) {}
+    } catch (const out_of_range& oor) {}
 }

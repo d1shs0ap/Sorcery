@@ -16,10 +16,12 @@ using namespace std;
 //         if
 //     }
 // }
-void Deck::shuffleDeck(){
-    // use a time-based seed for the default seed value
-	unsigned seed = chrono::system_clock::now().time_since_epoch().count();
 
+
+void Deck::setSeed(unsigned seed) {
+    this->seed = seed;
+}
+void Deck::shuffleDeck(){
 	default_random_engine rng{seed};
     shuffle(cards.begin(), cards.end(), rng);
 }
