@@ -47,6 +47,8 @@ public:
 
     int getNumber() const;
 
+    Board *getBoard();
+
     // To draw, a player takes a card from their deck and puts it into their hand. A player may only draw if their
     // hand is not full and their deck is not empty.
     void draw();

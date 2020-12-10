@@ -21,6 +21,7 @@ class Game : Subject{
         void checkTriggered();
         // Steps the game after each player action
         void step();
+        Player *getPlayer(int index);
 };
 
 #endif
