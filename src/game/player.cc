@@ -22,6 +22,10 @@ void Player::draw() {
     hand->addCardRight(topCard);
 }
 
+void Player::discard(int card) {
+    hand->removeCard(card);
+}
+
 // Plays the ith card in hand from the left
 void Player::play(int card) {
     try { // checks if removeCard is out of range

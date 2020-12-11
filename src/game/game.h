@@ -26,7 +26,9 @@ class Game : Subject{
         void checkTriggered();
         // Steps the game after each player action
         void step();
-        Player *getPlayer(int index);
+
+        shared_ptr<Player> getPlayer(int playerNumber);
+        int getActivePlayerNumber();
 };
 
 #endif

@@ -53,12 +53,17 @@ public:
     // hand is not full and their deck is not empty.
     void draw();
 
+    // discard
+    void discard(int card);
+
     // Plays the ith card in hand from the left
     void play(int card);
     void play(int card, int player, int target);
+    void play(int card, int player, char ritual);
 
     void use(int minion);
     void use(int minion, int player, int target);
+    void use(int minion, int player, char ritual);
 };
 
 #endif

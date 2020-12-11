@@ -21,4 +21,8 @@ void endTurn();
 void checkTriggered();
 // Steps the game after each player action
 void step();
-Player *getPlayer(int index);
+shared_ptr<Player> getPlayer(int playerNumber);
+
+int Game::getActivePlayerNumber() {
+    return activePlayer;
+}

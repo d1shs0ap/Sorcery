@@ -27,14 +27,7 @@ class TextController {
         void attack(int minion);
         void attack(int minion, int enemyMinion);
         // Plays cardInHand (on player 1/2's card, which can be a minion or ritual)
-        void play(int cardInHand) {
-            
-            // try {
-
-            // } catch () { // check if cardInHand is in range
-                
-            // }
-        }
+        void play(int cardInHand);
         void play(int cardInHand, int targetPlayer, int targetMinion);
         void play(int cardInHand, int targetPlayer, char targetRitual);
         // Uses minion's ability (on player 1/2's card, which can be a minion or ritual)
