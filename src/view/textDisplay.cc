@@ -17,6 +17,67 @@ void TextDisplay::printHelp()
     cout << "board -- Describe all cards on the board." << endl;
 }
 
+void addSpace(sting &s, int n)
+{
+    for (int i = 0; i < n; ++i)
+        s += " ";
+}
+
+const string horizontalBoard{"|-------------------------------|"};
+const string emptyLine{"|                               |"};
+const string numberBorder{"|------                   ------|"};
+
+std::vector cardVector(Card &card)
+{
+    string result;
+    result.push_back(horizontalBoard);
+    string name;
+    name += "| ";
+    name += card.getName();
+    addSpace(name, 24 - card.getName().size());
+    name += "|";
+    addSpcae(name, 3 - card.getCost() / 10 + 1);
+    name += itos(card.getCost());
+    name += " |";
+    result.push_back(name);
+    result.push_back(horizontalBoard);
+    string type;
+    type += "|";
+    addSpace(type, 30 - card.getType().size());
+    type += card.getType();
+    type += " |";
+    result.push_back(type);
+    result.push_back(horizontalBoard);
+    string ability{"| Print abilities here...       |"};
+    result.push_back(emptyLine);
+    result.push_back(emptyLine);
+    result.push_back(numberBorder);
+    string stat;
+    stat += "| ";
+    stat += card.atkDisplay();
+    addSpace(stat, 4 - card.atkDisplay().size());
+    stat += "|                   |";
+    addSpace(stat, 4 - card.defDisplay().size());
+    stat += card.defDisplay();
+    stat += " |";
+    result.push_back(stat);
+    result.push_back(horizontalBoard);
+    return result;
+}
+
+void printCard(Card &card)
+{
+    for (i : card)
+    {
+        cout << i << std::endl;
+    }
+}
+
+void printHand()
+{
+    for (i)
+}
+
 void TextDisplay::printBoard()
 {
     for (int i = 0; i < 56; i++)
