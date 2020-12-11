@@ -17,7 +17,7 @@ class Game : Subject{
 
     public:
         // Constructor
-        Game(shared_ptr<Player> player1, shared_ptr<Player> player2, unsigned seed);
+        Game(std::shared_ptr<Player> player1, std::shared_ptr<Player> player2, unsigned seed);
         // Does all the start turn game effects
         void startTurn();
         // Does all the end turn game effects
@@ -27,8 +27,9 @@ class Game : Subject{
         // Changes active player
         void changeActive();
 
-        shared_ptr<Player> getActivePlayer();
-        shared_ptr<Player> getInactivePlayer();
+        std::shared_ptr<Player> getActivePlayer();
+        std::shared_ptr<Player> getInactivePlayer();
+        std::shared_ptr<Player> getPlayer(int index);
 };
 
 #endif
