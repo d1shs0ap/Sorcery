@@ -24,11 +24,11 @@ class Game : Subject{
         void endTurn();
         // Checks all triggered abilities to see if any is triggered
         void checkTriggered();
-        // Steps the game after each player action
-        void step();
+        // Changes active player
+        void changeActive();
 
-        shared_ptr<Player> getPlayer(int playerNumber);
-        int getActivePlayerNumber();
+        shared_ptr<Player> getActivePlayer();
+        shared_ptr<Player> getInactivePlayer();
 };
 
 #endif

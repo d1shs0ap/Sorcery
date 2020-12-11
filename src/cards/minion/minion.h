@@ -1,6 +1,8 @@
 #ifndef MINION_H
 #define MINION_H
 
+#include <memory>
+
 #include "../card.h"
 #include "activatedAbility.h"
 #include "triggeredAbility.h"
@@ -39,8 +41,8 @@ public:
     void setTrgAbility(TriggeredAbility ability);
 
 
-    void attack(Player &p);
-    void attack(Minion &m);
+    void attack(shared_ptr<Player> player);
+    void attack(shared_ptr<Minion> minion);
     void useAbility();
     void useAbility(int player, int target);
 };

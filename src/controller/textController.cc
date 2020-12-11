@@ -2,6 +2,10 @@
 
 using namespace std;
 
+// REMEMBER TO ADD EXCEPTIONS (TRY/CATCH) LATER!!!
+
+// Subtract 1 from all card, minion, player values to match array indexing (which starts at 0)
+
 TextController::TextController(shared_ptr<Game> game, shared_ptr<TextDisplay> textDisplay)
     : game{game}, textDisplay{textDisplay} {}
 
@@ -16,46 +20,61 @@ void TextController::end() {
 
 // Draws card, only allowed in -testing
 void TextController::draw() {
-    auto player = game->getPlayer(game->getActivePlayerNumber());
+    auto player = game->getActivePlayer();
     player->draw();
 }
 // Discards ith cardInHand, only allowed in -testing
 void TextController::discard(int cardInHand) {
-    auto player = game->getPlayer(game->getActivePlayerNumber());
-    player->discard(cardInHand);
+    auto player = game->getActivePlayer();
+    player->discard(cardInHand - 1);
 }
 
 
 // --- Player actions ---
 
 // Attacks enemy hero/minion
-void attack(int minion);
-void attack(int minion, int enemyMinion);
+void TextController::attack(int minion) {
+    auto player = game->getActivePlayer();
+    auto board = player->getBoard();
+    auto concreteMinion = board->getMinion(minion - 1);
+    concreteMinion->attack(game->getInactivePlayer());
+}
+void TextController::attack(int minion, int enemyMinion) {
+    auto player = game->getActivePlayer();
+    auto board = player->getBoard();
+    auto concreteMinion = board->getMinion(minion - 1);
+
+    auto enemyPlayer = game->getInactivePlayer();
+    auto enemyBoard = enemyPlayer->getBoard();
+    auto concreteEnemyMinion = enemyBoard->getMinion(enemyMinion - 1);
+
+    concreteMinion->attack(concreteEnemyMinion);
+}
 // Plays cardInHand (on player 1/2's card, which can be a minion or ritual)
 void TextController::play(int cardInHand) {
-    auto player = game->getPlayer(game->getActivePlayerNumber());
-    player->play(cardInHand);
+    auto player = game->getActivePlayer();
+    player->play(cardInHand - 1);
 }
 void TextController::play(int cardInHand, int targetPlayer, int targetMinion) {
-    auto player = game->getPlayer(game->getActivePlayerNumber());
-    player->play(cardInHand, targetPlayer, targetMinion);
+    auto player = game->getActivePlayer();
+    player->play(cardInHand - 1, targetPlayer - 1, targetMinion - 1);
 }
 void TextController::play(int cardInHand, int targetPlayer, char targetRitual) {
-    auto player = game->getPlayer(game->getActivePlayerNumber());
-    player->play(cardInHand, targetPlayer, targetRitual);
+    auto player = game->getActivePlayer();
+    player->play(cardInHand - 1, targetPlayer - 1, targetRitual);
 }
 // Uses minion's ability (on player 1/2's card, which can be a minion or ritual)
 void TextController::use(int minion) {
-    auto player = game->getPlayer(game->getActivePlayerNumber());
-    player->use(minion);
+    auto player = game->getActivePlayer();
+    player->use(minion - 1);
 }
 void TextController::use(int minion, int targetPlayer, int targetMinion) {
-    auto player = game->getPlayer(game->getActivePlayerNumber());
-    player->use(minion, targetPlayer, targetMinion);
+    auto player = game->getActivePlayer();
+    player->use(minion - 1, targetPlayer - 1, targetMinion - 1);
 }
 void TextController::use(int minion, int targetPlayer, char targetRitual) {
-    auto player = game->getPlayer(game->getActivePlayerNumber());
-    player->use(minion, targetPlayer, targetRitual);
+    auto player = game->getActivePlayer();
+    player->use(minion - 1, targetPlayer - 1, targetRitual);
 }
 
 
@@ -67,13 +86,13 @@ void TextController::help() {
 }
 // Displays minion owned by active player
 void TextController::inspect(int minion) {
-    textDisplay->printMinion(game->getPlayer(game->getActivePlayerNumber()), minion);
+    textDisplay->printMinion(game->getActivePlayer(), minion - 1);
 }
 // Displays hand
 void TextController::hand() {
-    textDisplay->printHand(game->getPlayer(game->getActivePlayerNumber()));
+    textDisplay->printHand(game->getActivePlayer());
 }
 // Displays board
 void TextController::board() {
-    textDisplay->printBoard(game->getPlayer(game->getActivePlayerNumber()));
+    textDisplay->printBoard(game->getActivePlayer());
 }

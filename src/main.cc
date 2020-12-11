@@ -19,17 +19,17 @@ int main(int argc, char *argv[])
     // read in name1 and name2
     string name1, name2;
     // board begins empty
-    auto board1 = make_unique<Board>();
-    auto board2 = make_unique<Board>();
+    auto board1 = make_shared<Board>();
+    auto board2 = make_shared<Board>();
     // need to load decks
-    auto deck1 = make_unique<Deck>();
-    auto deck2 = make_unique<Deck>();
+    auto deck1 = make_shared<Deck>();
+    auto deck2 = make_shared<Deck>();
     // graveyard begins empty
-    auto graveyard1 = make_unique<Graveyard>();
-    auto graveyard2 = make_unique<Graveyard>();
+    auto graveyard1 = make_shared<Graveyard>();
+    auto graveyard2 = make_shared<Graveyard>();
     // need to draw 5 cards
-    auto hand1 = make_unique<Hand>();
-    auto hand2 = make_unique<Hand>();
+    auto hand1 = make_shared<Hand>();
+    auto hand2 = make_shared<Hand>();
     // construct the players
     auto player1 = make_shared<Player>(name1, 0, board1, deck1, graveyard1, hand1);
     auto player2 = make_shared<Player>(name2, 1, board2, deck2, graveyard2, hand2);

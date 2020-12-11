@@ -1,5 +1,7 @@
 #include "minion.h"
 
+using namespace std;
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 Minion::Minion(std::string name, int owner, int cost, int atk, int def) : 
     Card{name, "Minion", owner, cost}, atk{atk}, def{def} {}
@@ -23,24 +25,24 @@ void Minion::setTrgAbility(TriggeredAbility ability){
     trgAbility = ability;
 }
 
-void Minion::attack(Player &other)
+void Minion::attack(shared_ptr<Player> other)
 {
     if (actions > 0)
     {
         int attack = this->computeAtk();
-        other.setLife(other.getLife() - attack);
+        other->setLife(other->getLife() - attack);
         --actions;
     }
 }
 
-void Minion::attack(Minion &other)
+void Minion::attack(shared_ptr<Minion> other)
 {
     if (actions > 0)
     {
-        other.setDef(other.getDef() - this->computeAtk());
+        other->setDef(other->getDef() - this->computeAtk());
         --actions;
     }
-    this->setDef(this->getDef() - other.computeAtk());
+    this->setDef(this->getDef() - other->computeAtk());
 }
 
 void Minion::useAbility()

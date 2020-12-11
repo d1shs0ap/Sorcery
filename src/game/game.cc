@@ -14,15 +14,40 @@ Game::Game(shared_ptr<Player> player1, shared_ptr<Player> player2, unsigned seed
     activePlayer = distribution(generator);
 }
 // Does all the start turn game effects
-void startTurn();
+void Game::startTurn() {
+    // change active player
+    changeActive();
+    // gain magic
+    auto player = getActivePlayer();
+    player->setMagic(player->getMagic() + 1);
+    // draw card
+    player->draw();
+    // Check all triggered abilities (minions and ritual)
+    checkTriggered();
+}
 // Does all the end turn game effects
-void endTurn();
+void Game::endTurn() {
+    // Check all triggered abilities (minions and ritual)
+    checkTriggered();
+}
 // Checks all triggered abilities to see if any is triggered
-void checkTriggered();
-// Steps the game after each player action
-void step();
-shared_ptr<Player> getPlayer(int playerNumber);
+void Game::checkTriggered() {
 
-int Game::getActivePlayerNumber() {
-    return activePlayer;
+}
+
+// Changes active player
+void Game::changeActive() {
+    activePlayer = 1 - activePlayer;
+}
+
+// get the active player
+shared_ptr<Player> Game::getActivePlayer() {
+    return players[activePlayer];
+}
+// get the inactive player
+shared_ptr<Player> Game::getInactivePlayer() {
+    if(activePlayer==0){
+        return players[1];
+    }
+    return players[0];
 }

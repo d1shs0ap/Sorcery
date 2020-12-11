@@ -2,8 +2,8 @@
 
 using namespace std;
 
-Player::Player(string name, int number, unique_ptr<Board> board, unique_ptr<Deck> deck, unique_ptr<Graveyard> graveyard, unique_ptr<Hand> hand)
-    : name{name}, life{20}, magic{3}, number{number}, board{move(board)}, deck{move(deck)}, graveyard{move(graveyard)}, hand{move(hand)} {}
+Player::Player(string name, int number, shared_ptr<Board> board, shared_ptr<Deck> deck, shared_ptr<Graveyard> graveyard, shared_ptr<Hand> hand)
+    : name{name}, life{20}, magic{3}, number{number}, board{board}, deck{deck}, graveyard{graveyard}, hand{hand} {}
 
 string Player::getName() const { return name; }
 
@@ -14,6 +14,19 @@ int Player::getMagic() const { return magic; }
 void Player::setMagic(int magic) { this->magic = magic; }
 
 int Player::getNumber() const { return number; }
+
+shared_ptr<Board> Player::getBoard() {
+    return board;
+}
+shared_ptr<Deck> Player::getDeck() {
+    return deck;
+}
+shared_ptr<Graveyard> Player::getGraveyard() {
+    return graveyard;
+}
+shared_ptr<Hand> Player::getHand() {
+    return hand;
+}
 
 // To draw, a player takes a card from their deck and puts it into their hand. A player may only draw if their
 // hand is not full and their deck is not empty.
@@ -31,6 +44,9 @@ void Player::play(int card) {
     try { // checks if removeCard is out of range
         auto tmpCard = hand->removeCard(card);
         if (tmpCard->getType() == "Minion") {
+            // check triggered abilities
+
+
             auto tmpMinion = dynamic_pointer_cast<Minion>(tmpCard);
             bool addSuccess = board->addMinionRight(tmpMinion);
             if (!addSuccess) {

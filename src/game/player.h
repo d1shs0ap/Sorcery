@@ -26,16 +26,16 @@ class Player
     int number;
 
     // A player’s board is a collection of cards that they have played and which have not been moved to another zone.
-    std::unique_ptr<Board> board;
+    std::shared_ptr<Board> board;
     // A players’ deck is a collection of cards that they may draw from.
-    std::unique_ptr<Deck> deck;
+    std::shared_ptr<Deck> deck;
     // A player’s graveyard is a collection of minions that have died.
-    std::unique_ptr<Graveyard> graveyard;
+    std::shared_ptr<Graveyard> graveyard;
     // A players’ hand is a collection of cards (to a maximum of 5) that they may play.
-    std::unique_ptr<Hand> hand;
+    std::shared_ptr<Hand> hand;
 
 public:
-    Player(string name, int number, std::unique_ptr<Board> board, std::unique_ptr<Deck> deck, std::unique_ptr<Graveyard> graveyard, std::unique_ptr<Hand> hand);
+    Player(string name, int number, std::shared_ptr<Board> board, std::shared_ptr<Deck> deck, std::shared_ptr<Graveyard> graveyard, std::shared_ptr<Hand> hand);
 
     std::string getName() const;
 
@@ -47,7 +47,10 @@ public:
 
     int getNumber() const;
 
-    Board *getBoard();
+    std::shared_ptr<Board> getBoard();
+    std::shared_ptr<Deck> getDeck();
+    std::shared_ptr<Graveyard> getGraveyard();
+    std::shared_ptr<Hand> getHand();
 
     // To draw, a player takes a card from their deck and puts it into their hand. A player may only draw if their
     // hand is not full and their deck is not empty.
