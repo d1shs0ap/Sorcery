@@ -13,21 +13,20 @@ class TriggeredAbility {
        2 for at the end of the turn
        3 for whenever a minion enters play
        4 for when the minion dies
+       5 for when the opponent minion enter the play
+       6 for when the self minion enter the play
     */
     int type;
-    int owner;
     std::shared_ptr<Minion> minion;
 
 
 
     public:
         TriggeredAbility();
-        TriggeredAbility(std::string description, int type, int owner, std::shared_ptr<Minion> minion);
-        virtual void effect(Card card) const;
+        TriggeredAbility(std::string description, int type, std::shared_ptr<Minion> minion);
         virtual void effect(Game game) const;
         int getType() const ;
         std::string getDescription() const;
-        int getOwner() const;
         std::shared_ptr<Minion> getMinion() const;
         
 
@@ -35,9 +34,21 @@ class TriggeredAbility {
 
 class DieDamage : public TriggeredAbility{
     public:
-        DieDamage(int owner, std::shared_ptr<Minion> minion);
-        void effect(Card card) const override;
+        explicit DieDamage(std::shared_ptr<Minion> minion);
         void effect(Game game) const override;
+};
+
+class EnterDamage : public TriggeredAbility{
+    public:
+        explicit EnterDamage(std::shared_ptr<Minion> minion);
+        void effect(Game game) const override;
+};
+
+class EndGainDef : public TriggeredAbility{
+    public:
+        explicit EndGainDef(std::shared_ptr<Minion> minion);
+        void effect(Game game) const override;
+
 };
 
 #endif

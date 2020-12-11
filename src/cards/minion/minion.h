@@ -41,8 +41,8 @@ public:
     void setTrgAbility(TriggeredAbility ability);
 
 
-    void attack(shared_ptr<Player> player);
-    void attack(shared_ptr<Minion> minion);
+    void attack(std::shared_ptr<Player> player);
+    void attack(std::shared_ptr<Minion> minion);
     void useAbility();
     void useAbility(int player, int target);
 };
