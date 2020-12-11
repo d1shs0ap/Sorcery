@@ -15,9 +15,32 @@ int main(int argc, char *argv[])
 {
     unsigned seed = chrono::system_clock::now().time_since_epoch().count();
 
-    auto player1 = make_shared<Player>(string name, int number, unique_ptr<Board> board, unique_ptr<Deck> deck, unique_ptr<Graveyard> graveyard, unique_ptr<Hand> hand);
-    auto player2 = make_shared<Player>();
+    string name1, name2;
+    // board begins empty
+    auto board1 = make_unique<Board>();
+    auto board2 = make_unique<Board>();
+    // need to load decks
+    auto deck1 = make_unique<Deck>();
+    auto deck2 = make_unique<Deck>();
+    // graveyard begins empty
+    auto graveyard1 = make_unique<Graveyard>();
+    auto graveyard2 = make_unique<Graveyard>();
+    // need to draw 5 cards
+    auto hand1 = make_unique<Hand>();
+    auto hand2 = make_unique<Hand>();
+
+    auto player1 = make_shared<Player>(name1, 0, board1, deck1, graveyard1, hand1);
+    auto player2 = make_shared<Player>(name2, 1, board2, deck2, graveyard2, hand2);
     auto game = make_shared<Game>(player1, player2, seed);
+
+    // Load decks
+
+    // Both players draw 5 cards
+    for (int i = 0; i < 5; ++i){
+        player1->draw();
+        player2->draw();
+    }
+
     shared_ptr<TextDisplay> textDisplay;
     shared_ptr<TextController> textController;
 

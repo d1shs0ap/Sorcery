@@ -17,7 +17,7 @@ class Game : Subject{
 
     public:
         // Constructor
-        Game(Player player1, Player player2, unsigned seed);
+        Game(shared_ptr<Player> player1, shared_ptr<Player> player2, unsigned seed);
         // Does all the start turn game effects
         void startTurn();
         // Does all the end turn game effects

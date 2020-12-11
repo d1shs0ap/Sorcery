@@ -14,6 +14,8 @@ class Hand {
     std::vector<std::shared_ptr<Card>> cards;
 
     public:
+        Hand();
+
         bool isFull();
 
         // Add card to hand, called by draw() in Player

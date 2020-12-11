@@ -3,9 +3,7 @@
 using namespace std;
 
 Player::Player(string name, int number, unique_ptr<Board> board, unique_ptr<Deck> deck, unique_ptr<Graveyard> graveyard, unique_ptr<Hand> hand)
-    : name{name}, life{20}, magic{3}, number{number}, board{board}, deck{deck}, graveyard{graveyard}, hand{hand} {
-        
-    }
+    : name{name}, life{20}, magic{3}, number{number}, board{move(board)}, deck{move(deck)}, graveyard{move(graveyard)}, hand{move(hand)} {}
 
 string Player::getName() const { return name; }
 
