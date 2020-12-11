@@ -13,6 +13,8 @@ class TextController {
     std::shared_ptr<TextDisplay> textDisplay;
 
     public:
+        TextController(std::shared_ptr<Game> game, std::shared_ptr<TextDisplay> textDisplay);
+
         // Ends current player's turn
         void end();
 

@@ -1,5 +1,10 @@
 #include "textController.h"
 
+using namespace std;
+
+TextController::TextController(shared_ptr<Game> game, shared_ptr<TextDisplay> textDisplay)
+    : game{game}, textDisplay{textDisplay} {}
+
 // Ends current player's turn
 void TextController::end() {
 

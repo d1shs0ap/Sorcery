@@ -13,8 +13,10 @@ using namespace std;
 
 int main(int argc, char *argv[])
 {
+    // random seed
     unsigned seed = chrono::system_clock::now().time_since_epoch().count();
 
+    // read in name1 and name2
     string name1, name2;
     // board begins empty
     auto board1 = make_unique<Board>();
@@ -28,10 +30,12 @@ int main(int argc, char *argv[])
     // need to draw 5 cards
     auto hand1 = make_unique<Hand>();
     auto hand2 = make_unique<Hand>();
-
+    // construct the players
     auto player1 = make_shared<Player>(name1, 0, board1, deck1, graveyard1, hand1);
     auto player2 = make_shared<Player>(name2, 1, board2, deck2, graveyard2, hand2);
+
     auto game = make_shared<Game>(player1, player2, seed);
+    auto textDisplay = make_shared<TextDisplay>();
 
     // Load decks
 
@@ -41,11 +45,7 @@ int main(int argc, char *argv[])
         player2->draw();
     }
 
-    shared_ptr<TextDisplay> textDisplay;
-    shared_ptr<TextController> textController;
-
-    bool supplied1 = false;
-    bool supplied2 = false;
+    auto textController = make_unique<TextController>(game, textDisplay);
 
     // for storing the commands
     string cmd;
