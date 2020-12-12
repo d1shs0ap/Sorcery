@@ -5,19 +5,18 @@
 #include <iostream>
 #include <memory>
 
-#include "observer.h"
+
 class Player;
-class TextDisplay : public Observer {
+class TextDisplay {
     const string horizontalBoard;
     const string emptyLine;   
     const string numberBorder;
-    std::vector<std::vector<char>> display;
     // convert a card to appropriate strings.
     std::vector<string> cardVector(Card &card);
-    void TextDisplay::printHelp();
+    //void TextDisplay::printHelp();
     void TextDisplay::addSpace(string &s, int n);
     public:
-        virtual void update(Subject & game) override;
+        // virtual void update(Subject & game) override;
         // displays all help commands
         void printHelp();
         // displays minion as well as all of the enchantments on it of the active player
