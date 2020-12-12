@@ -1,6 +1,8 @@
 #ifndef RITUAL_H
 #define RITUAL_H
 
+#include <string>
+
 #include "card.h"
 #include "minion/minion.h"
 #include "minion/triggeredAbility.h"
@@ -15,10 +17,10 @@ class Ritual : public Card {
     TriggeredAbility trgAbility;
 
 public:
-    Ritual();
+    Ritual(int activationCost, int charges, TriggeredAbility trgAbility);
     TriggeredAbility getTrgAbility() const;
     // Trigger the triggered ability while reducing charges
-    bool useTrgAbility();
+    bool useTrgAbility(std::shared_ptr<Game> game);
 };
 
 #endif
