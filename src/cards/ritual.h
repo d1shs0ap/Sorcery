@@ -8,7 +8,7 @@
 #include "minion/triggeredAbility.h"
 
 // Ritual card
-class Ritual : public Card {
+class Ritual : public Card, std::enable_shared_from_this<Minion> {
     // Cost (of charges) to activate ritual
     int activationCost;
     // Number of charges, consumed when activating ritual
@@ -17,7 +17,7 @@ class Ritual : public Card {
     TriggeredAbility trgAbility;
 
 public:
-    Ritual(int activationCost, int charges, TriggeredAbility trgAbility);
+    Ritual(std::string name, int owner, int cost, int activationCost, int charges, TriggeredAbility trgAbility);
 
     // accessor and mutator for triggered ability
     TriggeredAbility getTrgAbility() const;
@@ -29,17 +29,17 @@ public:
 
 class DarkRitual : Ritual {
     public:
-        DarkRitual();
+        explicit DarkRitual(int owner);
 };
 
 class AuraOfPower : Ritual {
     public:
-        AuraOfPower();
+        explicit AuraOfPower(int owner);
 };
 
 class Standstill : Ritual {
     public:
-        Standstill();
+        explicit Standstill(int owner);
 };
 
 #endif

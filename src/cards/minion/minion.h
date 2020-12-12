@@ -12,7 +12,7 @@
 class Player;
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-class Minion : public Card, public std::enable_shared_from_this<Minion> {
+class Minion : public Card, std::enable_shared_from_this<Minion> {
     int atk;
     int def;
     // actions is the number of times it is allowed to attack or use an ability in one turn. this can only be 0 or 1 for now.
@@ -57,8 +57,8 @@ public:
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 class AirElemental : public Minion
 {
-public:
-    AirElemental(int owner);
+    public:
+        AirElemental(int owner);
 };
 
 class EarthElemental : public Minion{

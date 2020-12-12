@@ -2,8 +2,9 @@
 
 using namespace std;
 
-Ritual::Ritual(int activationCost, int charges, TriggeredAbility trgAbility) 
-    : activationCost{activationCost}, charges{charges}, trgAbility{trgAbility} {}
+Ritual::Ritual(string name, int owner, int cost, int activationCost, int charges, TriggeredAbility trgAbility) 
+    : Card{name, "Ritual", owner, cost},
+    activationCost{activationCost}, charges{charges}, trgAbility{trgAbility} {}
 
 TriggeredAbility Ritual::getTrgAbility() const {
     return trgAbility;
@@ -23,11 +24,10 @@ bool Ritual::useTrgAbility(shared_ptr<Game> game) {
 }
 
 DarkRitual::DarkRitual(int owner)
-    : Ritual{"Fire Elemental", owner, 2, 2, 2} {
-        Minion::setTrgAbility(EnterDamage(make_shared<Minion>(this)));
-    }
+    : Ritual{"Dark Ritual", owner, 0, 1, 5, StartGainMagic{shared_from_this()}} {}
 
-FireElemental::FireElemental(int owner)
-    : Minion{"Fire Elemental", owner, 2, 2, 2} {
-        Minion::setTrgAbility(EnterDamage(std::make_shared<Minion>(this)));
-    }
+AuraOfPower::AuraOfPower(int owner)
+    : Ritual{"Aura of Power", owner, 1, 1, 4, EnterGainAtkDef{shared_from_this()}} {}
+
+Standstill::Standstill(int owner)
+    : Ritual{"Standstill", owner, 3, 2, 4, EnterDestroy{shared_from_this()}} {}
