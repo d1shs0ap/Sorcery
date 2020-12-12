@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include <memory>
 #include "minion.h"
 #include "../card.h"
 #include "../../game/game.h"
