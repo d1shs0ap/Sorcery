@@ -49,6 +49,28 @@ void Minion::useAbility()
 {
 }
 
+std::string Minion::digitDisplay() const{
+    std::string digitLine;
+    digitLine += "| ";
+    digitLine += std::to_string(atk);
+    for(int i = digitLine.length(); i < 7; i++){
+        digitLine += " ";
+    }
+    digitLine += "|";
+    for(int i = 0; i < 19; i++){
+        digitLine += " ";
+    }
+    digitLine += "|";
+    std::string defStr = std::to_string(def);
+    for(int i = 0; i < 4 - defStr.length(); i++){
+        digitLine += " ";
+    }
+    digitLine += defStr;
+    digitLine += " |";
+    return digitLine;
+
+}
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 AirElemental::AirElemental(int owner)

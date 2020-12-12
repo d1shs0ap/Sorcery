@@ -2,6 +2,7 @@
 #define MINION_H
 
 #include <memory>
+#include <string>
 
 #include "../card.h"
 #include "activatedAbility.h"
@@ -48,6 +49,8 @@ public:
     void attack(std::shared_ptr<Minion> minion);
     void useAbility();
     void useAbility(int player, int target);
+
+    std::string digitDisplay() const override;
 };
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
