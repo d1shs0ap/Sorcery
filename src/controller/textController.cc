@@ -58,17 +58,30 @@ void TextController::play(int cardInHand) {
     player->play(cardInHand - 1);
 
     if (card->getType()=="Minion") {
-        game->checkTriggered();
+        game->checkTriggered(MINION_ENTER);
     }
 }
 void TextController::play(int cardInHand, int targetPlayer, int targetMinion) {
     auto player = game->getActivePlayer();
+    auto card = player->getHand()->getCard(cardInHand - 1);
+
     player->play(cardInHand - 1, targetPlayer - 1, targetMinion - 1);
+
+    if (card->getType()=="Minion") {
+        game->checkTriggered(MINION_ENTER);
+    }
 }
 void TextController::play(int cardInHand, int targetPlayer, char targetRitual) {
     auto player = game->getActivePlayer();
+    auto card = player->getHand()->getCard(cardInHand - 1);
+
     player->play(cardInHand - 1, targetPlayer - 1, targetRitual);
+
+    if (card->getType()=="Minion") {
+        game->checkTriggered(MINION_ENTER);
+    }
 }
+
 // Uses minion's ability (on player 1/2's card, which can be a minion or ritual)
 void TextController::use(int minion) {
     auto player = game->getActivePlayer();
