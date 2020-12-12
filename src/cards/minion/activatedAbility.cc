@@ -2,7 +2,7 @@
 
 ActivatedAbility::ActivatedAbility(){}
 
-ActivatedAbility::ActivatedAbility(std::string description, int cost)
+ActivatedAbility::ActivatedAbility(std::string description, int cost, std::shared_ptr<Minion> minion)
     : description{description}, cost{cost} {}
 
 int ActivatedAbility::getCost() const { return cost; }
