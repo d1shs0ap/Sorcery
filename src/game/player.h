@@ -12,8 +12,8 @@
 #include "../cardCollections/hand.h"
 #include "../cards/spell.h"
 #include "../cards/ritual.h"
-#include "../cards/minion/minion.h"
-#include "../cards/minion/enchantment.h"
+
+class Board;
 
 const int HAND_CAP = 5;
 const int BOARD_CAP = 5;
