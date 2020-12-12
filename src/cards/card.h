@@ -19,7 +19,7 @@ class Card
         std::string getType();
         int getOwner();
         int getCost();
-        std::vector<std::string> digitDisplay();
+        virtual std::vector<std::string> digitDisplay() const;
         
 };
 
