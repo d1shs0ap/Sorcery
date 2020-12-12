@@ -9,6 +9,8 @@
 #include "player.h"
 #include "../cards/minion/triggeredAbility.h"
 
+class Deck;
+
 class Game : public std::enable_shared_from_this<Game> {
     // the two players.
     std::vector<std::shared_ptr<Player>> players;

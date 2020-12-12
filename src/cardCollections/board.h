@@ -4,8 +4,12 @@
 #include <memory>
 #include <vector>
 
-#include "../cards/ritual.h"
 #include "../cards/minion/minion.h"
+
+const int BOARD_CAP = 5;
+
+class Ritual;
+class Minion;
 
 class Board {
     std::shared_ptr<Ritual> ritual;

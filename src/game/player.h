@@ -11,12 +11,10 @@
 #include "../cardCollections/graveyard.h"
 #include "../cardCollections/hand.h"
 #include "../cards/spell.h"
-#include "../cards/ritual.h"
 
 class Board;
-
-const int HAND_CAP = 5;
-const int BOARD_CAP = 5;
+class Deck;
+class Graveyard;
 
 class Player
 {

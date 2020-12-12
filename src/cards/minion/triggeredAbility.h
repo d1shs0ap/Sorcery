@@ -6,9 +6,9 @@
 
 #include "../../game/game.h"
 #include "minion.h"
-#include "../ritual.h"
 
 class Ritual;
+class Game;
 
 enum TriggeredAbilityType {START_TURN, END_TURN, MINION_ENTER, MINION_DEATH, ENEMY_MINION_ENTER, OWN_MINION_ENTER};
 
@@ -36,6 +36,25 @@ class TriggeredAbility {
 
 };
 
+class StartGainMagic : public TriggeredAbility{
+    std::shared_ptr<Ritual> ritual;
+    public:
+        explicit StartGainMagic(std::shared_ptr<Ritual> ritual);
+};
+
+class EnterGainAtkDef : public TriggeredAbility{
+    std::shared_ptr<Ritual> ritual;
+    public:
+        explicit EnterGainAtkDef(std::shared_ptr<Ritual> ritual);
+
+};
+
+class EnterDestroy : public TriggeredAbility {
+    std::shared_ptr<Ritual> ritual;
+    public:
+        explicit EnterDestroy(std::shared_ptr<Ritual> ritual);
+};
+
 class DieDamage : public TriggeredAbility{
     std::shared_ptr<Minion> minion;
     public:
@@ -58,25 +77,6 @@ class EndGainDef : public TriggeredAbility{
         explicit EndGainDef(std::shared_ptr<Minion> minion);
         void effect(std::shared_ptr<Game> game) const override;
         std::shared_ptr<Minion> getMinion() const;
-};
-
-class StartGainMagic : public TriggeredAbility{
-    std::shared_ptr<Ritual> ritual;
-    public:
-        explicit StartGainMagic(std::shared_ptr<Ritual> ritual);
-};
-
-class EnterGainAtkDef : public TriggeredAbility{
-    std::shared_ptr<Ritual> ritual;
-    public:
-        explicit EnterGainAtkDef(std::shared_ptr<Ritual> ritual);
-
-};
-
-class EnterDestroy : public TriggeredAbility {
-    std::shared_ptr<Ritual> ritual;
-    public:
-        explicit EnterDestroy(std::shared_ptr<Ritual> ritual);
 };
 
 #endif
