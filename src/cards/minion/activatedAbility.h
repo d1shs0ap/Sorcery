@@ -4,8 +4,8 @@
 #include <string>
 #include <vector>
 #include <memory>
+
 #include "../card.h"
-#include "../../game/game.h"
 
 class Minion;
 class Game;

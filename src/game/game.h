@@ -7,6 +7,7 @@
 #include <chrono>
 
 #include "player.h"
+#include "../cards/ritual.h"
 
 class Player;
 

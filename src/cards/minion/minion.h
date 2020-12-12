@@ -4,11 +4,8 @@
 #include <memory>
 #include <string>
 
-#include "../card.h"
-#include "../ritual.h"
 #include "activatedAbility.h"
 #include "triggeredAbility.h"
-#include "enchantment.h"
 
 class Player;
 class TriggeredAbility;
