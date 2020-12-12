@@ -8,7 +8,7 @@
 #include "minion/triggeredAbility.h"
 
 // Ritual card
-class Ritual : public Card, std::enable_shared_from_this<Minion> {
+class Ritual : public Card, public std::enable_shared_from_this<Minion> {
     // Cost (of charges) to activate ritual
     int activationCost;
     // Number of charges, consumed when activating ritual
