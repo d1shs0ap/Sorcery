@@ -79,5 +79,13 @@ EnterGainAtkDef::EnterGainAtkDef(std::shared_ptr<Ritual> ritual):
 std::shared_ptr<Ritual> EnterGainAtkDef::getRitual() const{ return ritual; }
 
 void EnterGainAtkDef::effect(std::shared_ptr<Game> game) const{
+    int index = game->getPlayer(getRitual()->Card::getOwner())->getBoard()->getMinions().size() - 1;
+    std::shared_ptr<Minion> target = game->getPlayer(getRitual()->Card::getOwner())->getBoard()->getMinion(index);
     
+
 }
+
+EnterDestroy::EnterDestroy(std::shared_ptr<Ritual> ritual) :
+    TriggeredAbility{"Whenever a minion enters play, destroy it", 
+    TriggeredAbilityType::MINION_ENTER}, 
+    ritual{ritual} {}
