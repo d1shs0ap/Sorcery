@@ -5,12 +5,12 @@
 
 #include "card.h"
 #include "minion/minion.h"
+#include "minion/triggeredAbility.h"
 
 class Minion;
-class TriggeredAbility;
 
 // Ritual card
-class Ritual : public Card, public std::enable_shared_from_this<Minion> {
+class Ritual : public Card, public std::enable_shared_from_this<Ritual> {
     // Cost (of charges) to activate ritual
     int activationCost;
     // Number of charges, consumed when activating ritual
@@ -19,7 +19,7 @@ class Ritual : public Card, public std::enable_shared_from_this<Minion> {
     TriggeredAbility trgAbility;
 
 public:
-    Ritual(std::string name, int owner, int cost, int activationCost, int charges);
+    Ritual(std::string name, int owner, int cost, int activationCost, int charges, TriggeredAbility trgAbility);
 
     // accessor and mutator for triggered ability
     TriggeredAbility getTrgAbility() const;

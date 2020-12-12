@@ -7,7 +7,6 @@
 #include <chrono>
 
 #include "player.h"
-#include "../cards/minion/triggeredAbility.h"
 
 class Deck;
 

@@ -8,6 +8,7 @@
 #include "minion.h"
 
 class Ritual;
+class Minion;
 class Game;
 
 enum TriggeredAbilityType {START_TURN, END_TURN, MINION_ENTER, MINION_DEATH, ENEMY_MINION_ENTER, OWN_MINION_ENTER};
@@ -34,25 +35,6 @@ class TriggeredAbility {
         std::string getDescription() const;
         
 
-};
-
-class StartGainMagic : public TriggeredAbility{
-    std::shared_ptr<Ritual> ritual;
-    public:
-        explicit StartGainMagic(std::shared_ptr<Ritual> ritual);
-};
-
-class EnterGainAtkDef : public TriggeredAbility{
-    std::shared_ptr<Ritual> ritual;
-    public:
-        explicit EnterGainAtkDef(std::shared_ptr<Ritual> ritual);
-
-};
-
-class EnterDestroy : public TriggeredAbility {
-    std::shared_ptr<Ritual> ritual;
-    public:
-        explicit EnterDestroy(std::shared_ptr<Ritual> ritual);
 };
 
 class DieDamage : public TriggeredAbility{

@@ -5,10 +5,12 @@
 #include <string>
 
 #include "../card.h"
+#include "../ritual.h"
 #include "activatedAbility.h"
 #include "triggeredAbility.h"
 
 class Player;
+class TriggeredAbility;
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 class Minion : public Card, public std::enable_shared_from_this<Minion> {
