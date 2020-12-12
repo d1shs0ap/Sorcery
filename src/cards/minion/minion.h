@@ -12,7 +12,7 @@
 class Player;
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-class Minion : public Card {
+class Minion : public Card, public std::enable_shared_from_this<Minion> {
     int atk;
     int def;
     // actions is the number of times it is allowed to attack or use an ability in one turn. this can only be 0 or 1 for now.

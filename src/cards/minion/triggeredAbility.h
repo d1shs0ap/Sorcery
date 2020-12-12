@@ -6,6 +6,7 @@
 #include "../card.h"
 #include "../../game/game.h"
 #include "minion.h"
+#include "../ritual.h"
 
 enum TriggeredAbilityType {START_TURN, END_TURN, MINION_ENTER, MINION_DEATH, ENEMY_MINION_ENTER, OWN_MINION_ENTER};
 
@@ -19,39 +20,61 @@ class TriggeredAbility {
        4 for when the opponent minion enter the play
        5 for when the self minion enter the play
     */
-    int type;
-    std::shared_ptr<Minion> minion;
+    TriggeredAbilityType type;
 
 
 
     public:
         TriggeredAbility();
-        TriggeredAbility(std::string description, int type, std::shared_ptr<Minion> minion);
+        TriggeredAbility(std::string description, TriggeredAbilityType type);
         virtual void effect(std::shared_ptr<Game> game) const;
-        int getType() const ;
+        TriggeredAbilityType getType() const ;
         std::string getDescription() const;
-        std::shared_ptr<Minion> getMinion() const;
         
 
 };
 
 class DieDamage : public TriggeredAbility{
+    std::shared_ptr<Minion> minion;
     public:
         explicit DieDamage(std::shared_ptr<Minion> minion);
         void effect(std::shared_ptr<Game> game) const override;
+        std::shared_ptr<Minion> getMinion() const;
 };
 
 class EnterDamage : public TriggeredAbility{
+    std::shared_ptr<Minion> minion;
     public:
         explicit EnterDamage(std::shared_ptr<Minion> minion);
         void effect(std::shared_ptr<Game> game) const override;
+        std::shared_ptr<Minion> getMinion() const;
 };
 
 class EndGainDef : public TriggeredAbility{
+    std::shared_ptr<Minion> minion;
     public:
         explicit EndGainDef(std::shared_ptr<Minion> minion);
         void effect(std::shared_ptr<Game> game) const override;
+        std::shared_ptr<Minion> getMinion() const;
+};
 
+class StartGainMagic : public TriggeredAbility{
+    std::shared_ptr<Ritual> ritual;
+    public:
+        explicit StartGainMagic(std::shared_ptr<Ritual> ritual);
+};
+
+class EnterGainAtkDef : public TriggeredAbility{
+    std::shared_ptr<Ritual> ritual;
+    public:
+        explicit EnterGainAtkDef(std::shared_ptr<Ritual> ritual);
+
+};
+
+class EnterDestroy : public TriggeredAbility {
+    std::shared_ptr<Ritual> ritual;
+    public:
+        explicit EnterDestroy(std::shared_ptr<Ritual> ritual);
 };
 
 #endif
