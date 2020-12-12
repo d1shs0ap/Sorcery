@@ -27,7 +27,7 @@ class TriggeredAbility {
     public:
         TriggeredAbility();
         TriggeredAbility(std::string description, int type, std::shared_ptr<Minion> minion);
-        virtual void effect(Game game) const;
+        virtual void effect(std::shared_ptr<Game> game) const;
         int getType() const ;
         std::string getDescription() const;
         std::shared_ptr<Minion> getMinion() const;
@@ -38,19 +38,19 @@ class TriggeredAbility {
 class DieDamage : public TriggeredAbility{
     public:
         explicit DieDamage(std::shared_ptr<Minion> minion);
-        void effect(Game game) const override;
+        void effect(std::shared_ptr<Game> game) const override;
 };
 
 class EnterDamage : public TriggeredAbility{
     public:
         explicit EnterDamage(std::shared_ptr<Minion> minion);
-        void effect(Game game) const override;
+        void effect(std::shared_ptr<Game> game) const override;
 };
 
 class EndGainDef : public TriggeredAbility{
     public:
         explicit EndGainDef(std::shared_ptr<Minion> minion);
-        void effect(Game game) const override;
+        void effect(std::shared_ptr<Game> game) const override;
 
 };
 
