@@ -6,17 +6,17 @@
 #include "../../game/game.h"
 #include "minion.h"
 
-enum TriggeredAbilityType {start, end, enter, death, opponentEnter, selfEnter};
+enum TriggeredAbilityType {START_TURN, END_TURN, MINION_ENTER, MINION_DEATH, ENEMY_MINION_ENTER, OWN_MINION_ENTER};
 
 class TriggeredAbility {
     // Description of the ability displayed on the view
     std::string description;
-    /* 1 for at the start of the turn
-       2 for at the end of the turn
-       3 for whenever a minion enters play
-       4 for when the minion dies
-       5 for when the opponent minion enter the play
-       6 for when the self minion enter the play
+    /* 0 for at the start of the turn
+       1 for at the end of the turn
+       2 for whenever a minion enters play
+       3 for when the minion dies
+       4 for when the opponent minion enter the play
+       5 for when the self minion enter the play
     */
     int type;
     std::shared_ptr<Minion> minion;

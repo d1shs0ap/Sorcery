@@ -43,7 +43,6 @@ public:
     // checks if minion has triggered ability
     bool hasTrgAbility();
 
-
     void attack(std::shared_ptr<Player> player);
     void attack(std::shared_ptr<Minion> minion);
     void useAbility();

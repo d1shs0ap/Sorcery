@@ -17,13 +17,20 @@ bool Hand::addCardRight(shared_ptr<Card> card){
 }
 
 // Accessor for a single card
-std::shared_ptr<Card> Hand::removeCard(int card)  {
+shared_ptr<Card> Hand::removeCard(int card)  {
     if(cards.size() - 1 < card){
         // then there aren't as many cards as requested index, throw error
     }
     auto tmp = cards[card];
     cards.erase(cards.begin()+card);
     return tmp;
+}
+
+shared_ptr<Card> Hand::getCard(int card) {
+    if(cards.size() - 1 < card){
+        // then there aren't as many cards as requested index, throw error
+    }
+    return cards[card];
 }
 
 // Accessor for cards

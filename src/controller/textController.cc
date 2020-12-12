@@ -53,7 +53,13 @@ void TextController::attack(int minion, int enemyMinion) {
 // Plays cardInHand (on player 1/2's card, which can be a minion or ritual)
 void TextController::play(int cardInHand) {
     auto player = game->getActivePlayer();
+    auto card = player->getHand()->getCard(cardInHand - 1);
+
     player->play(cardInHand - 1);
+
+    if (card->getType()=="Minion") {
+        game->checkTriggered();
+    }
 }
 void TextController::play(int cardInHand, int targetPlayer, int targetMinion) {
     auto player = game->getActivePlayer();

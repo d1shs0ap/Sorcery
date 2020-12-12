@@ -19,6 +19,8 @@ class Game : Subject{
     public:
         // Constructor
         Game(std::shared_ptr<Player> player1, std::shared_ptr<Player> player2, unsigned seed);
+        // Removes everything that is no longer on the board
+        void clean();
         // Does all the start turn game effects
         void startTurn();
         // Does all the end turn game effects
@@ -27,6 +29,8 @@ class Game : Subject{
         void checkTriggered(int context);
         // Changes active player
         void changeActive();
+        // Get the winner, if there is one
+        int getWinner();
 
         std::shared_ptr<Player> getActivePlayer();
         std::shared_ptr<Player> getInactivePlayer();

@@ -24,6 +24,7 @@ class Hand {
         
         // Removes single card
         std::shared_ptr<Card> removeCard(int card);
+        std::shared_ptr<Card> getCard(int card);
 
         // Accessor and mutator methods for cards
         std::vector<std::shared_ptr<Card>> getCards() const;
