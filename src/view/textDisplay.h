@@ -9,14 +9,14 @@
 
 class Player;
 class TextDisplay {
-    const string horizontalBoard;
-    const string emptyLine;   
-    const string numberBorder;
+    const std::string horizontalBoard;
+    const std::string emptyLine;   
+    const std::string numberBorder;
     std::shared_ptr<Game> game;
     // convert a card to appropriate strings.
-    std::vector<string> cardVector(Card &card);
+    std::vector<std::string> cardVector(Card &card);
     //void TextDisplay::printHelp();
-    void TextDisplay::addSpace(string &s, int n);
+    void addSpace(std::string &s, int n);
     public:
         // virtual void update(Subject & game) override;
         // displays all help commands
