@@ -7,8 +7,6 @@
 
 #include "../cards/card.h"
 
-const int HAND_CAP = 5;
-
 class Hand {
     // cards in hand, ordered from left to right (cards[0] is the leftmost and cards[last] is the rightmost)
     std::vector<std::shared_ptr<Card>> cards;

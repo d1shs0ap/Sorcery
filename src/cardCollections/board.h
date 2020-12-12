@@ -7,8 +7,6 @@
 #include "../cards/ritual.h"
 #include "../cards/minion/minion.h"
 
-const int BOARD_CAP = 5;
-
 class Board {
     std::shared_ptr<Ritual> ritual;
     std::vector<std::shared_ptr<Minion>> minions;
@@ -21,7 +19,7 @@ class Board {
         void setRitual(std::shared_ptr<Ritual> ritual);
 
         std::shared_ptr<Minion> getMinion(int minion) const;
-        shared_ptr<Minion> removeMinion(int minion);
+        std::shared_ptr<Minion> removeMinion(int minion);
 
         std::vector<std::shared_ptr<Minion>> getMinions() const;
         void setMinions(std::vector<std::shared_ptr<Minion>> minions);
