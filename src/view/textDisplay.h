@@ -6,7 +6,7 @@
 #include <memory>
 
 #include "observer.h"
-
+class Player;
 class TextDisplay : public Observer {
     std::vector<std::vector<char>> display;
     public:

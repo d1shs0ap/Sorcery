@@ -1,5 +1,6 @@
 #include "textDisplay.h"
-
+#include "card.h"
+#include "player.h"
 using namespace std;
 
 void TextDisplay::printHelp()
@@ -17,7 +18,7 @@ void TextDisplay::printHelp()
     cout << "board -- Describe all cards on the board." << endl;
 }
 
-void addSpace(sting &s, int n)
+void addSpace(string &s, int n)
 {
     for (int i = 0; i < n; ++i)
         s += " ";
@@ -27,17 +28,17 @@ const string horizontalBoard{"|-------------------------------|"};
 const string emptyLine{"|                               |"};
 const string numberBorder{"|------                   ------|"};
 
-std::vector cardVector(Card &card)
+std::vector<string> cardVector(Card &card)
 {
-    string result;
+    std::vector<string> result;
     result.push_back(horizontalBoard);
     string name;
     name += "| ";
     name += card.getName();
     addSpace(name, 24 - card.getName().size());
     name += "|";
-    addSpcae(name, 3 - card.getCost() / 10 + 1);
-    name += itos(card.getCost());
+    addSpace(name, 3 - card.getCost() / 10 + 1);
+    name += std::to_string(card.getCost());
     name += " |";
     result.push_back(name);
     result.push_back(horizontalBoard);
@@ -65,20 +66,42 @@ std::vector cardVector(Card &card)
     return result;
 }
 
-void printCard(Card &card)
+// void printCard(Card &card)
+// {
+//     for (i : card)
+//     {
+//         cout << i << std::endl;
+//     }
+// }
+
+void TextDisplay::printHand(std::shared_ptr<Player> activePlayer)
 {
-    for (i : card)
-    {
-        cout << i << std::endl;
+    shared_ptr<Hand> hand = activePlayer->getHand();
+    std::vector<std::shared_ptr<Card>> cards = hand->getCards();
+    vector<vector<string>> texts;
+    for(auto i:cards){
+        texts.push_back(cardVector(*i));
     }
+    int howManyRows=0;
+    if (texts.size())
+    {
+        howManyRows=texts[0].size();
+    }
+    int numOfCards=texts.size();
+
+    for (int i = 0; i < howManyRows; i++)
+    {
+        for (int j = 0; j < numOfCards; j++)
+        {
+            cout<<texts[i][j];
+        }
+        cout<<endl;
+    }
+    
+
 }
 
-void printHand()
-{
-    for (i)
-}
-
-void TextDisplay::printBoard()
+void TextDisplay::printBoard(std::shared_ptr<Player> activePlayer)
 {
     for (int i = 0; i < 56; i++)
     {
