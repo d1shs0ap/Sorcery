@@ -13,14 +13,12 @@ class Deck {
 
     // use a time-based seed for the default seed value
     unsigned seed;
-
-    // Map between the name of cards and their respective classes
-    
+    int owner;
 
     public:
-        void loadDeck(std::ifstream &infile);
+        Deck(unsigned seed, int owner);
 
-        void setSeed(unsigned seed);
+        void loadDeck(std::ifstream &infile);
         void shuffleDeck();
 
         // Checks if deck is empty;

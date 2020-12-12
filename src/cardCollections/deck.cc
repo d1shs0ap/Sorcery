@@ -8,19 +8,65 @@
 
 using namespace std;
 
-// void Deck::loadDeck(ifstream &infile)
-// {
-//     string name;
-//     while (getline(infile, name))
-//     {
-//         if
-//     }
-// }
+Deck::Deck(unsigned seed, int owner)
+    : seed{seed}, owner{owner} {}
 
-
-void Deck::setSeed(unsigned seed) {
-    this->seed = seed;
+void Deck::loadDeck(ifstream &infile)
+{
+    string cardName;
+    while (getline(infile, cardName))
+    {
+        if (cardName=="Air Elemental") {
+            auto card = make_shared<AirElemental>(owner);
+            cards.push_back(card);
+        } else if (cardName=="Earth Elemental") {
+            auto card = make_shared<EarthElemental>(owner);
+            cards.push_back(card);
+        } else if (cardName=="Bomb") {
+            auto card = make_shared<Bomb>(owner);
+            cards.push_back(card);
+        } else if (cardName=="Fire Elemental") {
+            auto card = make_shared<FireElemental>(owner);
+            cards.push_back(card);
+        } else if (cardName=="Potion Seller") {
+            auto card = make_shared<PotionSeller>(owner);
+            cards.push_back(card);
+        } else if (cardName=="Novice Pyromancer") {
+            auto card = make_shared<NovicePyromancer>(owner);
+            cards.push_back(card);
+        } else if (cardName=="Apprentice Summoner") {
+            auto card = make_shared<ApprenticeSummoner>(owner);
+            cards.push_back(card);
+        } else if (cardName=="Master Summoner") {
+            auto card = make_shared<MasterSummoner>(owner);
+            cards.push_back(card);
+        }
+        // } else if (cardName=="") {
+        //     auto card = make_shared<>(owner);
+        //     cards.push_back(card);
+        // } else if (cardName=="") {
+        //     auto card = make_shared<>(owner);
+        //     cards.push_back(card);
+        // } else if (cardName=="") {
+        //     auto card = make_shared<>(owner);
+        //     cards.push_back(card);
+        // } else if (cardName=="") {
+        //     auto card = make_shared<>(owner);
+        //     cards.push_back(card);
+        // } else if (cardName=="") {
+        //     auto card = make_shared<>(owner);
+        //     cards.push_back(card);
+        // } else if (cardName=="") {
+        //     auto card = make_shared<>(owner);
+        //     cards.push_back(card);
+        // } else if (cardName=="") {
+        //     auto card = make_shared<>(owner);
+        //     cards.push_back(card);
+        // }
+    }
 }
+
+
 void Deck::shuffleDeck(){
 	default_random_engine rng{seed};
     shuffle(cards.begin(), cards.end(), rng);

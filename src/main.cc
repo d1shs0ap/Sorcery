@@ -48,11 +48,8 @@ int main(int argc, char *argv[])
     // random seed
     unsigned seed = chrono::system_clock::now().time_since_epoch().count();
     
-    auto deck1 = make_shared<Deck>();
-    auto deck2 = make_shared<Deck>();
-
-    deck1->setSeed(seed);
-    deck2->setSeed(seed);
+    auto deck1 = make_shared<Deck>(seed, 0);
+    auto deck2 = make_shared<Deck>(seed, 1);
 
     // default deck
     ifstream defaultDeckFile{"../decks/default.deck"};

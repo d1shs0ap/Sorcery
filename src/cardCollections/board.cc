@@ -18,17 +18,22 @@ bool Board::addMinionRight(shared_ptr<Minion> minion){
 shared_ptr<Ritual> Board::getRitual() const{
     return ritual;
 }
+
 void Board::setRitual(shared_ptr<Ritual> ritual) {
     this->ritual = ritual;
 }
 
-
 shared_ptr<Minion> Board::getMinion(int minion) const {
     return minions[minion];
 }
-void Board::setMinion(std::shared_ptr<Minion> newMinion, int minion) {
-    // check if in range
-    minions[minion] = newMinion;
+
+shared_ptr<Minion> Board::removeMinion(int minion) {
+    if(minions.size() - 1 < minion){
+        // then there aren't as many cards as requested index, throw error
+    }
+    auto tmp = minions[minion];
+    minions.erase(minions.begin()+minion);
+    return tmp;
 }
 
 vector<shared_ptr<Minion>> Board::getMinions() const{

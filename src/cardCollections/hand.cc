@@ -16,8 +16,8 @@ bool Hand::addCardRight(shared_ptr<Card> card){
     return true;
 }
 
-// Accessor for a single card
-shared_ptr<Card> Hand::removeCard(int card)  {
+// Remove a card
+shared_ptr<Card> Hand::removeCard(int card) {
     if(cards.size() - 1 < card){
         // then there aren't as many cards as requested index, throw error
     }
@@ -26,6 +26,7 @@ shared_ptr<Card> Hand::removeCard(int card)  {
     return tmp;
 }
 
+// Accessor for a single card
 shared_ptr<Card> Hand::getCard(int card) {
     if(cards.size() - 1 < card){
         // then there aren't as many cards as requested index, throw error

@@ -16,7 +16,16 @@ Game::Game(shared_ptr<Player> player1, shared_ptr<Player> player2, unsigned seed
 
 // Removes everything that is no longer on the board
 void Game::clean() {
-    
+    for (auto player : players){
+        auto board = player->getBoard();
+        auto minions = board->getMinions();
+
+        for (int i = 0; i < (minions).size(); ++i) {
+            if (minions[i]->getDef() <= 0 ) {
+                board->removeMinion(i);
+            }
+        }
+    }
 }
 
 // Does all the start turn game effects
