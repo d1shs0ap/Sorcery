@@ -54,45 +54,44 @@ public:
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-class AirElemental : public Minion
-{
+class AirElemental : public Minion{
     public:
-        AirElemental(int owner);
+        explicit AirElemental(int owner);
 };
 
 class EarthElemental : public Minion{
     public:
-        EarthElemental(int owner);
+        explicit EarthElemental(int owner);
 };
 
 class Bomb : public Minion{
     public:
-        Bomb(int owner);
+        explicit Bomb(int owner);
 };
 
 class FireElemental : public Minion{
     public:
-        FireElemental(int owner);
+        explicit FireElemental(int owner);
 };
 
 class PotionSeller : public Minion{
     public:
-        PotionSeller(int owner);
+        explicit PotionSeller(int owner);
 };
 
 class NovicePyromancer : public Minion{
     public:
-        NovicePyromancer(int owner);
+        explicit NovicePyromancer(int owner);
 };
 
 class ApprenticeSummoner : public Minion{
     public:
-        ApprenticeSummoner(int owner);
+        explicit ApprenticeSummoner(int owner);
 };
 
 class MasterSummoner : public Minion{
     public:
-        MasterSummoner(int owner);
+        explicit MasterSummoner(int owner);
 };
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////

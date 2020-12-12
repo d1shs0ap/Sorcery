@@ -38,7 +38,7 @@ std::shared_ptr<Minion> EnterDamage::getMinion() const { return minion; }
 void EnterDamage::effect(std::shared_ptr<Game> game) const {
     int opp = (getMinion()->getOwner() + 1) % 2;
     int len = game->getPlayer(opp)->getBoard()->getMinions().size();
-    std::shared_ptr target = game->getPlayer(opp)->getBoard()->getMinion(len - 1);
+    std::shared_ptr<Minion> target = game->getPlayer(opp)->getBoard()->getMinion(len - 1);
     target->setDef(target->getDef() - 1);
 }
 
@@ -54,7 +54,38 @@ void EndGainDef::effect(std::shared_ptr<Game> game) const {
     std::shared_ptr<Player> owner = game->getPlayer(getMinion()->getOwner());
     int len = owner->getBoard()->getMinions().size();
     for (int i = 0; i < len; i++){
-        std::shared_ptr target = owner->getBoard()->getMinion(i);
+        std::shared_ptr<Minion> target = owner->getBoard()->getMinion(i);
         target->setDef(target->getDef() + 1);
     }
 }
+
+StartGainMagic::StartGainMagic(std::shared_ptr<Ritual> ritual):
+    TriggeredAbility{"At the start of your turn, gain 1 magic", 
+    TriggeredAbilityType::START_TURN}, 
+    ritual{ritual} {}
+
+std::shared_ptr<Ritual> StartGainMagic::getRitual() const{ return ritual; }
+
+void StartGainMagic::effect(std::shared_ptr<Game> game) const{
+    std::shared_ptr<Player> owner = game->getPlayer(getRitual()->Card::getOwner());
+    owner->setMagic(owner->getMagic() + 1);
+}
+
+EnterGainAtkDef::EnterGainAtkDef(std::shared_ptr<Ritual> ritual):
+    TriggeredAbility{"Whenever a minion enters play under your control, it gains+1/+1",
+    TriggeredAbilityType::OWN_MINION_ENTER}, 
+    ritual{ritual} {}
+
+std::shared_ptr<Ritual> EnterGainAtkDef::getRitual() const{ return ritual; }
+
+void EnterGainAtkDef::effect(std::shared_ptr<Game> game) const{
+    int index = game->getPlayer(getRitual()->Card::getOwner())->getBoard()->getMinions().size() - 1;
+    std::shared_ptr<Minion> target = game->getPlayer(getRitual()->Card::getOwner())->getBoard()->getMinion(index);
+    
+
+}
+
+EnterDestroy::EnterDestroy(std::shared_ptr<Ritual> ritual) :
+    TriggeredAbility{"Whenever a minion enters play, destroy it", 
+    TriggeredAbilityType::MINION_ENTER}, 
+    ritual{ritual} {}

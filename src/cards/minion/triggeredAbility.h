@@ -79,4 +79,29 @@ class EndGainDef : public TriggeredAbility{
         std::shared_ptr<Minion> getMinion() const;
 };
 
+class StartGainMagic : public TriggeredAbility{
+    std::shared_ptr<Ritual> ritual;
+    public:
+        explicit StartGainMagic(std::shared_ptr<Ritual> ritual);
+        void effect(std::shared_ptr<Game> game) const override;
+        std::shared_ptr<Ritual> getRitual() const;
+};
+
+class EnterGainAtkDef : public TriggeredAbility{
+    std::shared_ptr<Ritual> ritual;
+    public:
+        explicit EnterGainAtkDef(std::shared_ptr<Ritual> ritual);
+        void effect(std::shared_ptr<Game> game) const override;
+        std::shared_ptr<Ritual> getRitual() const;
+
+};
+
+class EnterDestroy : public TriggeredAbility {
+    std::shared_ptr<Ritual> ritual;
+    public:
+        explicit EnterDestroy(std::shared_ptr<Ritual> ritual);
+        void effect(std::shared_ptr<Game> game) const override;
+        std::shared_ptr<Ritual> getRitual() const;
+};
+
 #endif
