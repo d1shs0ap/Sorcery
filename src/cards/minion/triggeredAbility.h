@@ -2,6 +2,7 @@
 #define TRIGGERED_ABILITY_H
 
 #include <string>
+#include <vector>
 #include "../card.h"
 #include "../../game/game.h"
 #include "minion.h"

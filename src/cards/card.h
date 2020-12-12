@@ -2,6 +2,10 @@
 #define CARD_H
 
 #include <string>
+#include <memory>
+#include <vector>
+
+
 
 // Abstract class for all cards
 class Card
@@ -17,6 +21,8 @@ class Card
         std::string getType();
         int getOwner();
         int getCost();
+        std::vector<std::string> digitDisplay();
+        
 };
 
 #endif

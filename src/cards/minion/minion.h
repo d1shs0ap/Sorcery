@@ -9,8 +9,7 @@
 #include "../../game/player.h"
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-class Minion : public Card
-{
+class Minion : public Card {
     int atk;
     int def;
     // actions is the number of times it is allowed to attack or use an ability in one turn. this can only be 0 or 1 for now.

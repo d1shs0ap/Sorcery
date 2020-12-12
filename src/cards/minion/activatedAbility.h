@@ -2,6 +2,7 @@
 #define ACTIVATED_ABILITY_H
 
 #include <string>
+#include <vector>
 #include "minion.h"
 #include "../card.h"
 #include "../../game/game.h"
@@ -22,6 +23,7 @@ public:
     virtual void effect(Card card) const;
 };
 
+//////////////////////////////////////////////////////////////////////////////////////
 class DamageTarget : public ActivatedAbility{
     public:
         DamageTarget(std::shared_ptr<Minion> minion);
