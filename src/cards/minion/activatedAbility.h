@@ -8,6 +8,9 @@
 #include "../card.h"
 #include "../../game/game.h"
 
+class Minion;
+class Game;
+
 class ActivatedAbility
 {
     std::string description;

@@ -15,8 +15,6 @@ class Enchantment : public Minion
 public:
     Enchantment();
     void attach(std::shared_ptr<Minion> minion);
-    int computeAtk();
-    int computeDef();
     void update();
 };
 
@@ -27,8 +25,8 @@ class GiantStrength : public Enchantment
 
 
 public:
-    virtual int computeAtk() const override;
-    virtual int computeDef() const override;
+    int computeAtk() const override;
+    int computeDef() const override;
 };
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -38,8 +36,8 @@ class Enrage : public Enchantment
 
 
 public:
-    virtual int computeAtk() const override;
-    virtual int computeDef() const override;
+    int computeAtk() const override;
+    int computeDef() const override;
 };
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
