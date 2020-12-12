@@ -5,6 +5,8 @@
 #include "../game/game.h"
 #include "../game/player.h"
 
+class Game;
+
 // Spell card
 class Spell : public Card {
     public:

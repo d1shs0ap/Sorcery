@@ -8,6 +8,8 @@
 #include "minion.h"
 #include "../ritual.h"
 
+class Ritual;
+
 enum TriggeredAbilityType {START_TURN, END_TURN, MINION_ENTER, MINION_DEATH, ENEMY_MINION_ENTER, OWN_MINION_ENTER};
 
 class TriggeredAbility {

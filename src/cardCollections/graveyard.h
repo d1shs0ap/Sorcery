@@ -6,6 +6,8 @@
 
 #include "../cards/minion/minion.h"
 
+class Minion;
+
 class Graveyard {
     // minions from bottom to top
     std::vector<std::shared_ptr<Minion>> minions;
