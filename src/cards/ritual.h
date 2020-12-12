@@ -2,6 +2,7 @@
 #define RITUAL_H
 
 #include "card.h"
+#include "minion/minion.h"
 #include "minion/triggeredAbility.h"
 
 // Ritual card
