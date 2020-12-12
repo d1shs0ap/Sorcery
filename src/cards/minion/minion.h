@@ -7,7 +7,6 @@
 #include "../card.h"
 #include "activatedAbility.h"
 #include "triggeredAbility.h"
-#include "../../game/player.h"
 
 class Player;
 
