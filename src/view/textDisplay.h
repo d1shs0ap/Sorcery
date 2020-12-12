@@ -5,12 +5,14 @@
 #include <iostream>
 #include <memory>
 
+#include "../game/game.h"
 
 class Player;
 class TextDisplay {
     const string horizontalBoard;
     const string emptyLine;   
     const string numberBorder;
+    std::shared_ptr<Game> game;
     // convert a card to appropriate strings.
     std::vector<string> cardVector(Card &card);
     //void TextDisplay::printHelp();

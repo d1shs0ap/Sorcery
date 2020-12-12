@@ -62,45 +62,46 @@ void Game::checkTriggered(int context) {
     if (context==START_TURN || context==END_TURN) {
         // check the active player's ritual and minions for triggered abilities
         if (ritualTrgAbility.getType()==context) {
-            ritualTrgAbility.effect(*this);
+            ritualTrgAbility.effect(shared_from_this());
         }
         for(auto minion : board->getMinions()) {
             auto trgAbility = minion->getTrgAbility();
             if (trgAbility.getType()==context) {
-                trgAbility.effect(*this);
+                trgAbility.effect(shared_from_this());
             }
         }
         
         // check the enemy player's ritual and minions for triggered abilities
         if (enemyRitualTrgAbility.getType()==context) {
-            enemyRitualTrgAbility.effect(*this);
+            enemyRitualTrgAbility.effect(shared_from_this());
         }
         for(auto minion : enemyBoard->getMinions()) {
             auto trgAbility = minion->getTrgAbility();
             if (trgAbility.getType()==context) {
-                trgAbility.effect(*this);
+                trgAbility.effect(shared_from_this());
             }
         }
     } else if (context == MINION_ENTER) { // when the active player's a minion
+        auto game = make_shared<Game>();
         // for active player's minions, we also have to check that if its triggered ability is of type "OWN_MINION_ENTER"
         if (ritualTrgAbility.getType()==MINION_ENTER || ritualTrgAbility.getType()==OWN_MINION_ENTER) {
-            ritualTrgAbility.effect(*this);
+            ritualTrgAbility.effect(shared_from_this());
         }
         for(auto minion : board->getMinions()) {
             auto trgAbility = minion->getTrgAbility();
             if (trgAbility.getType()==MINION_ENTER || trgAbility.getType()==OWN_MINION_ENTER) {
-                trgAbility.effect(*this);
+                trgAbility.effect(shared_from_this());
             }
         }
 
         // for enemy's minions, we also have to check that if its triggered ability is of type "ENEMY_MINION_ENTER"
         if (enemyRitualTrgAbility.getType()==MINION_ENTER || enemyRitualTrgAbility.getType()==ENEMY_MINION_ENTER) {
-            enemyRitualTrgAbility.effect(*this);
+            enemyRitualTrgAbility.effect(shared_from_this());
         }
         for(auto minion : enemyBoard->getMinions()) {
             auto trgAbility = minion->getTrgAbility();
             if (trgAbility.getType()==MINION_ENTER || trgAbility.getType()==ENEMY_MINION_ENTER) {
-                trgAbility.effect(*this);
+                trgAbility.effect(shared_from_this());
             }
         }
 

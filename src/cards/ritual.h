@@ -15,7 +15,10 @@ class Ritual : public Card {
     TriggeredAbility trgAbility;
 
 public:
+    Ritual();
     TriggeredAbility getTrgAbility() const;
+    // Trigger the triggered ability while reducing charges
+    bool useTrgAbility();
 };
 
 #endif

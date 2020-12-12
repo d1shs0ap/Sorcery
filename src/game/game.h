@@ -6,11 +6,10 @@
 #include <random>
 #include <chrono>
 
-#include "subject.h"
 #include "player.h"
 #include "../cards/minion/triggeredAbility.h"
 
-class Game : Subject{
+class Game : public std::enable_shared_from_this<Game> {
     // the two players.
     std::vector<std::shared_ptr<Player>> players;
     int activePlayer; // current turn. this can only be 0 or 1.

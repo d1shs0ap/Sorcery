@@ -5,8 +5,6 @@
 #include <memory>
 #include <vector>
 
-
-
 // Abstract class for all cards
 class Card
 {
