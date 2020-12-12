@@ -18,9 +18,28 @@ class Ritual : public Card {
 
 public:
     Ritual(int activationCost, int charges, TriggeredAbility trgAbility);
+
+    // accessor and mutator for triggered ability
     TriggeredAbility getTrgAbility() const;
+    void setTrgAbility(TriggeredAbility ability);
+
     // Trigger the triggered ability while reducing charges
     bool useTrgAbility(std::shared_ptr<Game> game);
+};
+
+class DarkRitual : Ritual {
+    public:
+        DarkRitual();
+};
+
+class AuraOfPower : Ritual {
+    public:
+        AuraOfPower();
+};
+
+class Standstill : Ritual {
+    public:
+        Standstill();
 };
 
 #endif
