@@ -11,7 +11,7 @@ class Game;
 class Spell : public Card {
     public:
         
-        void effect(Game game);
+        void effect(std::shared_ptr<Game> game);
         void effectWithTarget(int player, int target);
         void effectWithTarget(int player, char ritual);
 };

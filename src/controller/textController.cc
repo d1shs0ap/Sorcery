@@ -55,7 +55,7 @@ void TextController::play(int cardInHand) {
     auto player = game->getActivePlayer();
     auto card = player->getHand()->getCard(cardInHand - 1);
 
-    player->play(cardInHand - 1);
+    player->play(cardInHand - 1, game);
 
     if (card->getType()=="Minion") {
         game->checkTriggered(MINION_ENTER);

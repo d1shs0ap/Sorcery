@@ -8,6 +8,7 @@
 #include "../ritual.h"
 #include "activatedAbility.h"
 #include "triggeredAbility.h"
+#include "enchantment.h"
 
 class Player;
 class TriggeredAbility;

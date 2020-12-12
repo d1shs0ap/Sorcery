@@ -11,6 +11,7 @@
 #include "../cardCollections/graveyard.h"
 #include "../cardCollections/hand.h"
 #include "../cards/spell.h"
+#include "../cards/minion/enchantment.h"
 
 class Board;
 class Deck;
@@ -58,7 +59,7 @@ public:
     void discard(int card);
 
     // Plays the ith card in hand from the left
-    void play(int card);
+    void play(int card, std::shared_ptr<Game> game);
     void play(int card, int player, int target);
     void play(int card, int player, char ritual);
 

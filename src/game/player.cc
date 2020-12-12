@@ -40,7 +40,7 @@ void Player::discard(int card) {
 }
 
 // Plays the ith card in hand from the left
-void Player::play(int card) {
+void Player::play(int card, shared_ptr<Game> game) {
     try { // checks if removeCard is out of range
         auto tmpCard = hand->removeCard(card);
         if (tmpCard->getType() == "Minion") {
@@ -56,7 +56,7 @@ void Player::play(int card) {
         
         } else if (tmpCard->getType() == "Spell") {
             auto tmpSpell = dynamic_pointer_cast<Spell>(tmpCard);
-            tmpSpell->effect(); // cause the spell effect, then the spell disappears
+            tmpSpell->effect(game); // cause the spell effect, then the spell disappears
         
         } else if (tmpCard->getType() == "Ritual") {
             auto tmpRitual = dynamic_pointer_cast<Ritual>(tmpCard);

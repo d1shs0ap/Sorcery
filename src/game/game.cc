@@ -93,7 +93,6 @@ void Game::checkTriggered(int context) {
             }
         }
     } else if (context == MINION_ENTER) { // when the active player's a minion
-        auto game = make_shared<Game>();
         // for active player's minions, we also have to check that if its triggered ability is of type "OWN_MINION_ENTER"
         if (ritualTrgAbility.getType()==MINION_ENTER || ritualTrgAbility.getType()==OWN_MINION_ENTER) {
             bool triggered = ritual->useTrgAbility(shared_from_this());
