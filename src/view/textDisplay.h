@@ -8,7 +8,14 @@
 #include "observer.h"
 class Player;
 class TextDisplay : public Observer {
+    const string horizontalBoard;
+    const string emptyLine;   
+    const string numberBorder;
     std::vector<std::vector<char>> display;
+    // convert a card to appropriate strings.
+    std::vector<string> cardVector(Card &card);
+    void TextDisplay::printHelp();
+    void TextDisplay::addSpace(string &s, int n);
     public:
         virtual void update(Subject & game) override;
         // displays all help commands

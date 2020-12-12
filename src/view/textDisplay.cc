@@ -28,7 +28,7 @@ const string horizontalBoard{"|-------------------------------|"};
 const string emptyLine{"|                               |"};
 const string numberBorder{"|------                   ------|"};
 
-std::vector<string> cardVector(Card &card)
+std::vector<string> TextDisplay::cardVector(Card &card)
 {
     std::vector<string> result;
     result.push_back(horizontalBoard);
