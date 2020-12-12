@@ -6,6 +6,8 @@
 #include "../../game/game.h"
 #include "minion.h"
 
+enum TriggeredAbilityType {start, end, enter, death, opponentEnter, selfEnter};
+
 class TriggeredAbility {
     // Description of the ability displayed on the view
     std::string description;

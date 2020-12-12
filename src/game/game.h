@@ -8,6 +8,7 @@
 
 #include "subject.h"
 #include "player.h"
+#include "../cards/minion/triggeredAbility.h"
 
 class Game : Subject{
     // the two players.
@@ -22,8 +23,8 @@ class Game : Subject{
         void startTurn();
         // Does all the end turn game effects
         void endTurn();
-        // Checks all triggered abilities to see if any is triggered
-        void checkTriggered();
+        // Checks all triggered abilities to see if any is triggered, under a certain situation
+        void checkTriggered(int context);
         // Changes active player
         void changeActive();
 

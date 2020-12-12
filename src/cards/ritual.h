@@ -11,10 +11,10 @@ class Ritual : public Card {
     // Number of charges, consumed when activating ritual
     int charges;
     // Effect (triggered abillity) of ritual;
-    TriggeredAbility effect;
+    TriggeredAbility trgAbility;
 
 public:
-    TriggeredAbility getAbility() const;
+    TriggeredAbility getTrgAbility() const;
 };
 
 #endif

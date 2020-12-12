@@ -28,11 +28,16 @@ void Game::startTurn() {
 // Does all the end turn game effects
 void Game::endTurn() {
     // Check all triggered abilities (minions and ritual)
-    checkTriggered();
+    checkTriggered(end);
 }
-// Checks all triggered abilities to see if any is triggered
-void Game::checkTriggered() {
+// Checks all triggered abilities to see if any is triggered, in a certain context(e.g. endTurn)
+void Game::checkTriggered(int context) {
+    auto player = getActivePlayer();
+    auto board = player->getBoard();
+    auto ritualEffect = board->getRitual()->getAbility;
+    for()
 
+    auto enemyPlayer = getInactivePlayer();
 }
 
 // Changes active player
