@@ -35,7 +35,7 @@ class Player
     std::shared_ptr<Hand> hand;
 
 public:
-    Player(string name, int number, std::shared_ptr<Board> board, std::shared_ptr<Deck> deck, std::shared_ptr<Graveyard> graveyard, std::shared_ptr<Hand> hand);
+    Player(std::string name, int number, std::shared_ptr<Board> board, std::shared_ptr<Deck> deck, std::shared_ptr<Graveyard> graveyard, std::shared_ptr<Hand> hand);
 
     std::string getName() const;
 
