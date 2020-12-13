@@ -57,19 +57,19 @@ EarthElemental::EarthElemental(int owner)
 Bomb::Bomb(int owner)
     : Minion{"Bomb", owner, 2, 1, 2}
 {
-    Minion::setTrgAbility(DieDamage(shared_from_this()));
+    Minion::setTrgAbility(DieDamage());
 }
 
 FireElemental::FireElemental(int owner)
     : Minion{"Fire Elemental", owner, 2, 2, 2}
 {
-    Minion::setTrgAbility(EnterDamage(shared_from_this()));
+    Minion::setTrgAbility(EnterDamage());
 }
 
 PotionSeller::PotionSeller(int owner)
     : Minion{"Potion Seller", owner, 2, 1, 3}
 {
-    Minion::setTrgAbility(EndGainDef(shared_from_this()));
+    Minion::setTrgAbility(EndGainDef());
 }
 
 NovicePyromancer::NovicePyromancer(int owner)

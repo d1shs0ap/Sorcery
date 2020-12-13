@@ -38,69 +38,59 @@ class TriggeredAbility
 public:
     TriggeredAbility();
     TriggeredAbility(std::string description, TriggeredAbilityType type);
-    virtual void effect(std::shared_ptr<Game> game) const;
+    virtual void effect(std::shared_ptr<Game> game, std::shared_ptr<Minion> minion) const;
+    virtual void effect(std::shared_ptr<Game> game, std::shared_ptr<Ritual> ritual) const;
     TriggeredAbilityType getType() const;
     std::string getDescription() const;
 };
 
 class DieDamage : public TriggeredAbility
 {
-    std::shared_ptr<Minion> minion;
 
 public:
-    explicit DieDamage(std::shared_ptr<Minion> minion);
-    void effect(std::shared_ptr<Game> game) const override;
-    std::shared_ptr<Minion> getMinion() const;
+    explicit DieDamage();
+    void effect(std::shared_ptr<Game> game, std::shared_ptr<Minion> minion) const override;
 };
 
 class EnterDamage : public TriggeredAbility
 {
-    std::shared_ptr<Minion> minion;
 
 public:
-    explicit EnterDamage(std::shared_ptr<Minion> minion);
-    void effect(std::shared_ptr<Game> game) const override;
-    std::shared_ptr<Minion> getMinion() const;
+    explicit EnterDamage();
+    void effect(std::shared_ptr<Game> game, std::shared_ptr<Minion> minion) const override;
 };
 
 class EndGainDef : public TriggeredAbility
 {
-    std::shared_ptr<Minion> minion;
 
 public:
-    explicit EndGainDef(std::shared_ptr<Minion> minion);
-    void effect(std::shared_ptr<Game> game) const override;
+    explicit EndGainDef();
+    void effect(std::shared_ptr<Game> game, std::shared_ptr<Minion> minion) const override;
     std::shared_ptr<Minion> getMinion() const;
 };
 
 class StartGainMagic : public TriggeredAbility
 {
-    std::shared_ptr<Ritual> ritual;
 
 public:
-    explicit StartGainMagic(std::shared_ptr<Ritual> ritual);
-    void effect(std::shared_ptr<Game> game) const override;
-    std::shared_ptr<Ritual> getRitual() const;
+    explicit StartGainMagic();
+    void effect(std::shared_ptr<Game> game, std::shared_ptr<Ritual> ritual) const override;
 };
 
 class EnterGainAtkDef : public TriggeredAbility
 {
-    std::shared_ptr<Ritual> ritual;
 
 public:
-    explicit EnterGainAtkDef(std::shared_ptr<Ritual> ritual);
-    void effect(std::shared_ptr<Game> game) const override;
-    std::shared_ptr<Ritual> getRitual() const;
+    explicit EnterGainAtkDef();
+    void effect(std::shared_ptr<Game> game, std::shared_ptr<Ritual> ritual) const override;
 };
 
 class EnterDestroy : public TriggeredAbility
 {
-    std::shared_ptr<Ritual> ritual;
 
 public:
-    explicit EnterDestroy(std::shared_ptr<Ritual> ritual);
-    void effect(std::shared_ptr<Game> game) const override;
-    std::shared_ptr<Ritual> getRitual() const;
+    explicit EnterDestroy();
+    void effect(std::shared_ptr<Game> game, std::shared_ptr<Ritual> ritual) const override;
 };
 
 #endif

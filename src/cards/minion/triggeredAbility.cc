@@ -9,17 +9,15 @@ std::string TriggeredAbility::getDescription() const { return description; }
 
 TriggeredAbilityType TriggeredAbility::getType() const { return type; }
 
-DieDamage::DieDamage(std::shared_ptr<Minion> minion)
+DieDamage::DieDamage()
     : TriggeredAbility{"Deals damage to all the opponent minions equal to its attack value when it dies",
-                       TriggeredAbilityType::MINION_DEATH},
-      minion{minion} {}
+                       TriggeredAbilityType::MINION_DEATH} {}
 
-std::shared_ptr<Minion> DieDamage::getMinion() const { return minion; }
 
-void DieDamage::effect(std::shared_ptr<Game> game) const
+void DieDamage::effect(std::shared_ptr<Game> game, std::shared_ptr<Minion> minion) const
 {
-    int opp = (getMinion()->getOwner() + 1) % 2;
-    int atk = getMinion()->getAtk();
+    int opp = (minion->getOwner() + 1) % 2;
+    int atk = minion->getAtk();
     for (int i = 0; i < 5; i++)
     {
         std::shared_ptr<Minion> oppMinion = game->getPlayer(opp)->getBoard()->getMinion(i);
@@ -30,29 +28,24 @@ void DieDamage::effect(std::shared_ptr<Game> game) const
     }
 }
 
-EnterDamage::EnterDamage(std::shared_ptr<Minion> minion)
+EnterDamage::EnterDamage()
     : TriggeredAbility{"Whenever an opponent's minion enters play, deal 1 damage to it",
-                       TriggeredAbilityType::ENEMY_MINION_ENTER},
-      minion{minion} {}
+                       TriggeredAbilityType::ENEMY_MINION_ENTER} {}
 
-std::shared_ptr<Minion> EnterDamage::getMinion() const { return minion; }
 
-void EnterDamage::effect(std::shared_ptr<Game> game) const
+void EnterDamage::effect(std::shared_ptr<Game> game, std::shared_ptr<Minion> minion) const
 {
-    int opp = (getMinion()->getOwner() + 1) % 2;
+    int opp = (minion->getOwner() + 1) % 2;
     int len = game->getPlayer(opp)->getBoard()->getMinions().size();
     std::shared_ptr<Minion> target = game->getPlayer(opp)->getBoard()->getMinion(len - 1);
     target->setDef(target->getDef() - 1);
 }
 
-EndGainDef::EndGainDef(std::shared_ptr<Minion> minion)
+EndGainDef::EndGainDef()
     : TriggeredAbility{"At the end of your turn, all yout minions gain +0/+1",
-                       TriggeredAbilityType::END_TURN},
-      minion{minion} {}
+                       TriggeredAbilityType::END_TURN} {}
 
-std::shared_ptr<Minion> EndGainDef::getMinion() const { return minion; }
-
-void EndGainDef::effect(std::shared_ptr<Game> game) const
+void EndGainDef::effect(std::shared_ptr<Game> game, std::shared_ptr<Minion> minion) const
 {
     std::shared_ptr<Player> owner = game->getPlayer(getMinion()->getOwner());
     int len = owner->getBoard()->getMinions().size();
@@ -63,43 +56,37 @@ void EndGainDef::effect(std::shared_ptr<Game> game) const
     }
 }
 
-StartGainMagic::StartGainMagic(std::shared_ptr<Ritual> ritual)
+StartGainMagic::StartGainMagic()
     : TriggeredAbility{"At the start of your turn, gain 1 magic",
-                       TriggeredAbilityType::START_TURN},
-      ritual{ritual} {}
+                       TriggeredAbilityType::START_TURN} {}
 
-std::shared_ptr<Ritual> StartGainMagic::getRitual() const { return ritual; }
 
-void StartGainMagic::effect(std::shared_ptr<Game> game) const
+void StartGainMagic::effect(std::shared_ptr<Game> game, std::shared_ptr<Ritual> ritual) const
 {
-    std::shared_ptr<Player> owner = game->getPlayer(getRitual()->Card::getOwner());
+    std::shared_ptr<Player> owner = game->getPlayer(ritual->Card::getOwner());
     owner->setMagic(owner->getMagic() + 1);
 }
 
-EnterGainAtkDef::EnterGainAtkDef(std::shared_ptr<Ritual> ritual)
+EnterGainAtkDef::EnterGainAtkDef()
     : TriggeredAbility{"Whenever a minion enters play under your control, it gains+1/+1",
-                       TriggeredAbilityType::OWN_MINION_ENTER},
-      ritual{ritual} {}
+                       TriggeredAbilityType::OWN_MINION_ENTER} {}
 
-std::shared_ptr<Ritual> EnterGainAtkDef::getRitual() const { return ritual; }
 
-void EnterGainAtkDef::effect(std::shared_ptr<Game> game) const
+void EnterGainAtkDef::effect(std::shared_ptr<Game> game, std::shared_ptr<Ritual> ritual) const
 {
-    int index = game->getPlayer(getRitual()->Card::getOwner())->getBoard()->getMinions().size() - 1;
-    std::shared_ptr<Minion> target = game->getPlayer(getRitual()->Card::getOwner())->getBoard()->getMinion(index);
+    int index = game->getPlayer(ritual->Card::getOwner())->getBoard()->getMinions().size() - 1;
+    std::shared_ptr<Minion> target = game->getPlayer(ritual->Card::getOwner())->getBoard()->getMinion(index);
     target->setAtk(target->getAtk() + 1);
     target->setDef(target->getDef() + 1);
 }
 
-EnterDestroy::EnterDestroy(std::shared_ptr<Ritual> ritual)
+EnterDestroy::EnterDestroy()
     : TriggeredAbility{"Whenever a minion enters play, destroy it",
-                       TriggeredAbilityType::MINION_ENTER},
-      ritual{ritual} {}
+                       TriggeredAbilityType::MINION_ENTER} {}
 
-std::shared_ptr<Ritual> EnterDestroy::getRitual() const { return ritual; }
 
-void EnterDestroy::effect(std::shared_ptr<Game> game) const {
+void EnterDestroy::effect(std::shared_ptr<Game> game, std::shared_ptr<Ritual> minion) const {
     int index = game->getActivePlayer()->getBoard()->getMinions().size();
     std::shared_ptr<Minion> target = game->getActivePlayer()->getBoard()->getMinion(index);
-
+    game->destroyMinion(target);
 }
