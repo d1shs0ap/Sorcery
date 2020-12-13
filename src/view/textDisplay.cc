@@ -204,16 +204,17 @@ void TextDisplay::printHelp()
 // -------------------- PRINT INSPECT --------------------
 
 void TextDisplay::printInspect(shared_ptr<Player> activePlayer, int minion) {
-    auto enchantedMinion() = activePlayer->getBoard()->getMinion(minion);
-    
-    string type = minion->getType();
+    auto minionPtr = activePlayer->getBoard()->getMinion(minion);
+    string type = minionPtr->getType();
 
-    // now print line by line
-    for (int i = 0; i < CARD_HEIGHT; ++i) {
-        for (auto card : hand) {
-            cout << card[i];
-        }
-        cout << endl;
+    vector<string> card;
+
+    if (type=="Minion") {
+        printMinion(minionPtr);
+    } else if (type=="Enchantment") {
+        printEnchantedMinion(dynamic_pointer_cast<Enchantment>(minionPtr));
+    } else {
+        // error
     }
 }
 
@@ -237,6 +238,8 @@ void TextDisplay::printHand(shared_ptr<Player> activePlayer) {
             hand[i] = printMinion(dynamic_pointer_cast<Minion>(cards[i]));
         } else if (type=="enchantment") {
             hand[i] = printEnchantment(dynamic_pointer_cast<Enchantment>(cards[i]));
+        } else {
+            // error
         }
     }
 
