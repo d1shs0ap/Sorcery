@@ -1,6 +1,5 @@
 #include "minion.h"
 #include "../../game/player.h"
-#include "../../util.h"
 
 #include <iostream>
 
@@ -46,23 +45,8 @@ void Minion::attack(shared_ptr<Minion> other)
 
 void Minion::useAbility() { std::cout << "calling function Minion::useAbility..." << std::endl; }
 
-std::vector<std::string> Minion::getDisplay() const
-{
-    std::string emptyLine{"|                               |"};
-    std::string line1{"|------                   ------|"};
-    std::string line2;
-    line2 += "| ";
-    line2 += std::to_string(atk);
-    addChar(line2, ' ', 3 - std::to_string(atk).size());
-    line2 += " |";
-    addChar(line2, ' ', 19);
-    line2 += "| ";
-    addChar(line2, ' ', 3 - std::to_string(def).size());
-    line2 += std::to_string(def);
-    line2 += " |";
-    std::vector<std::string> result{emptyLine, emptyLine, emptyLine,
-                                    line1, line2};
-    return result;
+std::vector<std::string> Minion::getDisplay() const{ 
+    
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////

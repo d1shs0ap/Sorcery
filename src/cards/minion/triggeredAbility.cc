@@ -1,7 +1,7 @@
 #include "triggeredAbility.h"
 #include "../../game/game.h"
 #include "../../game/player.h"
-#include "../../card-containers/board.h"
+#include "../../cardcollections/board.h"
 #include "minion.h"
 #include "../ritual.h"
 
