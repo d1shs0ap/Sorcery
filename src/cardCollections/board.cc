@@ -24,6 +24,9 @@ void Board::setRitual(shared_ptr<Ritual> ritual) {
 }
 
 shared_ptr<Minion> Board::getMinion(int minion) const {
+    if(minions.size() - 1 < minion){
+        // then there aren't as many cards as requested index, throw error
+    }
     return minions[minion];
 }
 

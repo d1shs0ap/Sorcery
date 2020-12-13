@@ -105,7 +105,7 @@ void TextController::help() {
 }
 // Displays minion owned by active player
 void TextController::inspect(int minion) {
-    textDisplay->printMinion(game->getActivePlayer(), minion - 1);
+    textDisplay->printInspect(game->getActivePlayer(), minion - 1);
 }
 // Displays hand
 void TextController::hand() {
