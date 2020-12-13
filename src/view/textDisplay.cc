@@ -8,38 +8,107 @@ void addSpace(string &s, int n)
         s += " ";
 }
 
+// -------------------- HELPER PRINT FUNCTIONS --------------------
+
 // print template of any card
-vector<string> TextDisplay::printCardTemplate() {
+vector<string> TextDisplay::printCardTemplate(shared_ptr<Card> card) {
     vector<string> result;
-    result.push_back(horizontalLine);       // |-------------------------------|
-    result.push_back(nameLine);             // |                         |     |
-    result.push_back(horizontalLine);       // |-------------------------------|
-    result.push_back(emptyLine);            // |                               |
-    result.push_back(horizontalLine);       // |-------------------------------|
-    result.push_back(emptyLine);            // |                               |
-    result.push_back(emptyLine);            // |                               |
-    result.push_back(emptyLine);            // |                               |
-    result.push_back(emptyLine);            // |                               |
-    result.push_back(emptyLine);            // |                               |
-    result.push_back(horizontalLine);       // |-------------------------------|
+    result.push_back(HORIZONTAL_LINE);       // |-------------------------------|
+    result.push_back(NAME_LINE);             // |                         |     |
+    result.push_back(HORIZONTAL_LINE);       // |-------------------------------|
+    result.push_back(EMPTY_LINE);            // |                               |
+    result.push_back(HORIZONTAL_LINE);       // |-------------------------------|
+    for (int i = 0; i < CARD_HEIGHT - 6; ++i) {
+        result.push_back(EMPTY_LINE);        // |                               |
+    }
+    result.push_back(HORIZONTAL_LINE);       // |-------------------------------|
     
+    // Change the name and cost(2nd line)
+    string name = card->getName();
+    result[1].replace(WORD_START, name.size(), name);
+    string cost = to_string(card->getCost());
+    result[1].replace(CARD_WIDTH-WORD_START-cost.size(), cost.size(), cost);
+
+    // Change type (4th line)
+    string type = card->getType();
+    result[3].replace(CARD_WIDTH-WORD_START-type.size(), type.size(), type);
+
+    return result;
 }
+
+// add the description of a card
+void TextDisplay::printDescription(vector<string> &card, string description, int line) {
+    int counter = 0;
+    // each line is NORMAL_LENGTH, counter*NORMAL_LENGTH is the amount of length we have already printed
+    while (counter*NORMAL_LENGTH < description.size()) {
+        card[line + counter].replace(WORD_START, NORMAL_LENGTH, description.substr(counter*NORMAL_LENGTH, NORMAL_LENGTH));
+    }
+}
+// add bottom left box
+void TextDisplay::printLeftBox(vector<string> &card, string boxContent) {
+    card[CARD_HEIGHT - 3].replace(WORD_START - 1, NUMBER_BORDER_LINE.size(), NUMBER_BORDER_LINE); // |------
+    card[CARD_HEIGHT - 2].replace(WORD_START, boxContent.size(), boxContent);                   // | 2
+    card[CARD_HEIGHT - 2].replace(boxContent.size(), 1, "|");                                   // | 2   |
+}
+// add bottom right box
+void TextDisplay::printRightBox(vector<string> &card, string boxContent) {
+    card[CARD_HEIGHT - 3].replace(CARD_WIDTH - 1 - NUMBER_BORDER_LINE.size(), NUMBER_BORDER_LINE.size(), NUMBER_BORDER_LINE);   // ------|
+    card[CARD_HEIGHT - 2].replace(CARD_WIDTH - WORD_START - boxContent.size(), boxContent.size(), boxContent);                    // | 2
+    card[CARD_HEIGHT - 2].replace(CARD_WIDTH - 1 - NUMBER_BORDER_LINE.size(), 1, "|");                                          // | 2   |                                                          // | 2   |
+}
+// add the top left box along with the description (formatting changes since there is box added before description)
+void printTopLeftBoxAndDescription(vector<string> &card, string boxContent, string description);
+
+
+// -------------------- PRINT CARD FUNCTIONS --------------------
 
 // print enchantment when it is on board, attached to minions
 vector<string> TextDisplay::printEnchantedMinion(shared_ptr<Enchantment> enchantment) {
     auto minion = enchantment->getAttachedMinion();
+    vector<string> card = printCardTemplate(minion);
+    // add attack and defence from enchantment
+    printLeftBox(card, to_string(enchantment->getAtk()));
+    printLeftBox(card, to_string(enchantment->getAtk()));
+    // add activated ability from enchantment
 
+    // add triggered ability from enchantment
+
+    return card;
 }
 // print enchantment when it is in hand
-vector<string> printEnchantment();
+vector<string> TextDisplay::printEnchantment(shared_ptr<Enchantment> enchantment) {
+    vector<string> card = printCardTemplate(enchantment);
+    if(enchantment->getAtkChange()!=""){
+        printLeftBox(card, enchantment->getAtkChange());
+    }
+    if(enchantment->getDefChange()!=""){
+        printRightBox(card, enchantment->getDefChange());
+    }
+    return card;
+}
 // print minion
-vector<string> printMinion();
+vector<string> TextDisplay::printMinion(shared_ptr<Minion> minion) {
+    vector<string> card = printCardTemplate(minion);
+    // add attack and defence
+    printLeftBox(card, to_string(minion->getAtk()));
+    printRightBox(card, to_string(minion->getDef()));
+
+    // check if minion has activated ability
+
+    // check if minion has triggered ability (case split for whether there is an activated ability)
+
+}
 // print spell
 vector<string> TextDisplay::printSpell(shared_ptr<Spell> spell) {
-    vector<string> result = printCardTemplate();
+    vector<string> card = printCardTemplate(spell);
+    printDescription(card, spell->getDescription(), 5);
+    return card;
 }
 // print ritual
 vector<string> printRitual();
+
+
+// -------------------- PRINT HELP --------------------
 
 void TextDisplay::printHelp()
 {
@@ -102,6 +171,9 @@ void TextDisplay::printHelp()
 //     }
 // }
 
+
+// -------------------- PRINT HAND --------------------
+
 void TextDisplay::printHand(shared_ptr<Player> activePlayer)
 {
     shared_ptr<Hand> hand = activePlayer->getHand();
@@ -125,9 +197,10 @@ void TextDisplay::printHand(shared_ptr<Player> activePlayer)
         }
         cout<<endl;
     }
-    
-
 }
+
+
+// -------------------- PRINT BOARD --------------------
 
 void TextDisplay::printBoard(shared_ptr<Player> activePlayer)
 {

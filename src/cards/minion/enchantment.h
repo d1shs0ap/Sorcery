@@ -19,8 +19,6 @@ class Enchantment : public Minion{
         std::string getAtkChange();
         std::string getDefChange();
         virtual ~Enchantment();
-        // gets minion enchantment is attached to
-        std::shared_ptr<Minion> getAttachedMinion();
 };
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
