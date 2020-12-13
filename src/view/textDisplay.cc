@@ -197,51 +197,17 @@ void TextDisplay::printHelp()
     cout << "board -- Describe all cards on the board." << endl;
 }
 
-// vector<string> TextDisplay::cardVector(Card &card)
-// {
-//     vector<string> result;
-//     result.push_back(horizontalBoard);
-//     string name;
-//     name += "| ";
-//     name += card.getName();
-//     addSpace(name, 24 - card.getName().size());
-//     name += "|";
-//     addSpace(name, 3 - card.getCost() / 10 + 1);
-//     name += to_string(card.getCost());
-//     name += " |";
-//     result.push_back(name);
-//     result.push_back(horizontalBoard);
-//     string type;
-//     type += "|";
-//     addSpace(type, 30 - card.getType().size());
-//     type += card.getType();
-//     type += " |";
-//     result.push_back(type);
-//     result.push_back(horizontalBoard);
-//     string ability{"| Print abilities here...       |"};
-//     result.push_back(emptyLine);
-//     result.push_back(emptyLine);
-//     result.push_back(numberBorder);
-//     string stat;
-//     stat += "| ";
-//     stat += card.atkDisplay();
-//     addSpace(stat, 4 - card.atkDisplay().size());
-//     stat += "|                   |";
-//     addSpace(stat, 4 - card.defDisplay().size());
-//     stat += card.defDisplay();
-//     stat += " |";
-//     result.push_back(stat);
-//     result.push_back(horizontalBoard);
-//     return result;
-// }
 
-// void printCard(Card &card)
-// {
-//     for (i : card)
-//     {
-//         cout << i << endl;
-//     }
-// }
+
+
+
+// -------------------- PRINT INSPECT --------------------
+
+void TextDisplay::printInspect(shared_ptr<Player> activePlayer, int minion) {
+    
+}
+
+
 
 
 // -------------------- PRINT HAND --------------------
@@ -272,6 +238,9 @@ void TextDisplay::printHand(shared_ptr<Player> activePlayer) {
         cout << endl;
     }
 }
+
+
+
 
 
 // -------------------- PRINT BOARD --------------------
