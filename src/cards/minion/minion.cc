@@ -4,7 +4,8 @@ using namespace std;
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 Minion::Minion() {}
-Minion::Minion(std::string name, int owner, int cost, int atk, int def) : Card{name, "Minion", owner, cost}, atk{atk}, def{def} {}
+Minion::Minion(std::string name, int owner, int cost, int atk, int def, std::string type) : 
+Card{name, type, owner, cost}, atk{atk}, def{def} {}
 
 int Minion::getAtk() const { return atk; }
 int Minion::computeAtk() const { return getAtk(); }
@@ -38,6 +39,10 @@ void Minion::attack(shared_ptr<Minion> other)
         --actions;
     }
     this->setDef(this->getDef() - other->computeAtk());
+}
+
+std::shared_ptr<Minion> Minion::getAttachedMinion() {
+    return shared_from_this();
 }
 
 void Minion::useAbility() { std::cout << "calling function Minion::useAbility..." << std::endl; }

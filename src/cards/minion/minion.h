@@ -28,7 +28,7 @@ class Minion : public Card, public std::enable_shared_from_this<Minion>
 
 public:
     Minion();
-    Minion(std::string name, int owner, int cost, int atk, int def);
+    Minion(std::string name, int owner, int cost, int atk, int def, std::string type = "Minion");
 
     int getAtk() const;
     virtual int computeAtk() const;
@@ -50,6 +50,8 @@ public:
     void attack(std::shared_ptr<Minion> minion);
     void useAbility();
     void useAbility(int player, int target);
+
+    virtual std::shared_ptr<Minion> getAttachedMinion();
 
     virtual ~Minion();
     virtual std::vector<std::string> getDisplay() const override;

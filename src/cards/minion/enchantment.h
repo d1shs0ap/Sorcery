@@ -14,39 +14,32 @@ class Enchantment : public Minion{
 
     public:
         Enchantment();
+        Enchantment(std::string name, int owner, int cost, std::string atkChange, std::string defChange);
         void attach(std::shared_ptr<Minion> minion);
         std::shared_ptr<Minion> getAttachedMinion();
-        std::string getAtkChange();
-        std::string getDefChange();
+        std::string getAtkChange() const;
+        std::string getDefChange() const;
+        int computeAtk() const override;
+        int computeDef() const override;
         virtual ~Enchantment();
 };
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 class GiantStrength : public Enchantment{
-
+    GiantStrength(int owner);
     public:
-        virtual int computeAtk() const override;
-        virtual int computeDef() const override;
-        virtual std::vector<std::string> getDisplay() const override;
 };
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 class Enrage : public Enchantment{
+    Enrage(int owner);
     public:
-        virtual int computeAtk() const override;
-        virtual int computeDef() const override;
-        virtual std::vector<std::string> getDisplay() const override;
 };
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-class Delay : public Enchantment
-{
-    // may need more private fields.
-public:
-    virtual std::vector<std::string> getDisplay() const override;
-};
+
 
 #endif
