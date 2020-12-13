@@ -3,8 +3,8 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 Enchantment::Enchantment() {}
 
-Enchantment::Enchantment(std::string name, int owner, int cost, std::string atkChange, std::string defChange) :
-    Minion{name, owner, cost, 0, 0, "Enchantment"}, atkChange{atkChange}, defChange{defChange} {}
+Enchantment::Enchantment(std::string name, int owner, int cost, std::string atkChange, std::string defChange, std::string description) :
+    Minion{name, owner, cost, 0, 0, "Enchantment"}, atkChange{atkChange}, defChange{defChange}, description{description} {}
 
 void Enchantment::attach(std::shared_ptr<Minion> minion) { component = minion; }
 
@@ -61,13 +61,13 @@ int Enchantment::computeDef() const {
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // GiantStrength //////////////////////////////////////////////////////////////////////////////////
 GiantStrength::GiantStrength(int owner) :
-    Enchantment{"Giant Strength", owner, 1, "+2", "+2"} {}
+    Enchantment{"Giant Strength", owner, 1, "+2", "+2", ""} {}
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // Enrage /////////////////////////////////////////////////////////////////////////////////////////
 Enrage::Enrage(int owner) : 
-    Enchantment{"Enrage", owner, 2, "*2", "-2"} {}
+    Enchantment{"Enrage", owner, 2, "*2", "-2", ""} {}
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // Delay //////////////////////////////////////////////////////////////////////////////////////////

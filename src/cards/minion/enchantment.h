@@ -15,7 +15,7 @@ class Enchantment : public Minion{
 
     public:
         Enchantment();
-        Enchantment(std::string name, int owner, int cost, std::string atkChange, std::string defChange);
+        Enchantment(std::string name, int owner, int cost, std::string atkChange, std::string defChange, std::string description);
         void attach(std::shared_ptr<Minion> minion);
         std::shared_ptr<Minion> getAttachedMinion();
         std::string getAtkChange() const;

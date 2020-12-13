@@ -20,6 +20,9 @@ std::shared_ptr<ActivatedAbility> Minion::getActAbility() const { return actAbil
 std::shared_ptr<TriggeredAbility> Minion::getTrgAbility() const { return trgAbility; }
 void Minion::setActAbility(std::shared_ptr<ActivatedAbility> ability) { actAbility = ability; }
 void Minion::setTrgAbility(std::shared_ptr<TriggeredAbility> ability) { trgAbility = ability; }
+bool Minion::hasActAbility() const { return  computeActAbility().get() != nullptr; }
+bool Minion::hasTrgAbility() const { return getTrgAbility().get() != nullptr; }
+std::shared_ptr<ActivatedAbility> Minion::computeActAbility() const {return getActAbility(); }
 
 void Minion::attack(shared_ptr<Player> other)
 {

@@ -40,11 +40,12 @@ public:
     void restoreAction();
 
     bool hasActAbility() const;
-    virtual std::shared_ptr<ActivatedAbility> getActAbility() const;
+    std::shared_ptr<ActivatedAbility> getActAbility() const;
+    virtual std::shared_ptr<ActivatedAbility> computeActAbility() const;
     void setActAbility(std::shared_ptr<ActivatedAbility> ability);
     // checks if minion has triggered ability
     bool hasTrgAbility() const;
-    virtual std::shared_ptr<TriggeredAbility> getTrgAbility() const;
+    std::shared_ptr<TriggeredAbility> getTrgAbility() const;
     void setTrgAbility(std::shared_ptr<TriggeredAbility> ability);
 
     void attack(std::shared_ptr<Player> player);
