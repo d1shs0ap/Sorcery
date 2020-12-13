@@ -13,15 +13,15 @@ class Ritual : public Card, public std::enable_shared_from_this<Ritual>
     // Number of charges, consumed when activating ritual
     int charges;
     // Effect (triggered abillity) of ritual;
-    TriggeredAbility trgAbility;
+    std::shared_ptr<TriggeredAbility> trgAbility;
 
 public:
     Ritual(std::string name, int owner, int cost,
-           int activationCost, int charges, TriggeredAbility trgAbility);
+           int activationCost, int charges, std::shared_ptr<TriggeredAbility> trgAbility);
 
     // accessor and mutator for triggered ability
-    TriggeredAbility getTrgAbility() const;
-    void setTrgAbility(TriggeredAbility ability);
+    std::shared_ptr<TriggeredAbility> getTrgAbility() const;
+    void setTrgAbility(std::shared_ptr<TriggeredAbility> ability);
 
     // Trigger the triggered ability while reducing charges
     bool useTrgAbility(std::shared_ptr<Game> game);
