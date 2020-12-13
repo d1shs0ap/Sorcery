@@ -9,6 +9,7 @@
 class Enchantment : public Minion{
     std::string atkChange;
     std::string defChange;
+    std::string description;
     protected:
         std::shared_ptr<Minion> component;
 
@@ -19,6 +20,7 @@ class Enchantment : public Minion{
         std::shared_ptr<Minion> getAttachedMinion();
         std::string getAtkChange() const;
         std::string getDefChange() const;
+        std::string getDescription() const;
         int computeAtk() const override;
         int computeDef() const override;
         virtual ~Enchantment();

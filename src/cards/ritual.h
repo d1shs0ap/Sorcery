@@ -19,6 +19,9 @@ public:
     Ritual(std::string name, int owner, int cost,
            int activationCost, int charges, std::shared_ptr<TriggeredAbility> trgAbility);
 
+    int getActivationCost();
+    int getCharges();
+
     // accessor and mutator for triggered ability
     std::shared_ptr<TriggeredAbility> getTrgAbility() const;
     void setTrgAbility(std::shared_ptr<TriggeredAbility> ability);

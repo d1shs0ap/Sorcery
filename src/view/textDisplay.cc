@@ -13,15 +13,15 @@ void addSpace(string &s, int n)
 // print template of any card
 vector<string> TextDisplay::printCardTemplate(shared_ptr<Card> card) {
     vector<string> result;
-    result.push_back(HORIZONTAL_LINE);       // |-------------------------------|
-    result.push_back(NAME_LINE);             // |                         |     |
-    result.push_back(HORIZONTAL_LINE);       // |-------------------------------|
-    result.push_back(EMPTY_LINE);            // |                               |
-    result.push_back(HORIZONTAL_LINE);       // |-------------------------------|
+    result.push_back(HORIZONTAL_LINE);              // |-------------------------------|
+    result.push_back(NAME_LINE);                    // |                         |     |
+    result.push_back(HORIZONTAL_LINE);              // |-------------------------------|
+    result.push_back(EMPTY_LINE);                   // |                               |
+    result.push_back(HORIZONTAL_LINE);              // |-------------------------------|
     for (int i = 0; i < CARD_HEIGHT - 6; ++i) {
-        result.push_back(EMPTY_LINE);        // |                               |
+        result.push_back(EMPTY_LINE);               // |                               |
     }
-    result.push_back(HORIZONTAL_LINE);       // |-------------------------------|
+    result.push_back(HORIZONTAL_LINE);              // |-------------------------------|
     
     // Change the name and cost(2nd line)
     string name = card->getName();
@@ -36,6 +36,7 @@ vector<string> TextDisplay::printCardTemplate(shared_ptr<Card> card) {
     return result;
 }
 
+
 // add the description of a card
 void TextDisplay::printDescription(vector<string> &card, string description, int line) {
     int counter = 0;
@@ -44,23 +45,53 @@ void TextDisplay::printDescription(vector<string> &card, string description, int
         card[line + counter].replace(WORD_START, NORMAL_LENGTH, description.substr(counter*NORMAL_LENGTH, NORMAL_LENGTH));
     }
 }
+
+
 // add bottom left box
 void TextDisplay::printLeftBox(vector<string> &card, string boxContent) {
-    card[CARD_HEIGHT - 3].replace(WORD_START - 1, NUMBER_BORDER_LINE.size(), NUMBER_BORDER_LINE); // |------
-    card[CARD_HEIGHT - 2].replace(WORD_START, boxContent.size(), boxContent);                   // | 2
-    card[CARD_HEIGHT - 2].replace(boxContent.size(), 1, "|");                                   // | 2   |
+    card[CARD_HEIGHT - 3].replace(WORD_START - 1, NUMBER_BORDER_LINE.size(), NUMBER_BORDER_LINE);   // |------
+    card[CARD_HEIGHT - 2].replace(WORD_START, boxContent.size(), boxContent);                       // | 2
+    card[CARD_HEIGHT - 2].replace(boxContent.size(), 1, "|");                                       // | 2   |
 }
 // add bottom right box
 void TextDisplay::printRightBox(vector<string> &card, string boxContent) {
     card[CARD_HEIGHT - 3].replace(CARD_WIDTH - 1 - NUMBER_BORDER_LINE.size(), NUMBER_BORDER_LINE.size(), NUMBER_BORDER_LINE);   // ------|
-    card[CARD_HEIGHT - 2].replace(CARD_WIDTH - WORD_START - boxContent.size(), boxContent.size(), boxContent);                    // | 2
+    card[CARD_HEIGHT - 2].replace(CARD_WIDTH - WORD_START - boxContent.size(), boxContent.size(), boxContent);                  //   2   |
     card[CARD_HEIGHT - 2].replace(CARD_WIDTH - 1 - NUMBER_BORDER_LINE.size(), 1, "|");                                          // | 2   |                                                          // | 2   |
 }
+
+
 // add the top left box along with the description (formatting changes since there is box added before description)
-void printTopLeftBoxAndDescription(vector<string> &card, string boxContent, string description);
+void TextDisplay::printTopLeftBoxAndDescription(vector<string> &card, string boxContent, string description) {
+    card[5].replace(WORD_START, boxContent.size(), boxContent);                                 // | 2
+    card[5].replace(boxContent.size(), 1, "|");                                                 // | 2   |
+    card[6].replace(WORD_START - 1, NUMBER_BORDER_LINE.size(), NUMBER_BORDER_LINE);             // |------
+}
 
 
 // -------------------- PRINT CARD FUNCTIONS --------------------
+
+// print minion
+vector<string> TextDisplay::printMinion(shared_ptr<Minion> minion) {
+    vector<string> card = printCardTemplate(minion);
+    // add attack and defence
+    printLeftBox(card, to_string(minion->getAtk()));
+    printRightBox(card, to_string(minion->getDef()));
+
+    // add activated ability from minion
+    if(minion->hasActAbility()) {
+        printTopLeftBoxAndDescription(card, minion->getActAbility()->getDescription(), to_string(minion->getActAbility()->getCost()));
+    }
+    // add triggered ability from minion
+    if(minion->hasActAbility() && minion->hasTrgAbility()) {
+        // when CARD_HEIGHT = 16, 4 lines after activation cost
+        printDescription(card, minion->getTrgAbility()->getDescription(), 5+(CARD_HEIGHT-8)/2);
+    } else if (minion->hasTrgAbility()) {
+        printDescription(card, minion->getTrgAbility()->getDescription(),5);
+    }
+    return card;
+}
+
 
 // print enchantment when it is on board, attached to minions
 vector<string> TextDisplay::printEnchantedMinion(shared_ptr<Enchantment> enchantment) {
@@ -70,42 +101,51 @@ vector<string> TextDisplay::printEnchantedMinion(shared_ptr<Enchantment> enchant
     printLeftBox(card, to_string(enchantment->getAtk()));
     printLeftBox(card, to_string(enchantment->getAtk()));
     // add activated ability from enchantment
-
+    if(enchantment->hasActAbility()) {
+        printTopLeftBoxAndDescription(card, enchantment->getActAbility()->getDescription(), to_string(enchantment->getActAbility()->getCost()));
+    }
     // add triggered ability from enchantment
-
+    if(enchantment->hasActAbility() && enchantment->hasTrgAbility()) {
+        // when CARD_HEIGHT = 16, 4 lines after activation cost
+        printDescription(card, enchantment->getTrgAbility()->getDescription(), 5+(CARD_HEIGHT-8)/2);
+    } else if (enchantment->hasTrgAbility()) {
+        printDescription(card, enchantment->getTrgAbility()->getDescription(),5);
+    }
     return card;
 }
+
+
 // print enchantment when it is in hand
 vector<string> TextDisplay::printEnchantment(shared_ptr<Enchantment> enchantment) {
     vector<string> card = printCardTemplate(enchantment);
+    // add atk/def changes
     if(enchantment->getAtkChange()!=""){
         printLeftBox(card, enchantment->getAtkChange());
     }
     if(enchantment->getDefChange()!=""){
         printRightBox(card, enchantment->getDefChange());
     }
+    // add descriptions
+    printDescription(card, ,5);
     return card;
 }
-// print minion
-vector<string> TextDisplay::printMinion(shared_ptr<Minion> minion) {
-    vector<string> card = printCardTemplate(minion);
-    // add attack and defence
-    printLeftBox(card, to_string(minion->getAtk()));
-    printRightBox(card, to_string(minion->getDef()));
 
-    // check if minion has activated ability
 
-    // check if minion has triggered ability (case split for whether there is an activated ability)
-
-}
 // print spell
 vector<string> TextDisplay::printSpell(shared_ptr<Spell> spell) {
     vector<string> card = printCardTemplate(spell);
     printDescription(card, spell->getDescription(), 5);
     return card;
 }
+
+
 // print ritual
-vector<string> printRitual();
+vector<string> TextDisplay::printRitual(shared_ptr<Ritual> ritual) {
+    vector<string> card = printCardTemplate(ritual);
+    printTopLeftBoxAndDescription(card, ritual->getTrgAbility()->getDescription(), to_string(ritual->getActivationCost()));
+    printRightBox(card, to_string(ritual->getCharges()));
+    return card;
+}
 
 
 // -------------------- PRINT HELP --------------------
