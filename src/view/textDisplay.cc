@@ -1,4 +1,15 @@
 #include "textDisplay.h"
+#include "../cards/card.h"
+#include "../cards/ritual.h"
+#include "../cards/spell.h"
+#include "../cards/minion/minion.h"
+#include "../cards/minion/enchantment.h"
+#include "../game/player.h"
+#include "../cards/minion/triggeredAbility.h"
+#include "../cards/minion/activatedAbility.h"
+#include "../cardCollections/board.h"
+#include "../cardCollections/hand.h"
+
 
 using namespace std;
 

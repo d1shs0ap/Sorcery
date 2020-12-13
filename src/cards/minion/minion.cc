@@ -1,4 +1,7 @@
 #include "minion.h"
+#include "../../game/player.h"
+#include "triggeredAbility.h"
+#include "activatedAbility.h"
 
 using namespace std;
 

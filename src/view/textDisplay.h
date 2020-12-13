@@ -5,9 +5,15 @@
 #include <iostream>
 #include <memory>
 
-#include "../game/game.h"
 
+class Game;
 class Player;
+class Card;
+class Enchantment;
+class Minion;
+class Ritual;
+class Spell;
+
 class TextDisplay { 
     const std::string HORIZONTAL_LINE        {"|-------------------------------|"};
     const std::string NUMBER_BORDER_LINE     {"------"};

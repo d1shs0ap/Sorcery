@@ -1,4 +1,12 @@
 #include "player.h"
+#include "../cardCollections/deck.h"
+#include "../cardCollections/board.h"
+#include "../cardCollections/graveyard.h"
+#include "../cardCollections/hand.h"
+#include "../cards/minion/minion.h"
+#include "../cards/ritual.h"
+#include "../cards/spell.h"
+#include "../cards/minion/enchantment.h"
 
 using namespace std;
 

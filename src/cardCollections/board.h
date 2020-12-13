@@ -4,8 +4,6 @@
 #include <memory>
 #include <vector>
 
-#include "../cards/minion/minion.h"
-
 const int BOARD_CAP = 5;
 
 class Ritual;

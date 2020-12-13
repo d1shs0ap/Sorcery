@@ -1,4 +1,5 @@
 #include "board.h"
+#include "../cards/minion/minion.h"
 
 using namespace std;
 

@@ -4,8 +4,9 @@
 #include <memory>
 #include <vector>
 
-#include "../game/game.h"
-#include "../view/textDisplay.h"
+
+class Game;
+class TextDisplay;
 
 // Receives TEXT input and translate them into model actions
 class TextController {

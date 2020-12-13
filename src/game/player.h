@@ -6,17 +6,12 @@
 #include <vector>
 #include <stdexcept>
 
-#include "../cardCollections/board.h"
-#include "../cardCollections/deck.h"
-#include "../cardCollections/graveyard.h"
-#include "../cardCollections/hand.h"
-#include "../cards/spell.h"
-#include "../cards/minion/enchantment.h"
-
 class Board;
 class Deck;
 class Graveyard;
 class Hand;
+
+class Game;
 
 class Ritual;
 
@@ -68,6 +63,7 @@ public:
 
     void use(int minion);
     void use(int minion, int player, int target);
-    void use(int minion, int player, char ritual);};
+    void use(int minion, int player, char ritual);
+};
 
 #endif

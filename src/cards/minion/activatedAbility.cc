@@ -1,4 +1,5 @@
 #include "activatedAbility.h"
+#include "minion.h"
 
 ActivatedAbility::ActivatedAbility() {}
 

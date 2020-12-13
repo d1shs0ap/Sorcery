@@ -6,10 +6,9 @@
 #include <random>
 #include <chrono>
 
-#include "player.h"
-#include "../cards/ritual.h"
 
 class Player;
+class Minion;
 
 class Game : public std::enable_shared_from_this<Game> {
     // the two players.

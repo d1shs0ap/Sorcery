@@ -3,7 +3,9 @@
 
 #include <string>
 #include "card.h"
-#include "minion/triggeredAbility.h"
+
+class TriggeredAbility;
+class Game;
 
 // Ritual card
 class Ritual : public Card, public std::enable_shared_from_this<Ritual>

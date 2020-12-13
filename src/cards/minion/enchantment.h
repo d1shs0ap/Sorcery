@@ -17,7 +17,7 @@ class Enchantment : public Minion{
         Enchantment();
         Enchantment(std::string name, int owner, int cost, std::string atkChange, std::string defChange, std::string description);
         void attach(std::shared_ptr<Minion> minion);
-        std::shared_ptr<Minion> getAttachedMinion();
+        std::shared_ptr<Minion> getAttachedMinion() override;
         std::string getAtkChange() const;
         std::string getDefChange() const;
         std::string getDescription() const;

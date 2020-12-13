@@ -1,4 +1,13 @@
 #include "textController.h"
+#include "../game/game.h"
+#include "../game/player.h"
+#include "../cardCollections/board.h"
+#include "../cards/minion/triggeredAbility.h"
+#include "../cards/minion/minion.h"
+#include "../view/textDisplay.h"
+#include "../cardCollections/hand.h"
+
+
 
 using namespace std;
 

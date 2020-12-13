@@ -5,7 +5,7 @@
 #include <vector>
 #include <stdexcept>
 
-#include "../cards/card.h"
+class Card;
 
 const int HAND_CAP = 5;
 

@@ -4,7 +4,6 @@
 #include <memory>
 #include <vector>
 
-#include "../view/observer.h"
 
 class Observer;
 

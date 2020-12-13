@@ -2,8 +2,9 @@
 #define SPELL_H
 
 #include <memory>
-class Game;
 #include "card.h"
+
+class Game;
 
 // Spell card
 class Spell : public Card {

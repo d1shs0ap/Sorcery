@@ -1,4 +1,7 @@
 #include "ritual.h"
+#include "../game/game.h"
+#include "minion/triggeredAbility.h"
+
 
 using namespace std;
 

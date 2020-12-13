@@ -6,10 +6,10 @@
 #include <iostream>
 
 #include "../card.h"
-#include "activatedAbility.h"
-#include "triggeredAbility.h"
 
 class Player;
+class TriggeredAbility;
+class ActivatedAbility;
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 class Minion : public Card, public std::enable_shared_from_this<Minion>

@@ -1,4 +1,11 @@
 #include "game.h"
+#include "player.h"
+#include "../cardCollections/board.h"
+#include "../cards/minion/triggeredAbility.h"
+#include "../cards/ritual.h"
+#include "../cards/minion/minion.h"
+
+
 
 using namespace std;
 
@@ -38,7 +45,7 @@ void Game::startTurn() {
     // draw card
     player->draw();
     // Check all triggered abilities (minions and ritual)
-    checkTriggered(START_TURN);
+    checkTriggered(TriggeredAbilityType::START_TURN);
 }
 
 // Does all the end turn game effects
@@ -63,7 +70,7 @@ void Game::checkTriggered(int context) {
 
     if (context==START_TURN || context==END_TURN) {
         // check the active player's ritual and minions for triggered abilities
-        if (ritualTrgAbility.getType()==context) {
+        if (ritualTrgAbility->getType()==context) {
             bool triggered = ritual->useTrgAbility(shared_from_this());
             if (!triggered) {
                 // print message saying that ritual do not have enoguh charges to continue
@@ -72,14 +79,15 @@ void Game::checkTriggered(int context) {
 
         for(auto minion : board->getMinions()) {
             auto trgAbility = minion->getTrgAbility();
-            if (trgAbility.getType()==context) {
-                trgAbility.effect(shared_from_this());
+            if (trgAbility->getType()==context) {
+                //Use minion to call
+                //trgAbility->effect(shared_from_this());
             }
         }
         
 
         // check the enemy player's ritual and minions for triggered abilities
-        if (enemyRitualTrgAbility.getType()==context) {
+        if (enemyRitualTrgAbility->getType()==context) {
             bool triggered = enemyRitual->useTrgAbility(shared_from_this());
             if (!triggered) {
                 // print message saying that ritual do not have enoguh charges to continue
@@ -88,13 +96,14 @@ void Game::checkTriggered(int context) {
 
         for(auto minion : enemyBoard->getMinions()) {
             auto trgAbility = minion->getTrgAbility();
-            if (trgAbility.getType()==context) {
-                trgAbility.effect(shared_from_this());
+            if (trgAbility->getType()==context) {
+                //Use minion to call
+                //trgAbility->effect(shared_from_this());
             }
         }
     } else if (context == MINION_ENTER) { // when the active player's a minion
         // for active player's minions, we also have to check that if its triggered ability is of type "OWN_MINION_ENTER"
-        if (ritualTrgAbility.getType()==MINION_ENTER || ritualTrgAbility.getType()==OWN_MINION_ENTER) {
+        if (ritualTrgAbility->getType()==MINION_ENTER || ritualTrgAbility->getType()==OWN_MINION_ENTER) {
             bool triggered = ritual->useTrgAbility(shared_from_this());
             if (!triggered) {
                 // print message saying that ritual do not have enoguh charges to continue
@@ -103,14 +112,15 @@ void Game::checkTriggered(int context) {
 
         for(auto minion : board->getMinions()) {
             auto trgAbility = minion->getTrgAbility();
-            if (trgAbility.getType()==MINION_ENTER || trgAbility.getType()==OWN_MINION_ENTER) {
-                trgAbility.effect(shared_from_this());
+            if (trgAbility->getType()==MINION_ENTER || trgAbility->getType()==OWN_MINION_ENTER) {
+
+                //trgAbility.effect(shared_from_this());
             }
         }
 
 
         // for enemy's minions, we also have to check that if its triggered ability is of type "ENEMY_MINION_ENTER"
-        if (enemyRitualTrgAbility.getType()==MINION_ENTER || enemyRitualTrgAbility.getType()==ENEMY_MINION_ENTER) {
+        if (enemyRitualTrgAbility->getType()==MINION_ENTER || enemyRitualTrgAbility->getType()==ENEMY_MINION_ENTER) {
             bool triggered = enemyRitual->useTrgAbility(shared_from_this());
             if (!triggered) {
                 // print message saying that ritual do not have enoguh charges to continue
@@ -119,8 +129,8 @@ void Game::checkTriggered(int context) {
 
         for(auto minion : enemyBoard->getMinions()) {
             auto trgAbility = minion->getTrgAbility();
-            if (trgAbility.getType()==MINION_ENTER || trgAbility.getType()==ENEMY_MINION_ENTER) {
-                trgAbility.effect(shared_from_this());
+            if (trgAbility->getType()==MINION_ENTER || trgAbility->getType()==ENEMY_MINION_ENTER) {
+                //trgAbility.effect(shared_from_this());
             }
         }
 

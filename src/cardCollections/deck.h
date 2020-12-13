@@ -4,8 +4,7 @@
 #include <memory>
 #include <vector>
 
-#include "../cards/card.h"
-#include "../cards/minion/minion.h"
+class Card;
 
 class Deck {
     // Cards organized from bottom to top

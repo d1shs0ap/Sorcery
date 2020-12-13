@@ -5,8 +5,6 @@
 #include <string>
 #include <vector>
 
-#include "minion.h"
-#include "../../game/game.h"
 
 class Game;
 class Minion;

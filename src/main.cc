@@ -2,10 +2,17 @@
 #include <string>
 #include <sstream>
 #include <vector>
+#include <fstream>
 
 #include "game/game.h"
 #include "view/textDisplay.h"
 #include "controller/textController.h"
+#include "cardcollections/deck.h"
+#include "cardCollections/board.h"
+#include "cardCollections/hand.h"
+#include "cardCollections/graveyard.h"
+#include "game/player.h"
+#include "game/game.h"
 
 
 using namespace std;
@@ -101,22 +108,22 @@ int main(int argc, char *argv[])
     // -------------------- Creating other game objects --------------------
 
     // board begins empty
-    auto board1 = make_shared<Board>();
-    auto board2 = make_shared<Board>();
+    auto board1 = std::make_shared<Board>();
+    auto board2 = std::make_shared<Board>();
 
     // graveyard begins empty
-    auto graveyard1 = make_shared<Graveyard>();
-    auto graveyard2 = make_shared<Graveyard>();
+    auto graveyard1 = std::make_shared<Graveyard>();
+    auto graveyard2 = std::make_shared<Graveyard>();
     // need to draw 5 cards
-    auto hand1 = make_shared<Hand>();
-    auto hand2 = make_shared<Hand>();
+    auto hand1 = std::make_shared<Hand>();
+    auto hand2 = std::make_shared<Hand>();
     // construct the players
-    auto player1 = make_shared<Player>(name1, 0, board1, deck1, graveyard1, hand1);
-    auto player2 = make_shared<Player>(name2, 1, board2, deck2, graveyard2, hand2);
+    auto player1 = std::make_shared<Player>(name1, 0, board1, deck1, graveyard1, hand1);
+    auto player2 = std::make_shared<Player>(name2, 1, board2, deck2, graveyard2, hand2);
 
-    auto game = make_shared<Game>(player1, player2, seed);
-    auto textDisplay = make_shared<TextDisplay>();
-    auto textController = make_unique<TextController>(game, textDisplay);
+    auto game = std::make_shared<Game>(player1, player2, seed);
+    auto textDisplay = std::make_shared<TextDisplay>();
+    auto textController = std::make_unique<TextController>(game, textDisplay);
 
     // Both players draw 5 cards
     for (int i = 0; i < 5; ++i){

@@ -6,6 +6,9 @@
 #include <random>
 #include <chrono>
 
+#include "../cards/minion/minion.h"
+#include "../cards/card.h"
+
 using namespace std;
 
 Deck::Deck(unsigned seed, int owner)

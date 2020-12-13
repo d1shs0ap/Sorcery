@@ -1,4 +1,5 @@
 #include "hand.h"
+#include "../cards/card.h"
 
 using namespace std;
 
