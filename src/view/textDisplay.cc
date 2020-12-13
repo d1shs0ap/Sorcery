@@ -247,7 +247,20 @@ void TextDisplay::printHelp()
 // -------------------- PRINT HAND --------------------
 
 void TextDisplay::printHand(shared_ptr<Player> activePlayer) {
-    
+    auto hand = activePlayer->getHand();
+    vector<vector<string>> handStr;
+    for (int i; i < hand->getCards().) {
+        string type = card->getType();
+        if(type=="spell") {
+            printSpell();
+        } else if (type=="ritual") {
+            printRitual();
+        } else if (type=="minion") {
+            printMinion()
+        } else if (type=="enchantment") {
+            print
+        }
+    }
 }
 
 
