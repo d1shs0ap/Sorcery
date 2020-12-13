@@ -204,22 +204,9 @@ void TextDisplay::printHelp()
 // -------------------- PRINT INSPECT --------------------
 
 void TextDisplay::printInspect(shared_ptr<Player> activePlayer, int minion) {
-    auto cards = activePlayer->getBoard()->getMinion(minion);
-    vector<string>
-
-    // add each card print string to the board
-    for (int i = 0; i < cards.size(); ++i) {
-        string type = cards[i]->getType();
-        if(type=="spell") {
-            hand[i] = printSpell(dynamic_pointer_cast<Spell>(cards[i]));
-        } else if (type=="ritual") {
-            hand[i] = printRitual(dynamic_pointer_cast<Ritual>(cards[i]));
-        } else if (type=="minion") {
-            hand[i] = printMinion(dynamic_pointer_cast<Minion>(cards[i]));
-        } else if (type=="enchantment") {
-            hand[i] = printEnchantment(dynamic_pointer_cast<Enchantment>(cards[i]));
-        }
-    }
+    auto enchantedMinion() = activePlayer->getBoard()->getMinion(minion);
+    
+    string type = minion->getType();
 
     // now print line by line
     for (int i = 0; i < CARD_HEIGHT; ++i) {
