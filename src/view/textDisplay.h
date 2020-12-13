@@ -25,6 +25,7 @@ class TextDisplay {
     const int CARD_HEIGHT = 16; // changing card height to 16 so a minion can display both of its activated and triggered abilities
     const int NORMAL_LENGTH = CARD_WIDTH - 2*WORD_START;
     const int SHORTENED_LENGTH = NORMAL_LENGTH - NUMBER_BORDER_LINE.size();
+    const int BOARD_WIDTH = 5;
 
     std::shared_ptr<Game> game;
 
@@ -41,7 +42,7 @@ class TextDisplay {
     void printRightBox(std::vector<std::string> &card, std::string boxContent);
     // add the top left box along with the description (formatting changes since there is box added before description)
     void printTopLeftBoxAndDescription(std::vector<std::string> &card, std::string boxContent, std::string description);
-    
+
     // print enchantment when it is on board, attached to minions
     std::vector<std::string> printEnchantedMinion(std::shared_ptr<Enchantment> enchantment);
     // print enchantment when it is in hand
@@ -52,6 +53,9 @@ class TextDisplay {
     std::vector<std::string> printSpell(std::shared_ptr<Spell> spell);
     // print ritual
     std::vector<std::string> printRitual(std::shared_ptr<Ritual> ritual);
+
+    // prints row of vectors (continues row if vector has length > 5)
+    void printRow(std::vector<std::string>);
 
     public:
         // virtual void update(Subject & game) override;

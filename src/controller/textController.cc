@@ -25,7 +25,7 @@ void TextController::end() {
 }
 
 
-// --- Hand interactions ---
+// -------------------- Hand interactions -------------------
 
 // Draws card, only allowed in -testing
 void TextController::draw() {
@@ -106,7 +106,7 @@ void TextController::use(int minion, int targetPlayer, char targetRitual) {
 }
 
 
-// --- Display methods ---
+// ------------------- Display methods --------------------
 
 // Displays list of commands and their formats
 void TextController::help() {
