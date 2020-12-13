@@ -13,10 +13,12 @@ class TextDisplay {
     const std::string NUMBER_BORDER_LINE     {"------"};
     const std::string NAME_LINE              {"|                         |     |"};
     const std::string EMPTY_LINE             {"|                               |"};
+
     const int WORD_START = 2; // words start at index 2
     const int CARD_WIDTH = 33; // card width is 33
     const int CARD_HEIGHT = 16; // changing card height to 16 so a minion can display both of its activated and triggered abilities
     const int NORMAL_LENGTH = CARD_WIDTH - 2*WORD_START;
+    const int SHORTENED_LENGTH = NORMAL_LENGTH - NUMBER_BORDER_LINE.size();
 
     std::shared_ptr<Game> game;
 
