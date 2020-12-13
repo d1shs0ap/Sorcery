@@ -21,14 +21,14 @@ class Minion : public Card, public std::enable_shared_from_this<Minion>
     unsigned int actionsCap = 1;
 
     // Activated abilities cost magic and an action point to use, and work similar to playing a spell card.
-    ActivatedAbility actAbility;
+    std::shared_ptr<ActivatedAbility> actAbility;
 
     // Triggered abilities are activated for free whenever a certain condition is met.
-    TriggeredAbility trgAbility;
+    std::shared_ptr<TriggeredAbility> trgAbility;
 
 public:
     Minion();
-    Minion(std::string name, int owner, int cost, int atk, int def);
+    Minion(std::string name, int owner, int cost, int atk, int def, std::string type = "Minion");
 
     int getAtk() const;
     virtual int computeAtk() const;
@@ -39,17 +39,19 @@ public:
 
     void restoreAction();
 
-    virtual ActivatedAbility getActAbility() const;
-    void setActAbility(ActivatedAbility ability);
+    virtual std::shared_ptr<ActivatedAbility> getActAbility() const;
+    void setActAbility(std::shared_ptr<ActivatedAbility> ability);
     // checks if minion has triggered ability
     bool hasTrgAbility() const;
-    virtual TriggeredAbility getTrgAbility() const;
-    void setTrgAbility(TriggeredAbility ability);
+    virtual std::shared_ptr<TriggeredAbility> getTrgAbility() const;
+    void setTrgAbility(std::shared_ptr<TriggeredAbility> ability);
 
     void attack(std::shared_ptr<Player> player);
     void attack(std::shared_ptr<Minion> minion);
     void useAbility();
     void useAbility(int player, int target);
+
+    virtual std::shared_ptr<Minion> getAttachedMinion();
 
     virtual ~Minion();
     virtual std::vector<std::string> getDisplay() const override;

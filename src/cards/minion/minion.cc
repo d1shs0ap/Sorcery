@@ -4,7 +4,8 @@ using namespace std;
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 Minion::Minion() {}
-Minion::Minion(std::string name, int owner, int cost, int atk, int def) : Card{name, "Minion", owner, cost}, atk{atk}, def{def} {}
+Minion::Minion(std::string name, int owner, int cost, int atk, int def, std::string type) : 
+Card{name, type, owner, cost}, atk{atk}, def{def} {}
 
 int Minion::getAtk() const { return atk; }
 int Minion::computeAtk() const { return getAtk(); }
@@ -15,10 +16,10 @@ void Minion::setDef(int new_def) { def = new_def; }
 
 void Minion::restoreAction() { actions = actionsCap; }
 
-ActivatedAbility Minion::getActAbility() const { return actAbility; }
-TriggeredAbility Minion::getTrgAbility() const { return trgAbility; }
-void Minion::setActAbility(ActivatedAbility ability) { actAbility = ability; }
-void Minion::setTrgAbility(TriggeredAbility ability) { trgAbility = ability; }
+std::shared_ptr<ActivatedAbility> Minion::getActAbility() const { return actAbility; }
+std::shared_ptr<TriggeredAbility> Minion::getTrgAbility() const { return trgAbility; }
+void Minion::setActAbility(std::shared_ptr<ActivatedAbility> ability) { actAbility = ability; }
+void Minion::setTrgAbility(std::shared_ptr<TriggeredAbility> ability) { trgAbility = ability; }
 
 void Minion::attack(shared_ptr<Player> other)
 {
@@ -40,6 +41,10 @@ void Minion::attack(shared_ptr<Minion> other)
     this->setDef(this->getDef() - other->computeAtk());
 }
 
+std::shared_ptr<Minion> Minion::getAttachedMinion() {
+    return shared_from_this();
+}
+
 void Minion::useAbility() { std::cout << "calling function Minion::useAbility..." << std::endl; }
 
 std::vector<std::string> Minion::getDisplay() const
@@ -57,19 +62,19 @@ EarthElemental::EarthElemental(int owner)
 Bomb::Bomb(int owner)
     : Minion{"Bomb", owner, 2, 1, 2}
 {
-    Minion::setTrgAbility(DieDamage());
+    Minion::setTrgAbility(std::make_shared<DieDamage>());
 }
 
 FireElemental::FireElemental(int owner)
     : Minion{"Fire Elemental", owner, 2, 2, 2}
 {
-    Minion::setTrgAbility(EnterDamage());
+    Minion::setTrgAbility(std::make_shared<EnterDamage>());
 }
 
 PotionSeller::PotionSeller(int owner)
     : Minion{"Potion Seller", owner, 2, 1, 3}
 {
-    Minion::setTrgAbility(EndGainDef());
+    Minion::setTrgAbility(std::make_shared<EndGainDef>());
 }
 
 NovicePyromancer::NovicePyromancer(int owner)

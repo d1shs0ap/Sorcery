@@ -3,44 +3,72 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 Enchantment::Enchantment() {}
 
+Enchantment::Enchantment(std::string name, int owner, int cost, std::string atkChange, std::string defChange) :
+    Minion{name, owner, cost, 0, 0, "Enchantment"}, atkChange{atkChange}, defChange{defChange} {}
+
 void Enchantment::attach(std::shared_ptr<Minion> minion) { component = minion; }
+
+std::string Enchantment::getAtkChange() const{ return atkChange; }
+
+std::string Enchantment::getDefChange() const { return defChange; }
+
+std::shared_ptr<Minion> Enchantment::getAttachedMinion() {
+    return component->getAttachedMinion();
+}
+
+int Enchantment::computeAtk() const {
+    if(atkChange.compare("") == 0){
+        return component->computeAtk() + getAtk();
+    } else{
+        if(atkChange.substr(0, 1).compare("+") == 0){
+            int magnitude = std::stoi(atkChange.substr(1));
+            return component->computeAtk() + magnitude + getAtk();
+        } else if(atkChange.substr(0, 1).compare("-") == 0){
+            int magnitude = std::stoi(atkChange.substr(1));
+            return component->computeAtk() - magnitude + getAtk();
+        } else if(atkChange.substr(0, 1).compare("*") == 0){
+            int magnitude = std::stoi(atkChange.substr(1));
+            return component->computeAtk() * magnitude + getAtk();
+        } else{
+            int magnitude = std::stoi(atkChange.substr(1));
+            return component->computeAtk() / magnitude + getAtk();
+        }
+    }
+
+}
+
+int Enchantment::computeDef() const {
+    if(defChange.compare("") == 0){
+        return component->computeDef() + getDef();
+    } else{
+        if(defChange.substr(0, 1).compare("+") == 0){
+            int magnitude = std::stoi(defChange.substr(1));
+            return component->computeDef() + magnitude + getDef();
+        } else if(defChange.substr(0, 1).compare("-") == 0){
+            int magnitude = std::stoi(defChange.substr(1));
+            return component->computeDef() - magnitude + getDef();
+        } else if(defChange.substr(0, 1).compare("*") == 0){
+            int magnitude = std::stoi(defChange.substr(1));
+            return component->computeDef() * magnitude + getDef();
+        } else{
+            int magnitude = std::stoi(defChange.substr(1));
+            return component->computeDef() / magnitude + getDef();
+        }
+    }
+
+}
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // GiantStrength //////////////////////////////////////////////////////////////////////////////////
-int GiantStrength::computeAtk() const { return component->computeAtk() + atkBoost + getAtk(); }
-int GiantStrength::computeDef() const { return component->computeDef() + defBoost + getDef(); }
-std::vector<std::string> GiantStrength::getDisplay() const
-{
-    std::string line0{"|                               |"};
-    std::string line1{"|------                   ------|"};
-    std::string line2{"| +2  |                   |  +2 |"};
-    std::vector<std::string> result{line0, line0, line0,
-                                    line1, line2};
-    // should not have used constants but good enough for now. (Dec.12)
-}
+GiantStrength::GiantStrength(int owner) :
+    Enchantment{"Giant Strength", owner, 1, "+2", "+2"} {}
+
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // Enrage /////////////////////////////////////////////////////////////////////////////////////////
-int Enrage::computeAtk() const { return component->computeAtk() * atkScale + getAtk(); }
-int Enrage::computeDef() const { return component->computeDef() - defWound + getDef(); }
-std::vector<std::string> Enrage::getDisplay() const
-{
-    std::string line0{"|                               |"};
-    std::string line1{"|------                   ------|"};
-    std::string line2{"| *2  |                   |  -2 |"};
-    std::vector<std::string> result{line0, line0, line0,
-                                    line1, line2};
-    // should not have used constants but good enough for now. (Dec.12)
-}
+Enrage::Enrage(int owner) : 
+    Enchantment{"Enrage", owner, 2, "*2", "-2"} {}
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // Delay //////////////////////////////////////////////////////////////////////////////////////////
-std::vector<std::string> Delay::getDisplay() const
-{
-    std::string line1{"| Enchanted minion does not gai |"};
-    std::string line2{"| n an action on their next tur |"};
-    std::string line3{"| n. This enchantement is autom |"};
-    std::string line4{"| atically destroyed after 1 tu |"};
-    std::string line5{"| rn                            |"};
-    std::vector<std::string> result{line1, line2, line3, line4, line5};
-}
+
