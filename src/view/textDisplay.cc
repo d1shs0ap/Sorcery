@@ -2,6 +2,45 @@
 
 using namespace std;
 
+void addSpace(string &s, int n)
+{
+    for (int i = 0; i < n; ++i)
+        s += " ";
+}
+
+// print template of any card
+vector<string> TextDisplay::printCardTemplate() {
+    vector<string> result;
+    result.push_back(horizontalLine);       // |-------------------------------|
+    result.push_back(nameLine);             // |                         |     |
+    result.push_back(horizontalLine);       // |-------------------------------|
+    result.push_back(emptyLine);            // |                               |
+    result.push_back(horizontalLine);       // |-------------------------------|
+    result.push_back(emptyLine);            // |                               |
+    result.push_back(emptyLine);            // |                               |
+    result.push_back(emptyLine);            // |                               |
+    result.push_back(emptyLine);            // |                               |
+    result.push_back(emptyLine);            // |                               |
+    result.push_back(horizontalLine);       // |-------------------------------|
+    
+}
+
+// print enchantment when it is on board, attached to minions
+vector<string> TextDisplay::printEnchantedMinion(shared_ptr<Enchantment> enchantment) {
+    auto minion = enchantment->getAttachedMinion();
+
+}
+// print enchantment when it is in hand
+vector<string> printEnchantment();
+// print minion
+vector<string> printMinion();
+// print spell
+vector<string> TextDisplay::printSpell(shared_ptr<Spell> spell) {
+    vector<string> result = printCardTemplate();
+}
+// print ritual
+vector<string> printRitual();
+
 void TextDisplay::printHelp()
 {
     cout << "Commands:" << endl;
@@ -17,19 +56,9 @@ void TextDisplay::printHelp()
     cout << "board -- Describe all cards on the board." << endl;
 }
 
-void addSpace(string &s, int n)
-{
-    for (int i = 0; i < n; ++i)
-        s += " ";
-}
-
-const string horizontalBoard{"|-------------------------------|"};
-const string emptyLine{"|                               |"};
-const string numberBorder{"|------                   ------|"};
-
-// std::vector<string> TextDisplay::cardVector(Card &card)
+// vector<string> TextDisplay::cardVector(Card &card)
 // {
-//     std::vector<string> result;
+//     vector<string> result;
 //     result.push_back(horizontalBoard);
 //     string name;
 //     name += "| ";
@@ -37,7 +66,7 @@ const string numberBorder{"|------                   ------|"};
 //     addSpace(name, 24 - card.getName().size());
 //     name += "|";
 //     addSpace(name, 3 - card.getCost() / 10 + 1);
-//     name += std::to_string(card.getCost());
+//     name += to_string(card.getCost());
 //     name += " |";
 //     result.push_back(name);
 //     result.push_back(horizontalBoard);
@@ -69,14 +98,14 @@ const string numberBorder{"|------                   ------|"};
 // {
 //     for (i : card)
 //     {
-//         cout << i << std::endl;
+//         cout << i << endl;
 //     }
 // }
 
-void TextDisplay::printHand(std::shared_ptr<Player> activePlayer)
+void TextDisplay::printHand(shared_ptr<Player> activePlayer)
 {
     shared_ptr<Hand> hand = activePlayer->getHand();
-    std::vector<std::shared_ptr<Card>> cards = hand->getCards();
+    vector<shared_ptr<Card>> cards = hand->getCards();
     vector<vector<string>> texts;
     for(auto i:cards){
         texts.push_back(cardVector(*i));
@@ -100,7 +129,7 @@ void TextDisplay::printHand(std::shared_ptr<Player> activePlayer)
 
 }
 
-void TextDisplay::printBoard(std::shared_ptr<Player> activePlayer)
+void TextDisplay::printBoard(shared_ptr<Player> activePlayer)
 {
     for (int i = 0; i < 56; i++)
     {

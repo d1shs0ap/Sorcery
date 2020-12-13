@@ -15,6 +15,8 @@ class Enchantment : public Minion{
         Enchantment();
         void attach(std::shared_ptr<Minion> minion);
         virtual ~Enchantment();
+        // gets minion enchantment is attached to
+        std::shared_ptr<Minion> getAttachedMinion();
 };
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
