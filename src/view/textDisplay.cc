@@ -89,38 +89,6 @@ void TextDisplay::printTopLeftBoxAndDescription(vector<string> &card, string box
     }
 }
 
-// prints row of vectors (continues row if vector has length > 5)
-void TextDisplay::printRow(vector<shared_ptr<Card>> cards, int printLocation) {
-    vector<vector<string>> cardsStr;
-
-    // add each card print string to the hand
-    for (int i = 0; i < cards.size(); ++i) {
-        string type = cards[i]->getType();
-        if(type=="Spell") {
-            cardsStr[i] = printSpell(dynamic_pointer_cast<Spell>(cards[i]));
-        } else if (type=="Ritual") {
-            cardsStr[i] = printRitual(dynamic_pointer_cast<Ritual>(cards[i]));
-        } else if (type=="Minion") {
-            cardsStr[i] = printMinion(dynamic_pointer_cast<Minion>(cards[i]));
-        } else if (type=="Enchantment") {
-            // if we are printing from inspect, then it will be a minion followed by list of enchantment cards
-            // if we are printing from hand, then it will be the enchantment card in hand
-            if(printLocation==INSPECT || printLocation==HAND) {
-                cardsStr[i] = printEnchantment(dynamic_pointer_cast<Enchantment>(cards[i]));
-                cardsStr[i] = printEnchantment(dynamic_pointer_cast<Enchantment>(cards[i]));
-            }
-        } else {
-            // error
-        }
-    }
-
-    // here i*BOARD_WIDTH is the cards already printed, (i+1)*BOARD_WIDTH going to be number of cards we are finished printing
-    for (int i = 0; (i+1)*BOARD_WIDTH < cards.size(); ++i) {
-        for (int j = i*BOARD_WIDTH; j < (i+1)*BOARD_WIDTH; j++) {
-            print();
-        }
-    }
-}
 
 
 
@@ -221,7 +189,67 @@ vector<string> TextDisplay::printRitual(shared_ptr<Ritual> ritual) {
 }
 
 
+// prints row of vectors (continues row if vector has length > 5)
+void TextDisplay::printRow(vector<shared_ptr<Card>> cards, int printLocation) {
+    vector<vector<string>> cardsStr;
 
+    // add each card print string to the hand
+    for (int i = 0; i < cards.size(); ++i) {
+        string type = cards[i]->getType();
+        if(type=="Spell") {
+            cardsStr[i] = printSpell(dynamic_pointer_cast<Spell>(cards[i]));
+        
+        } else if (type=="Ritual") {
+            cardsStr[i] = printRitual(dynamic_pointer_cast<Ritual>(cards[i]));
+        
+        } else if (type=="Minion") {
+            cardsStr[i] = printMinion(dynamic_pointer_cast<Minion>(cards[i]));
+        
+        } else if (type=="Enchantment") {
+            auto enchantment = dynamic_pointer_cast<Enchantment>(cards[i]);
+
+            // if we are printing from inspect, then it will be a minion followed by list of enchantment cards
+            // if we are printing from hand, then it will be the enchantment card in hand
+            if(printLocation==INSPECT || printLocation==HAND) {
+                cardsStr[i] = printEnchantment(enchantment);
+            
+            // if we are printing from board, then we are printing the enchanted minion
+            } else if (printLocation==BOARD) {
+                cardsStr[i] = printEnchantedMinion(enchantment);
+            }
+        } else {
+            // error
+        }
+    }
+
+    // print cards from 0 to cards.size() to cards.size() - (card.size() mod 5)
+    // each turn we print index 0 to BOARD_WIDTH - 1
+    int cardRowCounter = 0;
+    while ((cardRowCounter+1)*BOARD_WIDTH <= cards.size()) {
+        // iterate through each character row
+        for  (int i = 0; i < CARD_HEIGHT; ++i) {
+            
+            // iterate through all cards for each charcter row
+            for (int j = cardRowCounter*BOARD_WIDTH; j < (cardRowCounter+1)*BOARD_WIDTH; j++) {
+                // card j, row i, card j+1, row i, ...
+                cout << cardsStr[j][i];
+            }
+            cout << endl;
+        }
+        ++ cardRowCounter;
+    }
+
+    // print the rest (mod 5 remnant)
+    for (int i = 0; i < CARD_HEIGHT; ++i) {
+        
+        // iterate through all cards for each charcter row
+        for (int j = cardRowCounter*BOARD_WIDTH; j < cards.size(); j++) {
+            // card j, row i, card j+1, row i, ...
+            cout << cardsStr[j][i];
+        }
+        cout << endl;
+    }
+}
 
 
 // -------------------- PRINT HELP --------------------
@@ -247,40 +275,34 @@ void TextDisplay::printHelp()
 
 // -------------------- PRINT INSPECT --------------------
 
-void TextDisplay::printInspect(shared_ptr<Player> activePlayer, int minion) {
-    auto card = activePlayer->getBoard()->getMinion(minion);
-    string type = card->getType();
+// void TextDisplay::printInspect(shared_ptr<Player> activePlayer, int minion) {
+//     auto card = activePlayer->getBoard()->getMinion(minion);
+//     string type = card->getType();
 
-    // print the minion, if it is of type minion
-    if (type == "Minion"){
-        vector<string> minionStr = printMinion(card);
-        for (int i = 0; i < minionStr.size(); minionStr) {
-            cout << minionStr[i];
-        }
-        cout << endl;
-    }
-    // if type enchantment, first get the minion under enchantment the n print enchantments
-    if (type == "Enchantment"){
+//     // print the minion, if it is of type minion
+//     if (type == "Minion"){
+//         vector<string> minionStr = printMinion(card);
+//         for (int i = 0; i < minionStr.size(); minionStr) {
+//             cout << minionStr[i];
+//         }
+//         cout << endl;
+//     }
+//     // if type enchantment, first get the minion under enchantment the n print enchantments
+//     if (type == "Enchantment"){
 
-        // enchantment at the top
-        auto topEnchantment = dynamic_pointer_cast<Enchantment>(card);
-        // print minion under enchantment
-        auto bottomMinion = topEnchantment->getAttachedMinion();
-        vector<string> minionStr = printMinion(bottomMinion);
-        for (int i = 0; i < minionStr.size(); minionStr) {
-            cout << minionStr[i];
-        }
-        cout << endl;
+//         // enchantment at the top
+//         auto topEnchantment = dynamic_pointer_cast<Enchantment>(card);
+//         // print minion under enchantment
+//         auto bottomMinion = topEnchantment->getAttachedMinion();
+//         vector<string> minionStr = printMinion(bottomMinion);
+//         printSingleCard;
 
-        // print all enchantments
-        auto enchantments = topEnchantment->getEnchantmentList();
-        vector<vector<string>> enchantmentStr;
-        for(int i = 0; i < enchantments.size(); ++i) {
-
-        }
+//         // print all enchantments
+//         auto enchantments = topEnchantment->getEnchantmentList();
+//         printRow(enchantments, INSPECT);
 
         
-    }
+//     }
 }
 
 
@@ -290,31 +312,8 @@ void TextDisplay::printInspect(shared_ptr<Player> activePlayer, int minion) {
 
 void TextDisplay::printHand(shared_ptr<Player> activePlayer) {
     auto cards = activePlayer->getHand()->getCards();
-    vector<vector<string>> hand;
 
-    // add each card print string to the hand
-    for (int i = 0; i < cards.size(); ++i) {
-        string type = cards[i]->getType();
-        if(type=="spell") {
-            hand[i] = printSpell(dynamic_pointer_cast<Spell>(cards[i]));
-        } else if (type=="ritual") {
-            hand[i] = printRitual(dynamic_pointer_cast<Ritual>(cards[i]));
-        } else if (type=="minion") {
-            hand[i] = printMinion(dynamic_pointer_cast<Minion>(cards[i]));
-        } else if (type=="enchantment") {
-            hand[i] = printEnchantment(dynamic_pointer_cast<Enchantment>(cards[i]));
-        } else {
-            // error
-        }
-    }
-
-    // now print line by line
-    for (int i = 0; i < CARD_HEIGHT; ++i) {
-        for (auto card : hand) {
-            cout << card[i];
-        }
-        cout << endl;
-    }
+    printRow(cards, HAND);
 }
 
 
