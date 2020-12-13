@@ -16,10 +16,10 @@ void Minion::setDef(int new_def) { def = new_def; }
 
 void Minion::restoreAction() { actions = actionsCap; }
 
-ActivatedAbility Minion::getActAbility() const { return actAbility; }
-TriggeredAbility Minion::getTrgAbility() const { return trgAbility; }
-void Minion::setActAbility(ActivatedAbility ability) { actAbility = ability; }
-void Minion::setTrgAbility(TriggeredAbility ability) { trgAbility = ability; }
+std::shared_ptr<ActivatedAbility> Minion::getActAbility() const { return actAbility; }
+std::shared_ptr<TriggeredAbility> Minion::getTrgAbility() const { return trgAbility; }
+void Minion::setActAbility(std::shared_ptr<ActivatedAbility> ability) { actAbility = ability; }
+void Minion::setTrgAbility(std::shared_ptr<TriggeredAbility> ability) { trgAbility = ability; }
 
 void Minion::attack(shared_ptr<Player> other)
 {
@@ -62,19 +62,19 @@ EarthElemental::EarthElemental(int owner)
 Bomb::Bomb(int owner)
     : Minion{"Bomb", owner, 2, 1, 2}
 {
-    Minion::setTrgAbility(DieDamage());
+    Minion::setTrgAbility(std::make_shared<DieDamage>());
 }
 
 FireElemental::FireElemental(int owner)
     : Minion{"Fire Elemental", owner, 2, 2, 2}
 {
-    Minion::setTrgAbility(EnterDamage());
+    Minion::setTrgAbility(std::make_shared<EnterDamage>());
 }
 
 PotionSeller::PotionSeller(int owner)
     : Minion{"Potion Seller", owner, 2, 1, 3}
 {
-    Minion::setTrgAbility(EndGainDef());
+    Minion::setTrgAbility(std::make_shared<EndGainDef>());
 }
 
 NovicePyromancer::NovicePyromancer(int owner)
