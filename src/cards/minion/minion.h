@@ -3,6 +3,7 @@
 
 #include <memory>
 #include <string>
+#include <iostream>
 
 #include "../card.h"
 #include "activatedAbility.h"

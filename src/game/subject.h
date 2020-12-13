@@ -1,7 +1,10 @@
 #ifndef SUBJECT_H
 #define SUBJECT_H
+
 #include <memory>
 #include <vector>
+
+#include "../view/observer.h"
 
 class Observer;
 
