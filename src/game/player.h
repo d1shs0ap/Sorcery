@@ -16,6 +16,9 @@
 class Board;
 class Deck;
 class Graveyard;
+class Hand;
+
+class Ritual;
 
 class Player
 {
@@ -65,7 +68,6 @@ public:
 
     void use(int minion);
     void use(int minion, int player, int target);
-    void use(int minion, int player, char ritual);
-};
+    void use(int minion, int player, char ritual);};
 
 #endif

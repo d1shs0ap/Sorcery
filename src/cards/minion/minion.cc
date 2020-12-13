@@ -1,7 +1,4 @@
 #include "minion.h"
-#include "../../game/player.h"
-
-#include <iostream>
 
 using namespace std;
 
@@ -45,8 +42,8 @@ void Minion::attack(shared_ptr<Minion> other)
 
 void Minion::useAbility() { std::cout << "calling function Minion::useAbility..." << std::endl; }
 
-std::vector<std::string> Minion::getDisplay() const{ 
-    
+std::vector<std::string> Minion::getDisplay() const
+{
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
