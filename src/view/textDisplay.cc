@@ -43,6 +43,7 @@ void TextDisplay::printDescription(vector<string> &card, string description, int
     // each line is NORMAL_LENGTH, counter*NORMAL_LENGTH is the amount of length we have already printed
     while (counter*NORMAL_LENGTH < description.size()) {
         card[line + counter].replace(WORD_START, NORMAL_LENGTH, description.substr(counter*NORMAL_LENGTH, NORMAL_LENGTH));
+        ++counter;
     }
 }
 
@@ -69,7 +70,18 @@ void TextDisplay::printTopLeftBoxAndDescription(vector<string> &card, string box
     card[6].replace(WORD_START - 1, NUMBER_BORDER_LINE.size(), NUMBER_BORDER_LINE);             // |------
 
     // description
+    int counter = 0;
+    // each line is NORMAL_LENGTH, counter*NORMAL_LENGTH is the amount of length we have already printed
+    while (counter*SHORTENED_LENGTH < description.size()) {
+        card[5 + counter].replace(WORD_START+NUMBER_BORDER_LINE.size(), SHORTENED_LENGTH, description.substr(counter*SHORTENED_LENGTH, SHORTENED_LENGTH));
+        ++counter;
+    }
 }
+
+
+
+
+
 
 
 // -------------------- PRINT CARD FUNCTIONS --------------------
@@ -163,6 +175,9 @@ vector<string> TextDisplay::printRitual(shared_ptr<Ritual> ritual) {
     printRightBox(card, to_string(ritual->getCharges()));
     return card;
 }
+
+
+
 
 
 // -------------------- PRINT HELP --------------------
