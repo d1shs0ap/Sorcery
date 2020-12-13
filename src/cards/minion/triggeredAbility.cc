@@ -1,9 +1,4 @@
 #include "triggeredAbility.h"
-#include "../../game/game.h"
-#include "../../game/player.h"
-#include "../../card-containers/board.h"
-#include "minion.h"
-#include "../ritual.h"
 
 TriggeredAbility::TriggeredAbility(std::string description, TriggeredAbilityType type)
     : description{description}, type{type} {}

@@ -1,6 +1,5 @@
 #include "textDisplay.h"
-#include "../cards/card.h"
-#include "../game/player.h"
+
 using namespace std;
 
 void TextDisplay::printHelp()

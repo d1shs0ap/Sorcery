@@ -3,10 +3,12 @@
 
 #include <memory>
 #include <string>
-class Player;
+
 #include "../card.h"
 #include "activatedAbility.h"
 #include "triggeredAbility.h"
+
+class Player;
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 class Minion : public Card, public std::enable_shared_from_this<Minion>

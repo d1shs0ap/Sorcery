@@ -1,8 +1,4 @@
 #include "minion.h"
-#include "../../game/player.h"
-#include "../../util.h"
-
-#include <iostream>
 
 using namespace std;
 
