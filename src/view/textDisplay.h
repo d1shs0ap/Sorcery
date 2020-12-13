@@ -15,6 +15,8 @@ class Ritual;
 class Spell;
 
 class TextDisplay { 
+    enum PRINT_LOCATION{INSPECT, HAND, BOARD};
+
     const std::string HORIZONTAL_LINE        {"|-------------------------------|"};
     const std::string NUMBER_BORDER_LINE     {"------"};
     const std::string NAME_LINE              {"|                         |     |"};
@@ -55,7 +57,7 @@ class TextDisplay {
     std::vector<std::string> printRitual(std::shared_ptr<Ritual> ritual);
 
     // prints row of vectors (continues row if vector has length > 5)
-    void printRow(std::vector<std::string>);
+    void printRow(std::vector<std::shared_ptr<Card>> cards, int printLocation);
 
     public:
         // virtual void update(Subject & game) override;
