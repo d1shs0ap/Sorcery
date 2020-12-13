@@ -7,21 +7,23 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 class Enchantment : public Minion{
-
+    std::string atkChange;
+    std::string defChange;
     protected:
         std::shared_ptr<Minion> component;
 
     public:
         Enchantment();
         void attach(std::shared_ptr<Minion> minion);
+        std::shared_ptr<Minion> getAttachedMinion();
+        std::string getAtkChange();
+        std::string getDefChange();
         virtual ~Enchantment();
 };
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 class GiantStrength : public Enchantment{
-    const int atkBoost = 2;
-    const int defBoost = 2; 
 
     public:
         virtual int computeAtk() const override;
@@ -32,8 +34,6 @@ class GiantStrength : public Enchantment{
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 class Enrage : public Enchantment{
-    const int atkScale;
-    const int defWound;
     public:
         virtual int computeAtk() const override;
         virtual int computeDef() const override;
