@@ -246,30 +246,9 @@ void TextDisplay::printHelp()
 
 // -------------------- PRINT HAND --------------------
 
-// void TextDisplay::printHand(shared_ptr<Player> activePlayer)
-// {
-//     shared_ptr<Hand> hand = activePlayer->getHand();
-//     vector<shared_ptr<Card>> cards = hand->getCards();
-//     vector<vector<string>> texts;
-//     for(auto i:cards){
-//         texts.push_back(cardVector(*i));
-//     }
-//     int howManyRows=0;
-//     if (texts.size())
-//     {
-//         howManyRows=texts[0].size();
-//     }
-//     int numOfCards=texts.size();
-
-//     for (int i = 0; i < howManyRows; i++)
-//     {
-//         for (int j = 0; j < numOfCards; j++)
-//         {
-//             cout<<texts[i][j];
-//         }
-//         cout<<endl;
-//     }
-// }
+void TextDisplay::printHand(shared_ptr<Player> activePlayer) {
+    
+}
 
 
 // -------------------- PRINT BOARD --------------------
