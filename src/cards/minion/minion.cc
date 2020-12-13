@@ -1,11 +1,14 @@
 #include "minion.h"
+#include "../../game/player.h"
+#include "../../util.h"
+
+#include <iostream>
 
 using namespace std;
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-Minion::Minion(std::string name, int owner, int cost, int atk, int def) : 
-    Card{name, "Minion", owner, cost}, atk{atk}, def{def} {}
 Minion::Minion() {}
+Minion::Minion(std::string name, int owner, int cost, int atk, int def) : Card{name, "Minion", owner, cost}, atk{atk}, def{def} {}
 
 int Minion::getAtk() const { return atk; }
 int Minion::computeAtk() const { return getAtk(); }
@@ -15,15 +18,11 @@ int Minion::computeDef() const { return getDef(); }
 void Minion::setDef(int new_def) { def = new_def; }
 
 void Minion::restoreAction() { actions = actionsCap; }
+
 ActivatedAbility Minion::getActAbility() const { return actAbility; }
 TriggeredAbility Minion::getTrgAbility() const { return trgAbility; }
-void Minion::setActAbility(ActivatedAbility ability){
-    actAbility = ability;
-}
-
-void Minion::setTrgAbility(TriggeredAbility ability){
-    trgAbility = ability;
-}
+void Minion::setActAbility(ActivatedAbility ability) { actAbility = ability; }
+void Minion::setTrgAbility(TriggeredAbility ability) { trgAbility = ability; }
 
 void Minion::attack(shared_ptr<Player> other)
 {
@@ -45,30 +44,25 @@ void Minion::attack(shared_ptr<Minion> other)
     this->setDef(this->getDef() - other->computeAtk());
 }
 
-void Minion::useAbility()
+void Minion::useAbility() { std::cout << "calling function Minion::useAbility..." << std::endl; }
+
+std::vector<std::string> Minion::getDisplay() const
 {
-}
-
-std::string Minion::digitDisplay() const{
-    std::string digitLine;
-    digitLine += "| ";
-    digitLine += std::to_string(atk);
-    for(int i = digitLine.length(); i < 7; i++){
-        digitLine += " ";
-    }
-    digitLine += "|";
-    for(int i = 0; i < 19; i++){
-        digitLine += " ";
-    }
-    digitLine += "|";
-    std::string defStr = std::to_string(def);
-    for(int i = 0; i < 4 - defStr.length(); i++){
-        digitLine += " ";
-    }
-    digitLine += defStr;
-    digitLine += " |";
-    return digitLine;
-
+    std::string emptyLine{"|                               |"};
+    std::string line1{"|------                   ------|"};
+    std::string line2;
+    line2 += "| ";
+    line2 += std::to_string(atk);
+    addChar(line2, ' ', 3 - std::to_string(atk).size());
+    line2 += " |";
+    addChar(line2, ' ', 19);
+    line2 += "| ";
+    addChar(line2, ' ', 3 - std::to_string(def).size());
+    line2 += std::to_string(def);
+    line2 += " |";
+    std::vector<std::string> result{emptyLine, emptyLine, emptyLine,
+                                    line1, line2};
+    return result;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -80,37 +74,34 @@ EarthElemental::EarthElemental(int owner)
     : Minion{"Earth Elemental", owner, 3, 4, 4} {}
 
 Bomb::Bomb(int owner)
-    : Minion{"Bomb", owner, 2, 1, 2} { 
-        Minion::setTrgAbility(DieDamage(shared_from_this()));
-    }
+    : Minion{"Bomb", owner, 2, 1, 2}
+{
+    Minion::setTrgAbility(DieDamage(shared_from_this()));
+}
 
 FireElemental::FireElemental(int owner)
-    : Minion{"Fire Elemental", owner, 2, 2, 2} {
-        Minion::setTrgAbility(EnterDamage(shared_from_this()));
-    }
+    : Minion{"Fire Elemental", owner, 2, 2, 2}
+{
+    Minion::setTrgAbility(EnterDamage(shared_from_this()));
+}
 
 PotionSeller::PotionSeller(int owner)
-    : Minion{"Potion Seller", owner, 2, 1, 3} {
-        Minion::setTrgAbility(EndGainDef(shared_from_this()));
-    }
+    : Minion{"Potion Seller", owner, 2, 1, 3}
+{
+    Minion::setTrgAbility(EndGainDef(shared_from_this()));
+}
 
 NovicePyromancer::NovicePyromancer(int owner)
-    : Minion{"Novice Pyromancer", owner, 1, 0, 1}{
-
-    }
+    : Minion{"Novice Pyromancer", owner, 1, 0, 1}
+{
+}
 
 ApprenticeSummoner::ApprenticeSummoner(int owner)
-    : Minion{"Apprentice Summoner", owner, 2, 1, 3}{
-
-    }
+    : Minion{"Apprentice Summoner", owner, 2, 1, 3}
+{
+}
 
 MasterSummoner::MasterSummoner(int owner)
-    : Minion{"Master Summoner", owner, 3, 2, 3}{
-
-    }
-
-
-
-
-
-
+    : Minion{"Master Summoner", owner, 3, 2, 3}
+{
+}

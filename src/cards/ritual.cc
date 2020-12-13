@@ -2,20 +2,24 @@
 
 using namespace std;
 
-Ritual::Ritual(string name, int owner, int cost, int activationCost, int charges, TriggeredAbility trgAbility) 
+Ritual::Ritual(string name, int owner, int cost, int activationCost, int charges, TriggeredAbility trgAbility)
     : Card{name, "Ritual", owner, cost},
-    activationCost{activationCost}, charges{charges}, trgAbility{trgAbility} {}
+      activationCost{activationCost}, charges{charges}, trgAbility{trgAbility} {}
 
-TriggeredAbility Ritual::getTrgAbility() const {
+TriggeredAbility Ritual::getTrgAbility() const
+{
     return trgAbility;
 }
 
-void Ritual::setTrgAbility(TriggeredAbility ability){
+void Ritual::setTrgAbility(TriggeredAbility ability)
+{
     trgAbility = ability;
 }
 
-bool Ritual::useTrgAbility(shared_ptr<Game> game) {
-    if(charges - activationCost < 0) {
+bool Ritual::useTrgAbility(shared_ptr<Game> game)
+{
+    if (charges - activationCost < 0)
+    {
         return false;
     }
     charges -= activationCost;

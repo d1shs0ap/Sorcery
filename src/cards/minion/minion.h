@@ -3,15 +3,14 @@
 
 #include <memory>
 #include <string>
-
+class Player;
+#include "../card.h"
 #include "activatedAbility.h"
 #include "triggeredAbility.h"
 
-class Player;
-class TriggeredAbility;
-
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-class Minion : public Card, public std::enable_shared_from_this<Minion> {
+class Minion : public Card, public std::enable_shared_from_this<Minion>
+{
     int atk;
     int def;
     // actions is the number of times it is allowed to attack or use an ability in one turn. this can only be 0 or 1 for now.
@@ -36,62 +35,71 @@ public:
     void setDef(int new_def);
 
     void restoreAction();
-    virtual ActivatedAbility getActAbility() const;
-    virtual TriggeredAbility getTrgAbility() const;
-    void setActAbility(ActivatedAbility ability);
-    void setTrgAbility(TriggeredAbility ability);
 
+    virtual ActivatedAbility getActAbility() const;
+    void setActAbility(ActivatedAbility ability);
     // checks if minion has triggered ability
-    bool hasTrgAbility();
+    bool hasTrgAbility() const;
+    virtual TriggeredAbility getTrgAbility() const;
+    void setTrgAbility(TriggeredAbility ability);
 
     void attack(std::shared_ptr<Player> player);
     void attack(std::shared_ptr<Minion> minion);
     void useAbility();
     void useAbility(int player, int target);
 
-    std::string digitDisplay() const override;
+    virtual ~Minion();
+    virtual std::vector<std::string> getDisplay() const override;
 };
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-class AirElemental : public Minion{
-    public:
-        explicit AirElemental(int owner);
+class AirElemental : public Minion
+{
+public:
+    explicit AirElemental(int owner);
 };
 
-class EarthElemental : public Minion{
-    public:
-        explicit EarthElemental(int owner);
+class EarthElemental : public Minion
+{
+public:
+    explicit EarthElemental(int owner);
 };
 
-class Bomb : public Minion{
-    public:
-        explicit Bomb(int owner);
+class Bomb : public Minion
+{
+public:
+    explicit Bomb(int owner);
 };
 
-class FireElemental : public Minion{
-    public:
-        explicit FireElemental(int owner);
+class FireElemental : public Minion
+{
+public:
+    explicit FireElemental(int owner);
 };
 
-class PotionSeller : public Minion{
-    public:
-        explicit PotionSeller(int owner);
+class PotionSeller : public Minion
+{
+public:
+    explicit PotionSeller(int owner);
 };
 
-class NovicePyromancer : public Minion{
-    public:
-        explicit NovicePyromancer(int owner);
+class NovicePyromancer : public Minion
+{
+public:
+    explicit NovicePyromancer(int owner);
 };
 
-class ApprenticeSummoner : public Minion{
-    public:
-        explicit ApprenticeSummoner(int owner);
+class ApprenticeSummoner : public Minion
+{
+public:
+    explicit ApprenticeSummoner(int owner);
 };
 
-class MasterSummoner : public Minion{
-    public:
-        explicit MasterSummoner(int owner);
+class MasterSummoner : public Minion
+{
+public:
+    explicit MasterSummoner(int owner);
 };
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////

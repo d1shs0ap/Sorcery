@@ -12,15 +12,17 @@ class Card
     std::string type;
     int owner;
     int cost;
-    public:
-        Card();
-        Card(std::string name, std::string type, int owner, int cost);
-        std::string getName();
-        std::string getType();
-        int getOwner();
-        int getCost();
-        virtual std::string digitDisplay() const;
-        
+
+public:
+    Card();
+    Card(std::string name, std::string type, int owner, int cost);
+
+    std::string getName() const;
+    std::string getType() const;
+    int getOwner() const;
+    int getCost() const;
+
+    virtual std::vector<std::string> getDisplay() const;
 };
 
 #endif

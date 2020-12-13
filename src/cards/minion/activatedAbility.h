@@ -5,34 +5,33 @@
 #include <vector>
 #include <memory>
 
-#include "../card.h"
-
-class Minion;
 class Game;
+class Card;
+class Minion;
 
-class ActivatedAbility
-{
+class ActivatedAbility{
     std::string description;
     int cost;
     std::shared_ptr<Minion> minion;
 
 
-public:
-    ActivatedAbility();
-    ActivatedAbility(std::string description, int cost, std::shared_ptr<Minion> minion);
-    std::string getDescription() const;
-    int getCost() const;
-    virtual void effect(Game game) const;
-    virtual void effect(Card card) const;
-};
-
-//////////////////////////////////////////////////////////////////////////////////////
-class DamageTarget : public ActivatedAbility{
     public:
-        DamageTarget(std::shared_ptr<Minion> minion);
-        void effect(Game game) const override;
-        void effect(Card card) const override;
-
-
+        ActivatedAbility();
+        ActivatedAbility(std::string description, int cost, std::shared_ptr<Minion> minion);
+        std::string getDescription() const;
+        int getCost() const;
+        virtual void effect(Game game) const;
+        virtual void effect(Card card) const;
 };
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////
+class DamageTarget : public ActivatedAbility
+{
+public:
+    DamageTarget(std::shared_ptr<Minion> minion);
+    void effect(Game game) const override;
+    void effect(Card card) const override;
+};
+
 #endif

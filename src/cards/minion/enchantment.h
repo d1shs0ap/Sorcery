@@ -4,44 +4,48 @@
 
 #include "minion.h"
 
-class Minion;
-
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-class Enchantment : public Minion
-{
-    std::shared_ptr<Minion> component;
+class Enchantment : public Minion{
 
-    std::string atkChanges;
-    std::string defChanges;
+    protected:
+        std::shared_ptr<Minion> component;
 
-public:
-    Enchantment();
-    void attach(std::shared_ptr<Minion> minion);
-    void update();
+    public:
+        Enchantment();
+        void attach(std::shared_ptr<Minion> minion);
+        virtual ~Enchantment();
 };
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-class GiantStrength : public Enchantment
-{
+class GiantStrength : public Enchantment{
+    const int atkBoost = 2;
+    const int defBoost = 2; 
 
-
-public:
-    int computeAtk() const override;
-    int computeDef() const override;
+    public:
+        virtual int computeAtk() const override;
+        virtual int computeDef() const override;
+        virtual std::vector<std::string> getDisplay() const override;
 };
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-class Enrage : public Enchantment
-{
-
-
-public:
-    int computeAtk() const override;
-    int computeDef() const override;
+class Enrage : public Enchantment{
+    const int atkScale;
+    const int defWound;
+    public:
+        virtual int computeAtk() const override;
+        virtual int computeDef() const override;
+        virtual std::vector<std::string> getDisplay() const override;
 };
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////
+class Delay : public Enchantment
+{
+    // may need more private fields.
+public:
+    virtual std::vector<std::string> getDisplay() const override;
+};
 
 #endif
