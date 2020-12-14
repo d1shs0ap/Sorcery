@@ -76,6 +76,7 @@ class TextDisplay {
     void printLogo();
 
     public:
+        TextDisplay(std::shared_ptr<Game> game);
         // virtual void update(Subject & game) override;
         // displays all help commands
         void printHelp();

@@ -15,6 +15,9 @@
 
 using namespace std;
 
+TextDisplay::TextDisplay(shared_ptr<Game> game)
+    : game{game} {}
+
 void addSpace(string &s, int n)
 {
     for (int i = 0; i < n; ++i)

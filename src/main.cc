@@ -123,7 +123,7 @@ int main(int argc, char *argv[])
     auto player2 = std::make_shared<Player>(name2, 1, board2, deck2, graveyard2, hand2);
 
     auto game = std::make_shared<Game>(player1, player2, seed);
-    auto textDisplay = std::make_shared<TextDisplay>();
+    auto textDisplay = std::make_shared<TextDisplay>(game);
     auto textController = std::make_unique<TextController>(game, textDisplay);
     
 
