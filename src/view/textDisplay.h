@@ -73,6 +73,8 @@ class TextDisplay {
     // prints row of vectors (continues row if vector has length > 5)
     void printRow(std::vector<std::vector<string>> cards, int printLocation);
 
+    void printLogo();
+
     public:
         // virtual void update(Subject & game) override;
         // displays all help commands
