@@ -446,7 +446,7 @@ void TextDisplay::printBoard()
     printRow(secondEnemyRow, BOARD);
 
     // print SORCERY logo
-
+    printLogo();
 
     // CURRENT PLAYER
 
