@@ -11,6 +11,8 @@ class Graveyard {
     // minions from bottom to top
     std::vector<std::shared_ptr<Minion>> minions;
     public:
+        bool isEmpty();
+
         std::shared_ptr<Minion> getMinionTop() const;
         // Add new minion to graveyard top
         void addMinionTop(std::shared_ptr<Minion> minion);

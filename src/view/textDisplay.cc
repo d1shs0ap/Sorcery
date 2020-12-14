@@ -9,6 +9,8 @@
 #include "../cards/minion/activatedAbility.h"
 #include "../cardCollections/board.h"
 #include "../cardCollections/hand.h"
+#include "../cardCollections/graveyard.h"
+#include "../game/game.h"
 
 
 using namespace std;
@@ -87,6 +89,37 @@ void TextDisplay::printTopLeftBoxAndDescription(vector<string> &card, string box
         card[5 + counter].replace(WORD_START+NUMBER_BORDER_LINE.size(), SHORTENED_LENGTH, description.substr(counter*SHORTENED_LENGTH, SHORTENED_LENGTH));
         ++counter;
     }
+}
+
+
+
+
+
+
+
+
+// -------------------- PRINT EMPTY CARDS --------------------
+
+// empty space
+vector<string> TextDisplay::emptySpace() {
+    vector<string> emptySpace;
+    for (int i = 0; i < CARD_HEIGHT; ++i) {
+        emptySpace.push_back(EMPTY_SPACE);
+    }
+    return emptySpace;
+}
+// empty card
+vector<string> TextDisplay::emptyCard() {
+    vector<string> emptyCard;
+    emptyCard.push_back(HORIZONTAL_LINE);
+
+    for (int i = 0; i < CARD_HEIGHT - 2; ++i) {
+        emptyCard.push_back(EMPTY_SPACE);
+    }
+
+    emptyCard.push_back(HORIZONTAL_LINE);
+
+    return emptyCard;
 }
 
 
@@ -189,15 +222,12 @@ vector<string> TextDisplay::printRitual(shared_ptr<Ritual> ritual) {
 }
 
 // print a single card
-void TextDisplay::printCard(std::vector<std::string> card) {
+void TextDisplay::printCard(vector<string> card) {
     for (int i = 0; i < CARD_HEIGHT; ++i) {
         cout << card[i];
     }
 }
-
-
-// prints row of vectors (continues row if vector has length > 5)
-void TextDisplay::printRow(vector<shared_ptr<Card>> cards, int printLocation) {
+vector<vector<string>> TextDisplay::getRowString(vector<shared_ptr<Card>> cards, int printLocation) {
     vector<vector<string>> cardsStr;
 
     // add each card print string to the hand
@@ -228,34 +258,68 @@ void TextDisplay::printRow(vector<shared_ptr<Card>> cards, int printLocation) {
             // error
         }
     }
+    return cardsStr;
+}
 
+// prints row of vectors (continues row if vector has length > 5)
+void TextDisplay::printRow(vector<vector<string>> cardsStr, int printLocation) {
     // print cards from 0 to cards.size() to cards.size() - (card.size() mod 5)
     // each turn we print index 0 to BOARD_WIDTH - 1
     int cardRowCounter = 0;
-    while ((cardRowCounter+1)*BOARD_WIDTH <= cards.size()) {
+    int totalCards = cardsStr.size();
+    while ((cardRowCounter+1)*BOARD_WIDTH <= totalCards) {
         // iterate through each character row
         for  (int i = 0; i < CARD_HEIGHT; ++i) {
-            
+
+            // if we are printing a board, add the board outline (left)
+            if(printLocation==BOARD) {
+                cout << '|';
+            }
+
             // iterate through all cards for each charcter row
             for (int j = cardRowCounter*BOARD_WIDTH; j < (cardRowCounter+1)*BOARD_WIDTH; j++) {
                 // card j, row i, card j+1, row i, ...
                 cout << cardsStr[j][i];
             }
+
+            // if we are printing a board, add the board outline (right)
+            if(printLocation==BOARD) {
+                cout << '|';
+            }
             cout << endl;
         }
         ++ cardRowCounter;
     }
+    
+    // complete the board with empty minions
+    if (printLocation == BOARD) {
+        for (int j = 0; j < BOARD_WIDTH - (totalCards % BOARD_WIDTH)); j++) {
+            cardsStr.push_back(emptyCard());
+        }
+    }
 
-    // print the rest (mod 5 remnant)
+    // print the rest (mod 5 remnant), only possible for enchantments
     for (int i = 0; i < CARD_HEIGHT; ++i) {
+
+        // if we are printing a board, add the board outline (left)
+        if(printLocation==BOARD) {
+            cout << '|';
+        }
         
         // iterate through all cards for each charcter row
-        for (int j = cardRowCounter*BOARD_WIDTH; j < cards.size(); j++) {
+        for (int j = cardRowCounter*BOARD_WIDTH; j < totalCards; j++) {
             // card j, row i, card j+1, row i, ...
             cout << cardsStr[j][i];
         }
+
+        // if we are printing a board, add the board outline (right)
+        if(printLocation==BOARD) {
+            cout << '|';
+        }
+
         cout << endl;
     }
+
 }
 
 
@@ -282,8 +346,8 @@ void TextDisplay::printHelp()
 
 // -------------------- PRINT INSPECT --------------------
 
-void TextDisplay::printInspect(shared_ptr<Player> activePlayer, int minion) {
-    auto card = activePlayer->getBoard()->getMinion(minion);
+void TextDisplay::printInspect(int minion) {
+    auto card = game->getActivePlayer()->getBoard()->getMinion(minion);
     string type = card->getType();
 
     // print the minion, if it is of type minion
@@ -306,7 +370,8 @@ void TextDisplay::printInspect(shared_ptr<Player> activePlayer, int minion) {
         // print all enchantments
         vector<shared_ptr<Enchantment>> enchantments = topEnchantment->getEnchantmentList();
         vector<shared_ptr<Card>> cards (enchantments.begin(), enchantments.end());
-        printRow(cards, INSPECT);
+        vector<vector<string>> cardsStr = getRowString(cards, INSPECT);
+        printRow(cardsStr, INSPECT);
     }
 }
 
@@ -315,10 +380,10 @@ void TextDisplay::printInspect(shared_ptr<Player> activePlayer, int minion) {
 
 // -------------------- PRINT HAND --------------------
 
-void TextDisplay::printHand(shared_ptr<Player> activePlayer) {
-    auto cards = activePlayer->getHand()->getCards();
-
-    printRow(cards, HAND);
+void TextDisplay::printHand() {
+    auto cards = game->getActivePlayer()->getHand()->getCards();
+    vector<vector<string>> cardsStr = getRowString(cards, HAND);
+    printRow(cardsStr, HAND);
 }
 
 
@@ -327,88 +392,163 @@ void TextDisplay::printHand(shared_ptr<Player> activePlayer) {
 
 // -------------------- PRINT BOARD --------------------
 
-void TextDisplay::printBoard(shared_ptr<Player> activePlayer)
+void TextDisplay::printBoard()
 {
-    for (int i = 0; i < 56; i++)
-    {
-        for (int j = 0; j < 167; j++)
-        {
-            // print borders
-            if (i == 0 || i == 55)
-            {
-                if (j != 167)
-                {
-                    cout << "-";
-                }
-                else
-                {
-                    cout << "-" << endl;
-                }
-            }
-            else if (j == 0)
-            {
-                cout << "|";
-            }
-            else if (j == 166)
-            {
-                cout << "|" << endl;
-            }
-            else if (i == 23 || i == 32)
-            {
-                cout << "-";
-                // print "_"
-            }
-            else if ((i == 24 && j > 65 && j < 71) || (i == 25 && j > 66 && j < 72) ||
-                     (i == 26 && (j == 67 || j == 68 || j == 69 || j == 73 || j == 74 || j == 75 || j == 78 || j == 80 || j == 81 || j == 83 || j == 84 || j == 85 || j == 87 || j == 88 || j == 89 || j == 91 || j == 93 || j == 94 || j == 96 || j == 100)) ||
-                     (i == 27 && (j == 66 || j == 67 || j == 68 || j == 74 || j == 80 || j == 81 || j == 84 || j == 85 || j == 88 || j == 93 || j == 94)) ||
-                     (i == 28 && (j == 65 || j == 66 || j == 67 || j == 68 || j == 74 || j == 84 || j == 88 || j == 89 || j == 98)) ||
-                     (i == 29 && (j == 65 || j == 66 || j == 67 || j == 68 || j == 69 || j == 73 || j == 74 || j == 75 || j == 78 || j == 83 || j == 84 || j == 85 || j == 87 || j == 88 || j == 89 || j == 91 || j == 97 || j == 98)) ||
-                     (i == 30 && (j == 97 || j == 98)) || (i == 31 && j > 96 && j < 100))
-            {
-                cout << "_";
-                // print "|"
-            }
-            else if ((i == 25 && j == 71) || (i == 26 && j == 64) || (i == 27 && (j == 77 || j == 95 || j == 97 || j == 99 || j == 101)) ||
-                     (i == 28 && (j == 71 || j == 77 || j == 79 || j == 81 || j == 85 || j == 92 || j == 95 || j == 97 || j == 99 || j == 101)) ||
-                     (i == 29 && (j == 64 || j == 77 || j == 79 || j == 90 || j == 92 || j == 101)) || (i == 30 && j == 101) || (i == 31 && j == 96))
-            {
-                cout << "|";
-                // print "/"
-            }
-            else if ((i == 25 && j == 65) || (i == 27 && (j == 72 || j == 82 || j == 86)) || (i == 28 || j == 90) || (i == 29 && (j == 70) || (j == 76)) || (i == 30 && j == 99) || (i == 31 && j == 100))
-            {
-                cout << "/";
-                // print "\"
-            }
-            else if ((i == 27 && (j == 65 || j == 70 || j == 76 || j == 90)) || (i == 29 && (j == 72 || j == 82 || j == 86 || j == 99)))
-            {
-                cout << "\\";
-                // print "("
-            }
-            else if ((i == 26 && j == 66) || (i == 28 && (j == 73 || j == 83)))
-            {
-                cout << "(";
-                // print ")"
-            }
-            else if (i == 28 && j == 75)
-            {
-                cout << ")";
-                // print "'"
-            }
-            else if (i == 27 && (j == 79 || j == 92))
-            {
-                cout << "'";
-                // print ","
-            }
-            else if (i == 29 && j == 99)
-            {
-                cout << ",";
-                // print space
-            }
-            else
-            {
-                cout << " ";
-            }
-        }
+    cout << BOARD_TOP;
+
+    // ENEMY
+
+    auto enemyPlayer = game->getInactivePlayer();
+    auto enemyGraveyard = enemyPlayer->getGraveyard();
+    auto enemyBoard = enemyPlayer->getBoard();
+    vector<vector<string>> firstEnemyRow;
+
+    // check if graveyard is empty
+    if (enemyGraveyard->isEmpty()) {
+        firstEnemyRow.push_back(emptyCard());
+    } else {
+        auto topEnemyMinion = enemyGraveyard->getMinionTop();
+        firstEnemyRow.push_back(printMinion(topEnemyMinion));
     }
+    firstEnemyRow.push_back(emptySpace());
+    //PRINT PLAYER
+    firstEnemyRow.push_back(emptySpace());
+    // check if ritual is empty
+    auto enemyRitual = enemyBoard->getRitual();
+    if (enemyRitual==nullptr) {
+        firstEnemyRow.push_back(emptyCard());
+    } else {
+        firstEnemyRow.push_back(printRitual(enemyRitual));
+    }
+
+    printRow(firstEnemyRow, BOARD);
+
+
+    vector<shared_ptr<Minion>> enemyMinions = enemyBoard->getMinions();
+    vector<shared_ptr<Card>> enemyCards (enemyMinions.begin(), enemyMinions.end());
+    vector<vector<string>> secondEnemyRow = getRowString(enemyCards, BOARD);
+    printRow(secondEnemyRow, BOARD);
+
+    // print SORCERY logo
+
+
+    // CURRENT PLAYER
+
+    auto player = game->getActivePlayer();
+    auto graveyard = player->getGraveyard();
+    auto board = player->getBoard();
+    vector<vector<string>> firstRow;
+
+
+    // check if ritual is empty
+    auto ritual = board->getRitual();
+    if (ritual==nullptr) {
+        firstRow.push_back(emptyCard());
+    } else {
+        firstRow.push_back(printRitual(ritual));
+    }
+    firstRow.push_back(emptySpace());
+    // PRINT PLAYER
+    firstRow.push_back(emptySpace());
+    // check if graveyard is empty
+    if (graveyard->isEmpty()) {
+        firstRow.push_back(emptyCard());
+    } else {
+        auto topMinion = graveyard->getMinionTop();
+        firstRow.push_back(printMinion(topMinion));
+    }
+
+    printRow(firstRow, BOARD);
+
+
+    vector<shared_ptr<Minion>> minions = board->getMinions();
+    vector<shared_ptr<Card>> cards (minions.begin(), minions.end());
+    vector<vector<string>> secondRow = getRowString(cards, BOARD);
+    printRow(secondRow, BOARD);
+
+
+
+
+    // for (int i = 0; i < 56; i++)
+    // {
+    //     for (int j = 0; j < 167; j++)
+    //     {
+    //         // print borders
+    //         if (i == 0 || i == 55)
+    //         {
+    //             if (j != 167)
+    //             {
+    //                 cout << "-";
+    //             }
+    //             else
+    //             {
+    //                 cout << "-" << endl;
+    //             }
+    //         }
+    //         else if (j == 0)
+    //         {
+    //             cout << "|";
+    //         }
+    //         else if (j == 166)
+    //         {
+    //             cout << "|" << endl;
+    //         }
+    //         else if (i == 23 || i == 32)
+    //         {
+    //             cout << "-";
+    //             // print "_"
+    //         }
+    //         else if ((i == 24 && j > 65 && j < 71) || (i == 25 && j > 66 && j < 72) ||
+    //                  (i == 26 && (j == 67 || j == 68 || j == 69 || j == 73 || j == 74 || j == 75 || j == 78 || j == 80 || j == 81 || j == 83 || j == 84 || j == 85 || j == 87 || j == 88 || j == 89 || j == 91 || j == 93 || j == 94 || j == 96 || j == 100)) ||
+    //                  (i == 27 && (j == 66 || j == 67 || j == 68 || j == 74 || j == 80 || j == 81 || j == 84 || j == 85 || j == 88 || j == 93 || j == 94)) ||
+    //                  (i == 28 && (j == 65 || j == 66 || j == 67 || j == 68 || j == 74 || j == 84 || j == 88 || j == 89 || j == 98)) ||
+    //                  (i == 29 && (j == 65 || j == 66 || j == 67 || j == 68 || j == 69 || j == 73 || j == 74 || j == 75 || j == 78 || j == 83 || j == 84 || j == 85 || j == 87 || j == 88 || j == 89 || j == 91 || j == 97 || j == 98)) ||
+    //                  (i == 30 && (j == 97 || j == 98)) || (i == 31 && j > 96 && j < 100))
+    //         {
+    //             cout << "_";
+    //             // print "|"
+    //         }
+    //         else if ((i == 25 && j == 71) || (i == 26 && j == 64) || (i == 27 && (j == 77 || j == 95 || j == 97 || j == 99 || j == 101)) ||
+    //                  (i == 28 && (j == 71 || j == 77 || j == 79 || j == 81 || j == 85 || j == 92 || j == 95 || j == 97 || j == 99 || j == 101)) ||
+    //                  (i == 29 && (j == 64 || j == 77 || j == 79 || j == 90 || j == 92 || j == 101)) || (i == 30 && j == 101) || (i == 31 && j == 96))
+    //         {
+    //             cout << "|";
+    //             // print "/"
+    //         }
+    //         else if ((i == 25 && j == 65) || (i == 27 && (j == 72 || j == 82 || j == 86)) || (i == 28 || j == 90) || (i == 29 && (j == 70) || (j == 76)) || (i == 30 && j == 99) || (i == 31 && j == 100))
+    //         {
+    //             cout << "/";
+    //             // print "\"
+    //         }
+    //         else if ((i == 27 && (j == 65 || j == 70 || j == 76 || j == 90)) || (i == 29 && (j == 72 || j == 82 || j == 86 || j == 99)))
+    //         {
+    //             cout << "\\";
+    //             // print "("
+    //         }
+    //         else if ((i == 26 && j == 66) || (i == 28 && (j == 73 || j == 83)))
+    //         {
+    //             cout << "(";
+    //             // print ")"
+    //         }
+    //         else if (i == 28 && j == 75)
+    //         {
+    //             cout << ")";
+    //             // print "'"
+    //         }
+    //         else if (i == 27 && (j == 79 || j == 92))
+    //         {
+    //             cout << "'";
+    //             // print ","
+    //         }
+    //         else if (i == 29 && j == 99)
+    //         {
+    //             cout << ",";
+    //             // print space
+    //         }
+    //         else
+    //         {
+    //             cout << " ";
+    //         }
+    //     }
+    // }
 }
