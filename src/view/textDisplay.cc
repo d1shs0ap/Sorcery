@@ -188,6 +188,13 @@ vector<string> TextDisplay::printRitual(shared_ptr<Ritual> ritual) {
     return card;
 }
 
+// print a single card
+void TextDisplay::printCard(std::vector<std::string> card) {
+    for (int i = 0; i < CARD_HEIGHT; ++i) {
+        cout << card[i];
+    }
+}
+
 
 // prints row of vectors (continues row if vector has length > 5)
 void TextDisplay::printRow(vector<shared_ptr<Card>> cards, int printLocation) {
@@ -275,34 +282,32 @@ void TextDisplay::printHelp()
 
 // -------------------- PRINT INSPECT --------------------
 
-// void TextDisplay::printInspect(shared_ptr<Player> activePlayer, int minion) {
-//     auto card = activePlayer->getBoard()->getMinion(minion);
-//     string type = card->getType();
+void TextDisplay::printInspect(shared_ptr<Player> activePlayer, int minion) {
+    auto card = activePlayer->getBoard()->getMinion(minion);
+    string type = card->getType();
 
-//     // print the minion, if it is of type minion
-//     if (type == "Minion"){
-//         vector<string> minionStr = printMinion(card);
-//         for (int i = 0; i < minionStr.size(); minionStr) {
-//             cout << minionStr[i];
-//         }
-//         cout << endl;
-//     }
-//     // if type enchantment, first get the minion under enchantment the n print enchantments
-//     if (type == "Enchantment"){
+    // print the minion, if it is of type minion
+    if (type == "Minion"){
+        vector<string> minionStr = printMinion(card);
+        printCard(minionStr);
+        cout << endl;
+    }
+    // if type enchantment, first get the minion under enchantment the n print enchantments
+    if (type == "Enchantment"){
 
-//         // enchantment at the top
-//         auto topEnchantment = dynamic_pointer_cast<Enchantment>(card);
-//         // print minion under enchantment
-//         auto bottomMinion = topEnchantment->getAttachedMinion();
-//         vector<string> minionStr = printMinion(bottomMinion);
-//         printSingleCard;
+        // enchantment at the top
+        auto topEnchantment = dynamic_pointer_cast<Enchantment>(card);
+        // print minion under enchantment
+        auto bottomMinion = topEnchantment->getAttachedMinion();
+        vector<string> minionStr = printMinion(bottomMinion);
+        printCard(minionStr);
+        cout << endl;
 
-//         // print all enchantments
-//         auto enchantments = topEnchantment->getEnchantmentList();
-//         printRow(enchantments, INSPECT);
-
-        
-//     }
+        // print all enchantments
+        vector<shared_ptr<Enchantment>> enchantments = topEnchantment->getEnchantmentList();
+        vector<shared_ptr<Card>> cards (enchantments.begin(), enchantments.end());
+        printRow(cards, INSPECT);
+    }
 }
 
 

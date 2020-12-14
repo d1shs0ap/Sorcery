@@ -56,6 +56,8 @@ class TextDisplay {
     // print ritual
     std::vector<std::string> printRitual(std::shared_ptr<Ritual> ritual);
 
+    // print a single card
+    void printCard(std::vector<std::string> card);
     // prints row of vectors (continues row if vector has length > 5)
     void printRow(std::vector<std::shared_ptr<Card>> cards, int printLocation);
 
