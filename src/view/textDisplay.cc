@@ -18,7 +18,7 @@ using namespace std;
 TextDisplay::TextDisplay(shared_ptr<Game> game)
     : game{game} {}
 
-void addSpace(string &s, int n)
+void TextDisplay::addSpace(string &s, int n)
 {
     for (int i = 0; i < n; ++i)
         s += " ";
@@ -57,8 +57,14 @@ vector<string> TextDisplay::printCardTemplate(shared_ptr<Card> card) {
 void TextDisplay::printDescription(vector<string> &card, string description, int line) {
     int counter = 0;
     // each line is NORMAL_LENGTH, counter*NORMAL_LENGTH is the amount of length we have already printed
-    while (counter*NORMAL_LENGTH < description.size()) {
-        card[line + counter].replace(WORD_START, NORMAL_LENGTH, description.substr(counter*NORMAL_LENGTH, NORMAL_LENGTH));
+    int length = description.size();
+    while (counter*NORMAL_LENGTH < length) {
+        if ((counter+1)*NORMAL_LENGTH > length) {
+            addSpace(description, (counter+1)*NORMAL_LENGTH - description.size());
+            card[line + counter].replace(WORD_START, NORMAL_LENGTH, description.substr(counter*NORMAL_LENGTH, NORMAL_LENGTH));
+        } else {
+            card[line + counter].replace(WORD_START, NORMAL_LENGTH, description.substr(counter*NORMAL_LENGTH, NORMAL_LENGTH));
+        }
         ++counter;
     }
 }
@@ -68,7 +74,7 @@ void TextDisplay::printDescription(vector<string> &card, string description, int
 void TextDisplay::printLeftBox(vector<string> &card, string boxContent) {
     card[CARD_HEIGHT - 3].replace(WORD_START - 1, NUMBER_BORDER_LINE.size(), NUMBER_BORDER_LINE);   // |------
     card[CARD_HEIGHT - 2].replace(WORD_START, boxContent.size(), boxContent);                       // | 2
-    card[CARD_HEIGHT - 2].replace(boxContent.size(), 1, "|");                                       // | 2   |
+    card[CARD_HEIGHT - 2].replace(NUMBER_BORDER_LINE.size(), 1, "|");                                       // | 2   |
 }
 // add bottom right box
 void TextDisplay::printRightBox(vector<string> &card, string boxContent) {
@@ -88,8 +94,14 @@ void TextDisplay::printTopLeftBoxAndDescription(vector<string> &card, string box
     // description
     int counter = 0;
     // each line is NORMAL_LENGTH, counter*NORMAL_LENGTH is the amount of length we have already printed
-    while (counter*SHORTENED_LENGTH < description.size()) {
-        card[5 + counter].replace(WORD_START+NUMBER_BORDER_LINE.size(), SHORTENED_LENGTH, description.substr(counter*SHORTENED_LENGTH, SHORTENED_LENGTH));
+    int length = description.size();
+    while (counter*SHORTENED_LENGTH < length) {
+        if ((counter+1)*SHORTENED_LENGTH > length) {
+            addSpace(description, (counter+1)*SHORTENED_LENGTH - description.size());
+            card[5 + counter].replace(WORD_START+NUMBER_BORDER_LINE.size(), SHORTENED_LENGTH, description.substr(counter*SHORTENED_LENGTH, SHORTENED_LENGTH));
+        } else {
+            card[5 + counter].replace(WORD_START+NUMBER_BORDER_LINE.size(), SHORTENED_LENGTH, description.substr(counter*SHORTENED_LENGTH, SHORTENED_LENGTH));
+        }
         ++counter;
     }
 }
@@ -117,7 +129,7 @@ vector<string> TextDisplay::emptyCard() {
     emptyCard.push_back(HORIZONTAL_LINE);
 
     for (int i = 0; i < CARD_HEIGHT - 2; ++i) {
-        emptyCard.push_back(EMPTY_SPACE);
+        emptyCard.push_back(EMPTY_LINE);
     }
 
     emptyCard.push_back(HORIZONTAL_LINE);
@@ -270,7 +282,14 @@ void TextDisplay::printRow(vector<vector<string>> cardsStr, int printLocation) {
     // each turn we print index 0 to BOARD_WIDTH - 1
     int cardRowCounter = 0;
     int totalCards = cardsStr.size();
-    while ((cardRowCounter+1)*BOARD_WIDTH <= totalCards) {
+    while ((cardRowCounter)*BOARD_WIDTH < totalCards) {
+
+        if((cardRowCounter+1)*BOARD_WIDTH >=totalCards){
+            for (int j = 0; j < BOARD_WIDTH - (totalCards % BOARD_WIDTH); j++) {
+                cardsStr.push_back(emptyCard());
+            }
+        }
+
         // iterate through each character row
         for  (int i = 0; i < CARD_HEIGHT; ++i) {
 
@@ -295,33 +314,33 @@ void TextDisplay::printRow(vector<vector<string>> cardsStr, int printLocation) {
     }
     
     // complete the board with empty minions
-    if (printLocation == BOARD) {
-        for (int j = 0; j < BOARD_WIDTH - (totalCards % BOARD_WIDTH); j++) {
-            cardsStr.push_back(emptyCard());
-        }
-    }
+    // if (printLocation == BOARD) {
+    //     for (int j = 0; j < BOARD_WIDTH - (totalCards % BOARD_WIDTH); j++) {
+    //         cardsStr.push_back(emptyCard());
+    //     }
+    // }
 
-    // print the rest (mod 5 remnant), only possible for enchantments
-    for (int i = 0; i < CARD_HEIGHT; ++i) {
+    // // print the rest (mod 5 remnant), only possible for enchantments
+    // for (int i = 0; i < CARD_HEIGHT; ++i) {
 
-        // if we are printing a board, add the board outline (left)
-        if(printLocation==BOARD) {
-            cout << '|';
-        }
+    //     // if we are printing a board, add the board outline (left)
+    //     if(printLocation==BOARD) {
+    //         cout << '|';
+    //     }
         
-        // iterate through all cards for each charcter row
-        for (int j = cardRowCounter*BOARD_WIDTH; j < totalCards; j++) {
-            // card j, row i, card j+1, row i, ...
-            cout << cardsStr[j][i];
-        }
+    //     // iterate through all cards for each charcter row
+    //     for (int j = cardRowCounter*BOARD_WIDTH; j < totalCards; j++) {
+    //         // card j, row i, card j+1, row i, ...
+    //         cout << cardsStr[j][i];
+    //     }
 
-        // if we are printing a board, add the board outline (right)
-        if(printLocation==BOARD) {
-            cout << '|';
-        }
+    //     // if we are printing a board, add the board outline (right)
+    //     if(printLocation==BOARD) {
+    //         cout << '|';
+    //     }
 
-        cout << endl;
-    }
+    //     cout << endl;
+    // }
 
 }
 
