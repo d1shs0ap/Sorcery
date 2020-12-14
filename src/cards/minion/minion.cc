@@ -27,6 +27,7 @@ void Minion::setTrgAbility(std::shared_ptr<TriggeredAbility> ability) { trgAbili
 bool Minion::hasActAbility() const { return  computeActAbility().get() != nullptr; }
 bool Minion::hasTrgAbility() const { return getTrgAbility().get() != nullptr; }
 std::shared_ptr<ActivatedAbility> Minion::computeActAbility() const {return getActAbility(); }
+std::shared_ptr<TriggeredAbility> Minion::computeTrgAbility() const {return getTrgAbility(); }
 
 void Minion::attack(shared_ptr<Player> other)
 {
@@ -92,14 +93,17 @@ PotionSeller::PotionSeller(int owner)
 NovicePyromancer::NovicePyromancer(int owner)
     : Minion{"Novice Pyromancer", owner, 1, 0, 1}
 {
+    Minion::setActAbility(std::make_shared<DamageTarget>());
 }
 
 ApprenticeSummoner::ApprenticeSummoner(int owner)
     : Minion{"Apprentice Summoner", owner, 2, 1, 3}
 {
+    Minion::setActAbility(std::make_shared<SummonOneAirElemental>());
 }
 
 MasterSummoner::MasterSummoner(int owner)
     : Minion{"Master Summoner", owner, 3, 2, 3}
 {
+    Minion::setActAbility(std::make_shared<SummonThreeAirElemental>());
 }

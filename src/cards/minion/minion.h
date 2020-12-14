@@ -14,51 +14,52 @@ class Enchantment;
 class Game;
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-class Minion : public Card, public std::enable_shared_from_this<Minion>
-{
+class Minion : public Card, public std::enable_shared_from_this<Minion>{
     int atk;
     int def;
     // actions is the number of times it is allowed to attack or use an ability in one turn. this can only be 0 or 1 for now.
-    unsigned int actions = 0;
-    unsigned int actionsCap = 1;
 
     // Activated abilities cost magic and an action point to use, and work similar to playing a spell card.
     std::shared_ptr<ActivatedAbility> actAbility;
 
     // Triggered abilities are activated for free whenever a certain condition is met.
     std::shared_ptr<TriggeredAbility> trgAbility;
+    protected:
+        unsigned int actions = 0;
+        unsigned int actionsCap = 1;
 
-public:
-    Minion();
-    Minion(std::string name, int owner, int cost, int atk, int def, std::string type = "Minion");
+    public:
+        Minion();
+        Minion(std::string name, int owner, int cost, int atk, int def, std::string type = "Minion");
 
-    int getAtk() const;
-    virtual int computeAtk() const;
-    void setAtk(int new_atk);
-    int getDef() const;
-    virtual int computeDef() const;
-    void setDef(int new_def);
+        int getAtk() const;
+        virtual int computeAtk() const;
+        void setAtk(int new_atk);
+        int getDef() const;
+        virtual int computeDef() const;
+        void setDef(int new_def);
 
-    void restoreAction();
+        virtual void restoreAction();
 
-    bool hasActAbility() const;
-    std::shared_ptr<ActivatedAbility> getActAbility() const;
-    virtual std::shared_ptr<ActivatedAbility> computeActAbility() const;
-    void setActAbility(std::shared_ptr<ActivatedAbility> ability);
-    // checks if minion has triggered ability
-    bool hasTrgAbility() const;
-    std::shared_ptr<TriggeredAbility> getTrgAbility() const;
-    void setTrgAbility(std::shared_ptr<TriggeredAbility> ability);
+        bool hasActAbility() const;
+        std::shared_ptr<ActivatedAbility> getActAbility() const;
+        virtual std::shared_ptr<ActivatedAbility> computeActAbility() const;
+        void setActAbility(std::shared_ptr<ActivatedAbility> ability);
+        // checks if minion has triggered ability
+        bool hasTrgAbility() const;
+        std::shared_ptr<TriggeredAbility> getTrgAbility() const;
+        virtual std::shared_ptr<TriggeredAbility> computeTrgAbility() const;
+        void setTrgAbility(std::shared_ptr<TriggeredAbility> ability);
 
-    void attack(std::shared_ptr<Player> player);
-    void attack(std::shared_ptr<Minion> minion);
-    void useAbility(std::shared_ptr<Game> game);
-    void useAbility(std::shared_ptr<Game> game, int player, int target);
+        void attack(std::shared_ptr<Player> player);
+        void attack(std::shared_ptr<Minion> minion);
+        void useAbility(std::shared_ptr<Game> game);
+        void useAbility(std::shared_ptr<Game> game, int player, int target);
 
-    virtual std::shared_ptr<Minion> getAttachedMinion();
-    virtual std::vector<std::shared_ptr<Enchantment>> getEnchantmentList();
+        virtual std::shared_ptr<Minion> getAttachedMinion();
+        virtual std::vector<std::shared_ptr<Enchantment>> getEnchantmentList();
 
-    virtual ~Minion();
+        virtual ~Minion();
 };
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////

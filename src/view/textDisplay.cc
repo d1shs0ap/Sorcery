@@ -151,12 +151,12 @@ vector<string> TextDisplay::printMinion(shared_ptr<Minion> minion) {
     vector<string> card = printCardTemplate(minion);
 
     // add attack and defence
-    printLeftBox(card, to_string(minion->getAtk()));
-    printRightBox(card, to_string(minion->getDef()));
+    printLeftBox(card, to_string(minion->computeDef()));
+    printRightBox(card, to_string(minion->computeDef()));
 
     // add activated ability from minion
     if(minion->hasActAbility()) {
-        printTopLeftBoxAndDescription(card, minion->getActAbility()->getDescription(), to_string(minion->getActAbility()->getCost()));
+        printTopLeftBoxAndDescription(card, minion->computeActAbility()->getDescription(), to_string(minion->computeActAbility()->getCost()));
     }
 
     // add triggered ability from enchantment, after activated ability
@@ -178,8 +178,8 @@ vector<string> TextDisplay::printEnchantedMinion(shared_ptr<Enchantment> enchant
     vector<string> card = printCardTemplate(minion);
 
     // add attack and defence from enchantment
-    printLeftBox(card, to_string(enchantment->getAtk()));
-    printLeftBox(card, to_string(enchantment->getAtk()));
+    printLeftBox(card, to_string(enchantment->computeDef()));
+    printLeftBox(card, to_string(enchantment->computeAtk()));
 
     // add activated ability from enchantment
     if(enchantment->hasActAbility()) {

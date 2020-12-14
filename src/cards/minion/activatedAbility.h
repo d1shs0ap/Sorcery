@@ -12,26 +12,43 @@ class Minion;
 class ActivatedAbility{
     std::string description;
     int cost;
-    std::shared_ptr<Minion> minion;
 
 
     public:
         ActivatedAbility();
-        ActivatedAbility(std::string description, int cost, std::shared_ptr<Minion> minion);
+        ActivatedAbility(std::string description, int cost);
         std::string getDescription() const;
         int getCost() const;
-        virtual void effect(Game game) const;
-        virtual void effect(Card card) const;
+        void setCost(int newCost);
+        virtual void effect(std::shared_ptr<Game> game, std::shared_ptr<Minion> minion) const;
+        virtual void effect(std::shared_ptr<Game> game, std::shared_ptr<Minion> minion,  std::shared_ptr<Minion> target) const;
 };
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-class DamageTarget : public ActivatedAbility
-{
-public:
-    DamageTarget(std::shared_ptr<Minion> minion);
-    void effect(Game game) const override;
-    void effect(Card card) const override;
+class DamageTarget : public ActivatedAbility{
+    public:
+        DamageTarget();
+        void effect(std::shared_ptr<Game> game, std::shared_ptr<Minion> minion) const override;
+        void effect(std::shared_ptr<Game> game, std::shared_ptr<Minion> minion,  std::shared_ptr<Minion> target) const override;
+};
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////
+class SummonOneAirElemental : public ActivatedAbility{
+    public:
+        SummonOneAirElemental();
+        void effect(std::shared_ptr<Game> game, std::shared_ptr<Minion> minion) const override;
+        void effect(std::shared_ptr<Game> game, std::shared_ptr<Minion> minion,  std::shared_ptr<Minion> target) const override;
+};
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////
+class SummonThreeAirElemental : public ActivatedAbility{
+    public:
+        SummonThreeAirElemental();
+        void effect(std::shared_ptr<Game> game, std::shared_ptr<Minion> minion) const override;
+        void effect(std::shared_ptr<Game> game, std::shared_ptr<Minion> minion,  std::shared_ptr<Minion> target) const override;
 };
 
 #endif

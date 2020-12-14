@@ -1,4 +1,6 @@
 #include "enchantment.h"
+#include "activatedAbility.h"
+#include "triggeredAbility.h"
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -7,7 +9,10 @@ Enchantment::Enchantment() {}
 Enchantment::Enchantment(std::string name, int owner, int cost, std::string atkChange, std::string defChange, std::string description) :
     Minion{name, owner, cost, 0, 0, "Enchantment"}, atkChange{atkChange}, defChange{defChange}, description{description} {}
 
-void Enchantment::attach(std::shared_ptr<Minion> minion) { component = minion; }
+void Enchantment::attach(std::shared_ptr<Minion> minion) { 
+    component = minion;
+    setOwner(component->getOwner()); 
+}
 
 std::string Enchantment::getAtkChange() const{ return atkChange; }
 
@@ -68,6 +73,16 @@ int Enchantment::computeDef() const {
 
 }
 
+std::shared_ptr<ActivatedAbility> Enchantment::computeActAbility() const {
+    if(getActAbility() != nullptr){ 
+        return getActAbility(); 
+    } else { return component->computeActAbility(); }
+}
+
+std::shared_ptr<TriggeredAbility> Enchantment::computeTrgAbility() const {
+    return component->computeTrgAbility();
+}
+
 Enchantment::~Enchantment() {}
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -83,4 +98,29 @@ Enrage::Enrage(int owner) :
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // Delay //////////////////////////////////////////////////////////////////////////////////////////
+Delay::Delay(int owner) : 
+    Enchantment{"Delay", owner, 1, "", "", 
+        "Enchanted minion does not gain an action on their next round. This enchantment is automatically destroyed after 1 turn"} {}
 
+int Delay::getRound() const { return round;}
+
+void Delay::restoreAction() {
+    actions = 0;
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+// MagicFaticue /////////////////////////////////////////////////////////////////////////////////////
+MagicFatigue::MagicFatigue(int owner) : 
+    Enchantment{"Magic Fatigue", owner, 0, "", "", "Enchanted minion's activated ability costs 2 more"} {}
+
+void MagicFatigue::attach(std::shared_ptr<Minion> minion){
+    component = minion;
+    setOwner(component->getOwner());
+    setActAbility(std::make_shared<ActivatedAbility>(*component->computeActAbility()));
+    getActAbility()->setCost(getActAbility()->getCost() + 2);
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+// Silence //////////////////////////////////////////////////////////////////////////////////////////
+Silence::Silence(int owner) : 
+    Enchantment{"Silence", owner, 1, "", "", "Enchanted minion cannot use abilities"} {}

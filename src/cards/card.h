@@ -20,7 +20,9 @@ public:
     std::string getName() const;
     std::string getType() const;
     int getOwner() const;
+    void setOwner(int newOwner);
     int getCost() const;
+    void setCost(int newCost);
 
     virtual ~Card();
 };
