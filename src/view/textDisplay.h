@@ -4,6 +4,7 @@
 #include <vector>
 #include <iostream>
 #include <memory>
+#include <algorithm>
 
 
 
@@ -74,6 +75,11 @@ class TextDisplay {
     void printRow(std::vector<std::vector<std::string>> cards, int printLocation);
     // print the sorcery logo
     void printLogo();
+    // get row of board including ritual
+    std::vector<std::vector<std::string>> getRitualRow(std::shared_ptr<Player> player);
+    // get row of board including minion
+    std::vector<std::vector<std::string>> getMinionRow(std::shared_ptr<Player> player);
+
 
     public:
         TextDisplay(std::shared_ptr<Game> game);

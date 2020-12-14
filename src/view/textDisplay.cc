@@ -281,22 +281,8 @@ void TextDisplay::printRow(vector<vector<string>> cardsStr, int printLocation) {
     // print cards from 0 to cards.size() to cards.size() - (card.size() mod 5)
     // each turn we print index 0 to BOARD_WIDTH - 1
     int cardRowCounter = 0;
-    int totalCards = cardsStr.size();
 
-    // // fill up the empty space with blank cards
-    // if (totalCards==0) {
-    //     for (int i = 0; i < BOARD_WIDTH; i++) {
-    //         cardsStr.push_back(emptyCard());
-    //     }
-    //     totalCards += 5;
-    // } else {
-    //     for (int j = 0; j < BOARD_WIDTH - (totalCards % BOARD_WIDTH); j++) {
-    //         cardsStr.push_back(emptyCard());
-    //         totalCards += BOARD_WIDTH - (totalCards % BOARD_WIDTH);
-    //     }
-    // }
-    
-    while ((cardRowCounter)*BOARD_WIDTH < totalCards) {
+    while ((cardRowCounter)*BOARD_WIDTH < cardsStr.size()) {
 
         // iterate through each character row
         for  (int i = 0; i < CARD_HEIGHT; ++i) {
@@ -306,9 +292,12 @@ void TextDisplay::printRow(vector<vector<string>> cardsStr, int printLocation) {
                 cout << '|';
             }
 
-            // iterate through all cards for each charcter row
+            // iterate through all cards for each character row
             for (int j = cardRowCounter*BOARD_WIDTH; j < (cardRowCounter+1)*BOARD_WIDTH; j++) {
                 // card j, row i, card j+1, row i, ...
+                if(j >= cardsStr.size()) {
+                    break;
+                }
                 cout << cardsStr[j][i];
             }
 
@@ -320,35 +309,6 @@ void TextDisplay::printRow(vector<vector<string>> cardsStr, int printLocation) {
         }
         ++cardRowCounter;
     }
-    
-    // complete the board with empty minions
-    // if (printLocation == BOARD) {
-    //     for (int j = 0; j < BOARD_WIDTH - (totalCards % BOARD_WIDTH); j++) {
-    //         cardsStr.push_back(emptyCard());
-    //     }
-    // }
-
-    // // print the rest (mod 5 remnant), only possible for enchantments
-    // for (int i = 0; i < CARD_HEIGHT; ++i) {
-
-    //     // if we are printing a board, add the board outline (left)
-    //     if(printLocation==BOARD) {
-    //         cout << '|';
-    //     }
-        
-    //     // iterate through all cards for each charcter row
-    //     for (int j = cardRowCounter*BOARD_WIDTH; j < totalCards; j++) {
-    //         // card j, row i, card j+1, row i, ...
-    //         cout << cardsStr[j][i];
-    //     }
-
-    //     // if we are printing a board, add the board outline (right)
-    //     if(printLocation==BOARD) {
-    //         cout << '|';
-    //     }
-
-    //     cout << endl;
-    // }
 
 }
 
@@ -438,82 +398,68 @@ void TextDisplay::printHand() {
 
 // -------------------- PRINT BOARD --------------------
 
+
+// get row of board including ritual
+vector<vector<string>> TextDisplay::getRitualRow(shared_ptr<Player> player) {
+    auto graveyard = player->getGraveyard();
+    auto board = player->getBoard();
+    
+    vector<vector<string>> row;
+
+    // check if ritual is empty
+    auto ritual = board->getRitual();
+    if (ritual==nullptr) {
+        row.push_back(emptyCard());
+    } else {
+        row.push_back(printRitual(ritual));
+    }
+    row.push_back(emptySpace());
+    // PRINT PLAYER
+    row.push_back(emptyCard());
+    row.push_back(emptySpace());
+    // check if graveyard is empty
+    if (graveyard->isEmpty()) {
+        row.push_back(emptyCard());
+    } else {
+        auto topMinion = graveyard->getMinionTop();
+        row.push_back(printMinion(topMinion));
+    }
+    return row;
+}
+// get row of board including minion
+vector<vector<string>> TextDisplay::getMinionRow(shared_ptr<Player> player) {
+    auto board = player->getBoard();
+    vector<shared_ptr<Minion>> minions = board->getMinions();
+    vector<shared_ptr<Card>> cards (minions.begin(), minions.end());
+    vector<vector<string>> row = getRowString(cards, BOARD);
+
+    for(int i = row.size(); i < 5; ++i){
+        row.push_back(emptyCard());
+    }
+    return row;
+}
+
 void TextDisplay::printBoard()
 {
     cout << BOARD_TOP << endl;
 
     // ENEMY
-
-    auto enemyPlayer = game->getInactivePlayer();
-    auto enemyGraveyard = enemyPlayer->getGraveyard();
-    auto enemyBoard = enemyPlayer->getBoard();
-    vector<vector<string>> firstEnemyRow;
-
-    // check if graveyard is empty
-    if (enemyGraveyard->isEmpty()) {
-        firstEnemyRow.push_back(emptyCard());
-    } else {
-        auto topEnemyMinion = enemyGraveyard->getMinionTop();
-        firstEnemyRow.push_back(printMinion(topEnemyMinion));
-    }
-    firstEnemyRow.push_back(emptySpace());
-    //PRINT PLAYER
-    firstEnemyRow.push_back(emptyCard());
-    firstEnemyRow.push_back(emptySpace());
-    // check if ritual is empty
-    auto enemyRitual = enemyBoard->getRitual();
-    if (enemyRitual==nullptr) {
-        firstEnemyRow.push_back(emptyCard());
-    } else {
-        firstEnemyRow.push_back(printRitual(enemyRitual));
-    }
-
-    printRow(firstEnemyRow, BOARD);
-
-
-    vector<shared_ptr<Minion>> enemyMinions = enemyBoard->getMinions();
-    vector<shared_ptr<Card>> enemyCards (enemyMinions.begin(), enemyMinions.end());
-    vector<vector<string>> secondEnemyRow = getRowString(enemyCards, BOARD);
-    printRow(secondEnemyRow, BOARD);
+    auto enemy = game->getInactivePlayer();
+    vector<vector<string>> ritualRow = getRitualRow(enemy);
+    vector<vector<string>> minionRow = getMinionRow(enemy);
+    reverse(ritualRow.begin(), ritualRow.end());
+    reverse(minionRow.begin(), minionRow.end());
+    printRow(ritualRow, BOARD);
+    printRow(minionRow, BOARD);
 
     // print SORCERY logo
     printLogo();
 
     // CURRENT PLAYER
-
     auto player = game->getActivePlayer();
-    auto graveyard = player->getGraveyard();
-    auto board = player->getBoard();
-    vector<vector<string>> firstRow;
-
-
-    // check if ritual is empty
-    auto ritual = board->getRitual();
-    if (ritual==nullptr) {
-        firstRow.push_back(emptyCard());
-    } else {
-        firstRow.push_back(printRitual(ritual));
-    }
-    firstRow.push_back(emptySpace());
-    // PRINT PLAYER
-    firstRow.push_back(emptyCard());
-    firstRow.push_back(emptySpace());
-    // check if graveyard is empty
-    if (graveyard->isEmpty()) {
-        firstRow.push_back(emptyCard());
-    } else {
-        auto topMinion = graveyard->getMinionTop();
-        firstRow.push_back(printMinion(topMinion));
-    }
-
-    printRow(firstRow, BOARD);
-
-
-    vector<shared_ptr<Minion>> minions = board->getMinions();
-    vector<shared_ptr<Card>> cards (minions.begin(), minions.end());
-
-    vector<vector<string>> secondRow = getRowString(cards, BOARD);
-    printRow(secondRow, BOARD);
+    printRow(getMinionRow(player), BOARD);
+    printRow(getRitualRow(player), BOARD);
+    
 
     cout << BOARD_TOP << endl;
   
