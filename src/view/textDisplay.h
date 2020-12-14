@@ -84,7 +84,7 @@ class TextDisplay {
         // display active player's hand, called by hand
         void printHand();
         // displays board, where the active player's content is displayed on the bottom, called by board
-        void printBoard());
+        void printBoard();
 };
 
 #endif
