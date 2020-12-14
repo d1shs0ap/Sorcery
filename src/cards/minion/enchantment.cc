@@ -17,6 +17,13 @@ std::shared_ptr<Minion> Enchantment::getAttachedMinion() {
     return component->getAttachedMinion();
 }
 
+std::vector<std::shared_ptr<Enchantment>> Enchantment::getEnchantmentList() {
+    std::vector<std::shared_ptr<Enchantment>> v = component->getEnchantmentList();
+    std::shared_ptr<Enchantment> p = std::static_pointer_cast<Enchantment>(shared_from_this());
+    v.push_back(p);
+    return v;
+}
+
 int Enchantment::computeAtk() const {
     if(atkChange.compare("") == 0){
         return component->computeAtk() + getAtk();

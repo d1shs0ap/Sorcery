@@ -2,6 +2,7 @@
 #include "../../game/player.h"
 #include "triggeredAbility.h"
 #include "activatedAbility.h"
+#include "enchantment.h"
 
 using namespace std;
 
@@ -49,6 +50,11 @@ void Minion::attack(shared_ptr<Minion> other)
 
 std::shared_ptr<Minion> Minion::getAttachedMinion() {
     return shared_from_this();
+}
+
+std::vector<std::shared_ptr<Enchantment>> Minion::getEnchantmentList(){
+    std::vector<std::shared_ptr<Enchantment>> v;
+    return v;
 }
 
 void Minion::useAbility() { std::cout << "calling function Minion::useAbility..." << std::endl; }
