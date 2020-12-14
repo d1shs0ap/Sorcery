@@ -23,6 +23,8 @@ class Deck {
         // Checks if deck is empty;
         bool isEmpty();
 
+        void printDeck();
+
         // Return and remove the top card from the deck, called by draw()
         std::shared_ptr<Card> removeCardTop();
 };

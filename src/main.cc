@@ -59,19 +59,20 @@ int main(int argc, char *argv[])
     auto deck2 = make_shared<Deck>(seed, 1);
 
     // default deck
-    ifstream defaultDeckFile{"../decks/default.deck"};
+    ifstream defaultDeck1File{"../decks/default.deck"};
+    ifstream defaultDeck2File{"../decks/default.deck"};
     // Load deck 1 and 2
     ifstream deck1File{deck1FileName};
     ifstream deck2File{deck2FileName};
     if (deck1File) { // if deck1 file can be loaded
         deck1->loadDeck(deck1File);
     } else {
-        deck1->loadDeck(defaultDeckFile);
+        deck1->loadDeck(defaultDeck1File);
     }
     if (deck2File) { // if deck1 file can be loaded
         deck2->loadDeck(deck2File);
     } else {
-        deck2->loadDeck(defaultDeckFile);
+        deck2->loadDeck(defaultDeck2File);
     }
 
     // Decks are shuffled if not in testing
@@ -124,6 +125,7 @@ int main(int argc, char *argv[])
     auto game = std::make_shared<Game>(player1, player2, seed);
     auto textDisplay = std::make_shared<TextDisplay>();
     auto textController = std::make_unique<TextController>(game, textDisplay);
+    
 
     // Both players draw 5 cards
     for (int i = 0; i < 5; ++i){

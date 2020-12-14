@@ -67,6 +67,10 @@ void Deck::loadDeck(ifstream &infile)
         //     cards.push_back(card);
         // }
     }
+
+    if(cards.size() < 5) {
+        // throw error "too few cards"
+    }
 }
 
 
@@ -84,5 +88,13 @@ bool Deck::isEmpty(){
 shared_ptr<Card> Deck::removeCardTop() {
     auto tmp = cards.back();
     cards.pop_back();
+    cout <<  "Owner" << owner << "removed:" << tmp->getName() << endl;
     return tmp;
+}
+
+void Deck::printDeck() {
+    cout << "Owner" << owner << endl;
+    for (auto card : cards){
+        cout << card->getName() << endl;
+    }
 }
