@@ -7,6 +7,7 @@
 #include "../cards/ritual.h"
 #include "../cards/spell.h"
 #include "../cards/minion/enchantment.h"
+#include "game.h"
 
 using namespace std;
 
@@ -85,12 +86,14 @@ void Player::play(int card, int player, int target, shared_ptr<Game> game) {
         tmpSpell->effectWithTarget(player, target); // cause the spell effect, then the spell disappears
     
     } else if (tmpCard->getType() == "Enchantment") {
-        auto targetPlayer = 
+        auto targetPlayer = game->getPlayer(player);
+        auto targetBoard = targetPlayer->getBoard();
+        auto targetMinion = targetBoard->getMinion(target);
         auto tmpEnchantment = dynamic_pointer_cast<Enchantment>(tmpCard);
         // attach to the ith game's player's board's target minion
-        tmpEnchantment->attach();
+        tmpEnchantment->attach(targetMinion);
         // then point the board minion to the enchantment layer wrapped outside
-
+        targetBoard->setMinion(target, tmpEnchantment);
     } else {
         // throw error, cannot play minion/ritual with target
     }

@@ -31,6 +31,13 @@ shared_ptr<Minion> Board::getMinion(int minion) const {
     return minions[minion];
 }
 
+void Board::setMinion(int minion, shared_ptr<Minion> newMinion) {
+    if(minions.size() - 1 < minion){
+        // then there aren't as many cards as requested index, throw error
+    }
+    minions[minion] = newMinion;
+}
+
 shared_ptr<Minion> Board::removeMinion(int minion) {
     if(minions.size() - 1 < minion){
         // then there aren't as many cards as requested index, throw error
