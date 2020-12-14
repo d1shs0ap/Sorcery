@@ -11,6 +11,7 @@ class Player;
 class TriggeredAbility;
 class ActivatedAbility;
 class Enchantment;
+class Game;
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 class Minion : public Card, public std::enable_shared_from_this<Minion>
