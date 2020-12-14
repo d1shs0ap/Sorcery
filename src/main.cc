@@ -7,7 +7,7 @@
 #include "game/game.h"
 #include "view/textDisplay.h"
 #include "controller/textController.h"
-#include "cardcollections/deck.h"
+#include "cardCollections/deck.h"
 #include "cardCollections/board.h"
 #include "cardCollections/hand.h"
 #include "cardCollections/graveyard.h"
