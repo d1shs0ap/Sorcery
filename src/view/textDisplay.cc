@@ -293,7 +293,7 @@ void TextDisplay::printRow(vector<vector<string>> cardsStr, int printLocation) {
     
     // complete the board with empty minions
     if (printLocation == BOARD) {
-        for (int j = 0; j < BOARD_WIDTH - (totalCards % BOARD_WIDTH)); j++) {
+        for (int j = 0; j < BOARD_WIDTH - (totalCards % BOARD_WIDTH); j++) {
             cardsStr.push_back(emptyCard());
         }
     }
