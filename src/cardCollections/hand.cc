@@ -3,6 +3,8 @@
 
 using namespace std;
 
+Hand::Hand(){}
+
 // Check if hand is already full
 bool Hand::isFull() {
     return (cards.size()==HAND_CAP);

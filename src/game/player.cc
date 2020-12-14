@@ -95,6 +95,10 @@ void Player::play(int card, int player, int target) {
     }
 }
 
+// Plays the ith card in hand from the left
+void Player::play(int card, int player, char ritual) {
+}
+
 void Player::use(int minion){
     try { // checks if minion is out of range
         auto tmpMinion = board->getMinion(minion);
@@ -107,4 +111,16 @@ void Player::use(int minion, int player, int target) {
         auto tmpMinion = board->getMinion(minion);
         tmpMinion->useAbility(player, target);
     } catch (const out_of_range& oor) {}
+}
+
+
+void Player::use(int minion, int player, char ritual) {
+    // try { // checks if minion is out of range
+    //     if (ritual=='r'){
+    //         auto tmpMinion = board->getMinion(minion);
+    //         tmpMinion->useAbility(player, target);
+    //     } else {
+    //         // throw error
+    //     }
+    // } catch (const out_of_range& oor) {}
 }
