@@ -71,8 +71,8 @@ class TextDisplay {
     // get row
     std::vector<std::vector<std::string>> getRowString(std::vector<std::shared_ptr<Card>> cards, int printLocation);
     // prints row of vectors (continues row if vector has length > 5)
-    void printRow(std::vector<std::vector<string>> cards, int printLocation);
-
+    void printRow(std::vector<std::vector<std::string>> cards, int printLocation);
+    // print the sorcery logo
     void printLogo();
 
     public:
@@ -84,7 +84,7 @@ class TextDisplay {
         // display active player's hand, called by hand
         void printHand();
         // displays board, where the active player's content is displayed on the bottom, called by board
-        void printBoard());
+        void printBoard();
 };
 
 #endif
