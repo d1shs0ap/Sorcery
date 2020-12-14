@@ -303,7 +303,7 @@ void TextDisplay::printHelp()
 
         
 //     }
-}
+// }
 
 
 

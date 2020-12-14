@@ -10,6 +10,7 @@
 class Player;
 class TriggeredAbility;
 class ActivatedAbility;
+class Enchantment;
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 class Minion : public Card, public std::enable_shared_from_this<Minion>
@@ -54,6 +55,7 @@ public:
     void useAbility(int player, int target);
 
     virtual std::shared_ptr<Minion> getAttachedMinion();
+    virtual std::vector<std::shared_ptr<Enchantment>> getEnchantmentList();
 
     virtual ~Minion();
     virtual std::vector<std::string> getDisplay() const override;
