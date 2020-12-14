@@ -61,9 +61,9 @@ public:
     void play(int card, int player, int target);
     void play(int card, int player, char ritual);
 
-    void use(int minion);
-    void use(int minion, int player, int target);
-    void use(int minion, int player, char ritual);
+    void use(std::shared_ptr<Game> game, int minion);
+    void use(std::shared_ptr<Game> game, int minion, int player, int target);
+    void use(std::shared_ptr<Game> game, int minion, int player, char ritual);
 };
 
 #endif

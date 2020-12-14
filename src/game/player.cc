@@ -99,22 +99,22 @@ void Player::play(int card, int player, int target) {
 void Player::play(int card, int player, char ritual) {
 }
 
-void Player::use(int minion){
+void Player::use(std::shared_ptr<Game> game, int minion){
     try { // checks if minion is out of range
         auto tmpMinion = board->getMinion(minion);
-        tmpMinion->useAbility();
+        tmpMinion->useAbility(game);
     } catch (const out_of_range& oor) {}
 }
 
-void Player::use(int minion, int player, int target) {
+void Player::use(std::shared_ptr<Game> game, int minion, int player, int target) {
     try { // checks if minion is out of range
         auto tmpMinion = board->getMinion(minion);
-        tmpMinion->useAbility(player, target);
+        tmpMinion->useAbility(game, player, target);
     } catch (const out_of_range& oor) {}
 }
 
 
-void Player::use(int minion, int player, char ritual) {
+void Player::use(std::shared_ptr<Game> game, int minion, int player, char ritual) {
     // try { // checks if minion is out of range
     //     if (ritual=='r'){
     //         auto tmpMinion = board->getMinion(minion);

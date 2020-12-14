@@ -94,15 +94,15 @@ void TextController::play(int cardInHand, int targetPlayer, char targetRitual) {
 // Uses minion's ability (on player 1/2's card, which can be a minion or ritual)
 void TextController::use(int minion) {
     auto player = game->getActivePlayer();
-    player->use(minion - 1);
+    player->use(game->shared_from_this(), minion - 1);
 }
 void TextController::use(int minion, int targetPlayer, int targetMinion) {
     auto player = game->getActivePlayer();
-    player->use(minion - 1, targetPlayer - 1, targetMinion - 1);
+    player->use(game->shared_from_this(), minion - 1, targetPlayer - 1, targetMinion - 1);
 }
 void TextController::use(int minion, int targetPlayer, char targetRitual) {
     auto player = game->getActivePlayer();
-    player->use(minion - 1, targetPlayer - 1, targetRitual);
+    player->use(game->shared_from_this(), minion - 1, targetPlayer - 1, targetRitual);
 }
 
 
