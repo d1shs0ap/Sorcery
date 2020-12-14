@@ -282,13 +282,21 @@ void TextDisplay::printRow(vector<vector<string>> cardsStr, int printLocation) {
     // each turn we print index 0 to BOARD_WIDTH - 1
     int cardRowCounter = 0;
     int totalCards = cardsStr.size();
-    while ((cardRowCounter)*BOARD_WIDTH < totalCards) {
 
-        if((cardRowCounter+1)*BOARD_WIDTH >=totalCards){
-            for (int j = 0; j < BOARD_WIDTH - (totalCards % BOARD_WIDTH); j++) {
-                cardsStr.push_back(emptyCard());
-            }
-        }
+    // // fill up the empty space with blank cards
+    // if (totalCards==0) {
+    //     for (int i = 0; i < BOARD_WIDTH; i++) {
+    //         cardsStr.push_back(emptyCard());
+    //     }
+    //     totalCards += 5;
+    // } else {
+    //     for (int j = 0; j < BOARD_WIDTH - (totalCards % BOARD_WIDTH); j++) {
+    //         cardsStr.push_back(emptyCard());
+    //         totalCards += BOARD_WIDTH - (totalCards % BOARD_WIDTH);
+    //     }
+    // }
+    
+    while ((cardRowCounter)*BOARD_WIDTH < totalCards) {
 
         // iterate through each character row
         for  (int i = 0; i < CARD_HEIGHT; ++i) {
@@ -310,7 +318,7 @@ void TextDisplay::printRow(vector<vector<string>> cardsStr, int printLocation) {
             }
             cout << endl;
         }
-        ++ cardRowCounter;
+        ++cardRowCounter;
     }
     
     // complete the board with empty minions
@@ -450,6 +458,7 @@ void TextDisplay::printBoard()
     }
     firstEnemyRow.push_back(emptySpace());
     //PRINT PLAYER
+    firstEnemyRow.push_back(emptyCard());
     firstEnemyRow.push_back(emptySpace());
     // check if ritual is empty
     auto enemyRitual = enemyBoard->getRitual();
@@ -487,6 +496,7 @@ void TextDisplay::printBoard()
     }
     firstRow.push_back(emptySpace());
     // PRINT PLAYER
+    firstRow.push_back(emptyCard());
     firstRow.push_back(emptySpace());
     // check if graveyard is empty
     if (graveyard->isEmpty()) {
@@ -501,6 +511,7 @@ void TextDisplay::printBoard()
 
     vector<shared_ptr<Minion>> minions = board->getMinions();
     vector<shared_ptr<Card>> cards (minions.begin(), minions.end());
+
     vector<vector<string>> secondRow = getRowString(cards, BOARD);
     printRow(secondRow, BOARD);
 
