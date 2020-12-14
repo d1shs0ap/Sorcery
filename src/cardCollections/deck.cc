@@ -88,7 +88,6 @@ bool Deck::isEmpty(){
 shared_ptr<Card> Deck::removeCardTop() {
     auto tmp = cards.back();
     cards.pop_back();
-    cout <<  "Owner" << owner << "removed:" << tmp->getName() << endl;
     return tmp;
 }
 
