@@ -57,9 +57,9 @@ std::vector<std::shared_ptr<Enchantment>> Minion::getEnchantmentList(){
     return v;
 }
 
-void Minion::useAbility() { std::cout << "calling function Minion::useAbility..." << std::endl; }
+void Minion::useAbility(std::shared_ptr<Game> game) { std::cout << "calling function Minion::useAbility..." << std::endl; }
 
-void Minion::useAbility(int player, int target) {}
+void Minion::useAbility(std::shared_ptr<Game> game, int player, int target) {}
 
 Minion::~Minion(){}
 

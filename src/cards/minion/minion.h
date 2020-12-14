@@ -51,8 +51,8 @@ public:
 
     void attack(std::shared_ptr<Player> player);
     void attack(std::shared_ptr<Minion> minion);
-    void useAbility();
-    void useAbility(int player, int target);
+    void useAbility(std::shared_ptr<Game> game);
+    void useAbility(std::shared_ptr<Game> game, int player, int target);
 
     virtual std::shared_ptr<Minion> getAttachedMinion();
     virtual std::vector<std::shared_ptr<Enchantment>> getEnchantmentList();
