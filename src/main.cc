@@ -154,6 +154,8 @@ int main(int argc, char *argv[])
                 if (!(getline(initFile,cmd))){
                     getline(cin, cmd);
                 }
+            } else {
+                getline(cin, cmd);
             }
 
             if (cmd == "help") {
