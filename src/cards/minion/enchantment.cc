@@ -13,6 +13,8 @@ std::string Enchantment::getAtkChange() const{ return atkChange; }
 
 std::string Enchantment::getDefChange() const { return defChange; }
 
+std::string Enchantment::getDescription() const {return description; }
+
 std::shared_ptr<Minion> Enchantment::getAttachedMinion() {
     return component->getAttachedMinion();
 }

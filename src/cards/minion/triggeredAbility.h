@@ -46,7 +46,7 @@ class DieDamage : public TriggeredAbility
 {
 
 public:
-    explicit DieDamage();
+    DieDamage();
     void effect(std::shared_ptr<Game> game, std::shared_ptr<Minion> minion) const override;
 };
 
@@ -54,7 +54,7 @@ class EnterDamage : public TriggeredAbility
 {
 
 public:
-    explicit EnterDamage();
+    EnterDamage();
     void effect(std::shared_ptr<Game> game, std::shared_ptr<Minion> minion) const override;
 };
 
@@ -62,16 +62,15 @@ class EndGainDef : public TriggeredAbility
 {
 
 public:
-    explicit EndGainDef();
+    EndGainDef();
     void effect(std::shared_ptr<Game> game, std::shared_ptr<Minion> minion) const override;
-    std::shared_ptr<Minion> getMinion() const;
 };
 
 class StartGainMagic : public TriggeredAbility
 {
 
 public:
-    explicit StartGainMagic();
+    StartGainMagic();
     void effect(std::shared_ptr<Game> game, std::shared_ptr<Ritual> ritual) const override;
 };
 
@@ -79,7 +78,7 @@ class EnterGainAtkDef : public TriggeredAbility
 {
 
 public:
-    explicit EnterGainAtkDef();
+    EnterGainAtkDef();
     void effect(std::shared_ptr<Game> game, std::shared_ptr<Ritual> ritual) const override;
 };
 
@@ -87,7 +86,7 @@ class EnterDestroy : public TriggeredAbility
 {
 
 public:
-    explicit EnterDestroy();
+    EnterDestroy();
     void effect(std::shared_ptr<Game> game, std::shared_ptr<Ritual> ritual) const override;
 };
 
