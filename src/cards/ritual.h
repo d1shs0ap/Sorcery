@@ -23,6 +23,7 @@ public:
 
     int getActivationCost();
     int getCharges();
+    void setCharges(int newCharges);
 
     // accessor and mutator for triggered ability
     std::shared_ptr<TriggeredAbility> getTrgAbility() const;
