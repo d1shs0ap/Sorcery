@@ -3,6 +3,10 @@
 
 using namespace std;
 
+bool Graveyard::isEmpty(){
+    return minions.empty();
+}
+
 shared_ptr<Minion> Graveyard::getMinionTop() const {
     return minions.back();
 }
