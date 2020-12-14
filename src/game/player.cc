@@ -85,9 +85,10 @@ void Player::play(int card, int player, int target) {
         tmpSpell->effectWithTarget(player, target); // cause the spell effect, then the spell disappears
     
     } else if (tmpCard->getType() == "Enchantment") {
+        auto targetPlayer = 
         auto tmpEnchantment = dynamic_pointer_cast<Enchantment>(tmpCard);
         // attach to the ith game's player's board's target minion
-        // tmpEnchantment->attach();
+        tmpEnchantment->attach();
         // then point the board minion to the enchantment layer wrapped outside
 
     } else {
