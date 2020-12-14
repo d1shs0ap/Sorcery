@@ -174,3 +174,6 @@ shared_ptr<Player> Game::getInactivePlayer() {
 shared_ptr<Player> Game::getPlayer(int index) {
     return players[index];
 }
+
+// destroy the minion
+void Game::destroyMinion(std::shared_ptr<Minion> minion) {}
