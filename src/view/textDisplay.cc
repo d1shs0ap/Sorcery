@@ -237,13 +237,13 @@ vector<vector<string>> TextDisplay::getRowString(vector<shared_ptr<Card>> cards,
     for (int i = 0; i < cards.size(); ++i) {
         string type = cards[i]->getType();
         if(type=="Spell") {
-            cardsStr[i] = printSpell(dynamic_pointer_cast<Spell>(cards[i]));
+            cardsStr.push_back(printSpell(dynamic_pointer_cast<Spell>(cards[i])));
         
         } else if (type=="Ritual") {
-            cardsStr[i] = printRitual(dynamic_pointer_cast<Ritual>(cards[i]));
+            cardsStr.push_back(printRitual(dynamic_pointer_cast<Ritual>(cards[i])));
         
         } else if (type=="Minion") {
-            cardsStr[i] = printMinion(dynamic_pointer_cast<Minion>(cards[i]));
+            cardsStr.push_back(printMinion(dynamic_pointer_cast<Minion>(cards[i])));
         
         } else if (type=="Enchantment") {
             auto enchantment = dynamic_pointer_cast<Enchantment>(cards[i]);
@@ -251,11 +251,11 @@ vector<vector<string>> TextDisplay::getRowString(vector<shared_ptr<Card>> cards,
             // if we are printing from inspect, then it will be a minion followed by list of enchantment cards
             // if we are printing from hand, then it will be the enchantment card in hand
             if(printLocation==INSPECT || printLocation==HAND) {
-                cardsStr[i] = printEnchantment(enchantment);
+                cardsStr.push_back(printEnchantment(enchantment));
             
             // if we are printing from board, then we are printing the enchanted minion
             } else if (printLocation==BOARD) {
-                cardsStr[i] = printEnchantedMinion(enchantment);
+                cardsStr.push_back(printEnchantedMinion(enchantment));
             }
         } else {
             // error
