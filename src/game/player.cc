@@ -77,7 +77,7 @@ void Player::play(int card, shared_ptr<Game> game) {
 }
 
 // Plays the ith card in hand from the left
-void Player::play(int card, int player, int target) {
+void Player::play(int card, int player, int target, shared_ptr<Game> game) {
     // checks if removeCard is out of range
     auto tmpCard = hand->removeCard(card);
     if (tmpCard->getType() == "Spell") {
@@ -97,7 +97,7 @@ void Player::play(int card, int player, int target) {
 }
 
 // Plays the ith card in hand from the left
-void Player::play(int card, int player, char ritual) {
+void Player::play(int card, int player, char ritual, shared_ptr<Game> game) {
 }
 
 void Player::use(std::shared_ptr<Game> game, int minion){

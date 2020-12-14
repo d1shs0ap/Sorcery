@@ -74,7 +74,7 @@ void TextController::play(int cardInHand, int targetPlayer, int targetMinion) {
     auto player = game->getActivePlayer();
     auto card = player->getHand()->getCard(cardInHand - 1);
 
-    player->play(cardInHand - 1, targetPlayer - 1, targetMinion - 1);
+    player->play(cardInHand - 1, targetPlayer - 1, targetMinion - 1, game);
 
     if (card->getType()=="Minion") {
         game->checkTriggered(MINION_ENTER);
@@ -84,7 +84,7 @@ void TextController::play(int cardInHand, int targetPlayer, char targetRitual) {
     auto player = game->getActivePlayer();
     auto card = player->getHand()->getCard(cardInHand - 1);
 
-    player->play(cardInHand - 1, targetPlayer - 1, targetRitual);
+    player->play(cardInHand - 1, targetPlayer - 1, targetRitual, game);
 
     if (card->getType()=="Minion") {
         game->checkTriggered(MINION_ENTER);
