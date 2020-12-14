@@ -1,8 +1,10 @@
 #include "minion.h"
 #include "../../game/player.h"
+#include "../../game/game.h"
 #include "triggeredAbility.h"
 #include "activatedAbility.h"
 #include "enchantment.h"
+#include "../../cardcollections/board.h"
 
 using namespace std;
 
@@ -58,9 +60,20 @@ std::vector<std::shared_ptr<Enchantment>> Minion::getEnchantmentList(){
     return v;
 }
 
-void Minion::useAbility(std::shared_ptr<Game> game) { std::cout << "calling function Minion::useAbility..." << std::endl; }
+void Minion::useAbility(std::shared_ptr<Game> game) { 
+    if (actions > 0){
+        actAbility->effect(game, shared_from_this()); 
+    }
+}
 
-void Minion::useAbility(std::shared_ptr<Game> game, int player, int target) {}
+void Minion::useAbility(std::shared_ptr<Game> game, int player, int target) {
+    if (actions > 0){
+        std::shared_ptr<Minion> targetMinion = game->getPlayer(player)->getBoard()->getMinion(target);
+        actAbility->effect(game, shared_from_this(), targetMinion);
+    }
+}
+
+void Minion::triggered(std::shared_ptr<Game> game) { trgAbility->effect(game, shared_from_this()); }
 
 Minion::~Minion(){}
 

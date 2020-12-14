@@ -5,6 +5,9 @@
 #include "../../game/player.h"
 #include "../../cardCollections/board.h"
 
+ActAbilityArgExn::ActAbilityArgExn(std::string message) : message{message} {}
+
+////////////////////////////////////////////////////////////////////////////////
 
 ActivatedAbility::ActivatedAbility() {}
 
@@ -24,6 +27,11 @@ void ActivatedAbility::effect(std::shared_ptr<Game> game, std::shared_ptr<Minion
 
 DamageTarget::DamageTarget() : ActivatedAbility{"Deal 1 damage to target minion", 1} {}
 
+void DamageTarget::effect(std::shared_ptr<Game> game, std::shared_ptr<Minion> minion) const {
+    std::string message = minion->getName() + "'s activated ability needs a target";
+    throw ActAbilityArgExn{message};
+}
+
 void DamageTarget::effect(std::shared_ptr<Game> game, std::shared_ptr<Minion> minion, std::shared_ptr<Minion> target) const {
     target->setDef(target->getDef() - 1);
 }
@@ -41,6 +49,11 @@ void SummonOneAirElemental::effect(std::shared_ptr<Game> game, std::shared_ptr<M
     }
 }
 
+void SummonOneAirElemental::effect(std::shared_ptr<Game> game, std::shared_ptr<Minion> minion, std::shared_ptr<Minion> target) const{
+    std::string message = minion->getName() + "'s activated ability does not need a target";
+    throw ActAbilityArgExn{message};
+}
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -53,4 +66,9 @@ void SummonThreeAirElemental::effect(std::shared_ptr<Game> game, std::shared_ptr
     while(target->getBoard()->getMinions().size() < 5 && remain > 0){
         target->getBoard()->addMinionRight(std::make_shared<AirElemental>(owner));
     }
+}
+
+void SummonThreeAirElemental::effect(std::shared_ptr<Game> game, std::shared_ptr<Minion> minion, std::shared_ptr<Minion> target) const{
+    std::string message = minion->getName() + "'s activated ability does not need a target";
+    throw ActAbilityArgExn{message};
 }

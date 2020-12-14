@@ -4,10 +4,16 @@
 #include <string>
 #include <vector>
 #include <memory>
+#include <exception>
 
 class Game;
 class Card;
 class Minion;
+
+struct ActAbilityArgExn{
+    std::string message;
+    ActAbilityArgExn(std::string message);
+};
 
 class ActivatedAbility{
     std::string description;

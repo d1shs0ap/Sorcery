@@ -55,6 +55,7 @@ class Minion : public Card, public std::enable_shared_from_this<Minion>{
         void attack(std::shared_ptr<Minion> minion);
         void useAbility(std::shared_ptr<Game> game);
         void useAbility(std::shared_ptr<Game> game, int player, int target);
+        void triggered(std::shared_ptr<Game> game);
 
         virtual std::shared_ptr<Minion> getAttachedMinion();
         virtual std::vector<std::shared_ptr<Enchantment>> getEnchantmentList();
