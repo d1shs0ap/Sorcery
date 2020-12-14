@@ -19,3 +19,4 @@ enchantment:
 - includes all tests
 
 We use the convention "add" for functions that are inserting a single card to a location, and "remove" for functions that are deleting a single card to a location.
+
