@@ -38,6 +38,8 @@ bool Ritual::useTrgAbility(shared_ptr<Game> game)
     return true;
 }
 
+Ritual::~Ritual(){}
+
 DarkRitual::DarkRitual(int owner)
     : Ritual{"Dark Ritual", owner, 0, 1, 5, make_shared<StartGainMagic>()} {}
 

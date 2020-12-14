@@ -31,7 +31,7 @@ public:
     // Trigger the triggered ability while reducing charges
     bool useTrgAbility(std::shared_ptr<Game> game);
 
-    virtual ~Ritual();
+    ~Ritual();
 };
 
 class DarkRitual : Ritual

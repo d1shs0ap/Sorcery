@@ -22,7 +22,7 @@ public:
     int getOwner() const;
     int getCost() const;
 
-    virtual std::vector<std::string> getDisplay() const;
+    virtual ~Card();
 };
 
 #endif

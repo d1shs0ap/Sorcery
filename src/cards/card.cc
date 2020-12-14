@@ -8,3 +8,5 @@ int Card::getCost() const { return cost; }
 int Card::getOwner() const { return owner; }
 std::string Card::getName() const { return name; }
 std::string Card::getType() const { return type; }
+
+Card::~Card(){}

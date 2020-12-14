@@ -24,7 +24,7 @@ class Enchantment : public Minion{
         std::string getDescription() const;
         int computeAtk() const override;
         int computeDef() const override;
-        virtual ~Enchantment();
+        ~Enchantment();
 };
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////

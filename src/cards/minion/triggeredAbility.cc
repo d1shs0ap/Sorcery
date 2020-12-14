@@ -16,10 +16,18 @@ std::string TriggeredAbility::getDescription() const { return description; }
 
 TriggeredAbilityType TriggeredAbility::getType() const { return type; }
 
+void TriggeredAbility::effect(std::shared_ptr<Game> game, std::shared_ptr<Minion> minion) const{
+
+}
+void TriggeredAbility::effect(std::shared_ptr<Game> game, std::shared_ptr<Ritual> ritual) const{
+
+}
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
 DieDamage::DieDamage()
     : TriggeredAbility{"Deals damage to all the opponent minions equal to its attack value when it dies",
                        TriggeredAbilityType::MINION_DEATH} {}
-
 
 void DieDamage::effect(std::shared_ptr<Game> game, std::shared_ptr<Minion> minion) const
 {

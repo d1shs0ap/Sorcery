@@ -58,7 +58,6 @@ public:
     virtual std::vector<std::shared_ptr<Enchantment>> getEnchantmentList();
 
     virtual ~Minion();
-    virtual std::vector<std::string> getDisplay() const override;
 };
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
