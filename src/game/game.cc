@@ -1,6 +1,7 @@
 #include "game.h"
 #include "player.h"
 #include "../cardCollections/board.h"
+#include "../cardCollections/graveyard.h"
 #include "../cards/minion/triggeredAbility.h"
 #include "../cards/ritual.h"
 #include "../cards/minion/minion.h"
@@ -222,4 +223,8 @@ shared_ptr<Player> Game::getPlayer(int index) {
 }
 
 // destroy the minion
-void Game::destroyMinion(std::shared_ptr<Minion> minion) {}
+void Game::destroyMinion(std::shared_ptr<Player> player, int minion) {
+    auto removed = player->getBoard()->removeMinion(minion);
+    player->getGraveyard()->addMinionTop(removed);
+}
+

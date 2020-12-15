@@ -36,7 +36,8 @@ class Game : public std::enable_shared_from_this<Game> {
         std::shared_ptr<Player> getInactivePlayer();
         std::shared_ptr<Player> getPlayer(int index);
 
-        void destroyMinion(std::shared_ptr<Minion> minion);
+        // remove minion from board and add it to graveyard
+        void destroyMinion(std::shared_ptr<Player> player, int minion);
 };
 
 #endif

@@ -113,6 +113,7 @@ void Player::play(int card, int player, int target, shared_ptr<Game> game) {
 
             // attach to the ith game's player's board's target minion
             tmpEnchantment->attach(targetMinion);
+
             // then point the board minion to the enchantment layer wrapped outside
             targetBoard->setMinion(target, tmpEnchantment);
         } else {
@@ -126,6 +127,8 @@ void Player::play(int card, int player, int target, shared_ptr<Game> game) {
     } else {
         // error since not enough magic
     }
+
+    cout << game->getPlayer(player)->getBoard()->getMinion(0)->getDef() << endl;
 }
 
 // play for ritual

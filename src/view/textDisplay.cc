@@ -158,12 +158,12 @@ vector<string> TextDisplay::printMinion(shared_ptr<Minion> minion) {
     vector<string> card = printCardTemplate(minion);
 
     // add attack and defence
-    printLeftBox(card, to_string(minion->computeDef()));
-    printRightBox(card, to_string(minion->computeDef()));
+    printLeftBox(card, to_string(minion->getDef()));
+    printRightBox(card, to_string(minion->getDef()));
 
     // add activated ability from minion
     if(minion->hasActAbility()) {
-        printTopLeftBoxAndDescription(card, to_string(minion->computeActAbility()->getCost()), minion->computeActAbility()->getDescription());
+        printTopLeftBoxAndDescription(card, to_string(minion->getActAbility()->getCost()), minion->getActAbility()->getDescription());
     }
 
     // add triggered ability from enchantment, after activated ability
@@ -185,8 +185,8 @@ vector<string> TextDisplay::printEnchantedMinion(shared_ptr<Enchantment> enchant
     vector<string> card = printCardTemplate(minion);
 
     // add attack and defence from enchantment
-    printLeftBox(card, to_string(enchantment->computeDef()));
-    printLeftBox(card, to_string(enchantment->computeAtk()));
+    printLeftBox(card, to_string(enchantment->getDef()));
+    printLeftBox(card, to_string(enchantment->getAtk()));
 
     // add activated ability from enchantment
     if(enchantment->hasActAbility()) {
@@ -460,6 +460,7 @@ vector<vector<string>> TextDisplay::getMinionRow(shared_ptr<Player> player) {
     auto board = player->getBoard();
     vector<shared_ptr<Minion>> minions = board->getMinions();
     vector<shared_ptr<Card>> cards (minions.begin(), minions.end());
+
     vector<vector<string>> row = getRowString(cards, BOARD);
 
     for(int i = row.size(); i < 5; ++i){
@@ -471,8 +472,7 @@ vector<vector<string>> TextDisplay::getMinionRow(shared_ptr<Player> player) {
 
 
 
-void TextDisplay::printBoard()
-{
+void TextDisplay::printBoard() {
     cout << BOARD_TOP << endl;
 
     // ENEMY
