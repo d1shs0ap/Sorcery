@@ -190,7 +190,7 @@ vector<string> TextDisplay::printEnchantedMinion(shared_ptr<Enchantment> enchant
 
     // add activated ability from enchantment
     if(enchantment->hasActAbility()) {
-        printTopLeftBoxAndDescription(card, enchantment->getActAbility()->getDescription(), to_string(enchantment->getActAbility()->getCost()));
+        printTopLeftBoxAndDescription(card, to_string(enchantment->getActAbility()->getCost()), enchantment->getActAbility()->getDescription());
     }
 
     // add triggered ability from enchantment, after activated ability
@@ -237,7 +237,7 @@ vector<string> TextDisplay::printSpell(shared_ptr<Spell> spell) {
 vector<string> TextDisplay::printRitual(shared_ptr<Ritual> ritual) {
     vector<string> card = printCardTemplate(ritual);
     // add its activation cost and description
-    printTopLeftBoxAndDescription(card, ritual->getTrgAbility()->getDescription(), to_string(ritual->getActivationCost()));
+    printTopLeftBoxAndDescription(card, to_string(ritual->getActivationCost()), ritual->getTrgAbility()->getDescription());
     // add its number of charges
     printRightBox(card, to_string(ritual->getCharges()));
     return card;
