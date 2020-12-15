@@ -197,7 +197,7 @@ int main(int argc, char *argv[])
                     string arg;
                     int argCount = 0;
                     int cardInHand;
-                    while(getline(sscmd, arg)){
+                    while(sscmd >> arg) {
                         if(argCount==0){
                             ++argCount; // get rid of first arg which is "discord" to read the actual args
                             continue;
@@ -220,7 +220,7 @@ int main(int argc, char *argv[])
                 string arg;
                 int argCount = 0;
                 int minion, enemyMinion;
-                while(getline(sscmd, arg)){
+                while(sscmd >> arg){
                     if(argCount==0){
                         ++argCount; // get rid of first arg which is "attack" to read the actual args
                         continue;
@@ -249,7 +249,7 @@ int main(int argc, char *argv[])
                 string arg;
                 int argCount = 0;
                 int cardInHand, targetPlayer, targetMinion;
-                while(getline(sscmd, arg)){
+                while(sscmd >> arg){
                     if(argCount==0){
                         ++argCount; // get rid of first arg which is "attack" to read the actual args
                         continue;
@@ -342,7 +342,7 @@ int main(int argc, char *argv[])
                 string arg;
                 int argCount = 0;
                 int minion;
-                while(getline(sscmd, arg)){
+                while(sscmd >> arg){
                     if(argCount==0){
                         ++argCount; // get rid of first arg which is "inspect" to read the actual args
                         continue;

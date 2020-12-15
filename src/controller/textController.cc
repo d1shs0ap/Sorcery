@@ -59,6 +59,12 @@ void TextController::attack(int minion, int enemyMinion) {
 
     concreteMinion->attack(concreteEnemyMinion);
 }
+
+
+
+
+
+
 // Plays cardInHand (on player 1/2's card, which can be a minion or ritual)
 void TextController::play(int cardInHand) {
     auto player = game->getActivePlayer();
@@ -90,6 +96,11 @@ void TextController::play(int cardInHand, int targetPlayer, char targetRitual) {
         game->checkTriggered(MINION_ENTER);
     }
 }
+
+
+
+
+
 
 // Uses minion's ability (on player 1/2's card, which can be a minion or ritual)
 void TextController::use(int minion) {

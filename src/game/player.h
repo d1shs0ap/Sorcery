@@ -10,10 +10,9 @@ class Board;
 class Deck;
 class Graveyard;
 class Hand;
-
 class Game;
-
 class Ritual;
+class Minion;
 
 class Player
 {
@@ -41,6 +40,7 @@ public:
 
     int getMagic() const;
     void setMagic(int magic);
+    bool hasEnoughMagic(int cost);
 
     int getNumber() const;
 

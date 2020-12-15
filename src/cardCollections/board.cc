@@ -60,3 +60,10 @@ void Board::restoreActionAll(){
         minion->restoreAction();
     }
 }
+
+void Board::printBoard() {
+    for (auto card : minions){
+        cout << card->getName() << endl;
+    }
+}
+
