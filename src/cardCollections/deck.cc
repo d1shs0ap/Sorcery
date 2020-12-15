@@ -17,10 +17,7 @@
 using namespace std;
 
 Deck::Deck(default_random_engine& rng, int owner)
-    : rng{rng}, owner{owner} {
-    // initialize card vector
-    cards = {};
-}
+    : rng{rng}, owner{owner} {}
 
 void Deck::loadDeck(ifstream &infile)
 {
@@ -81,28 +78,25 @@ void Deck::loadDeck(ifstream &infile)
             auto card = make_shared<Standstill>(owner);
         }
         // Spells
-        // else if (cardName=="") {
-        //     auto card = make_shared<>(owner);
-        //     cards.push_back(card);
-        // } else if (cardName=="") {
-        //     auto card = make_shared<>(owner);
-        //     cards.push_back(card);
-        // } else if (cardName=="") {
-        //     auto card = make_shared<>(owner);
-        //     cards.push_back(card);
-        // } else if (cardName=="") {
-        //     auto card = make_shared<>(owner);
-        //     cards.push_back(card);
-        // } else if (cardName=="") {
-        //     auto card = make_shared<>(owner);
-        //     cards.push_back(card);
-        // } else if (cardName=="") {
-        //     auto card = make_shared<>(owner);
-        //     cards.push_back(card);
-        // } else if (cardName=="") {
-        //     auto card = make_shared<>(owner);
-        //     cards.push_back(card);
-        // }
+        else if (cardName=="Banish") {
+            auto card = make_shared<Banish>(owner);
+            cards.push_back(card);
+        } else if (cardName=="Unsummon") {
+            auto card = make_shared<Unsummon>(owner);
+            cards.push_back(card);
+        } else if (cardName=="Recharge") {
+            auto card = make_shared<Recharge>(owner);
+            cards.push_back(card);
+        } else if (cardName=="Disenchant") {
+            auto card = make_shared<Disenchant>(owner);
+            cards.push_back(card);
+        } else if (cardName=="RaiseDead") {
+            auto card = make_shared<RaiseDead>(owner);
+            cards.push_back(card);
+        } else if (cardName=="Blizzard") {
+            auto card = make_shared<Blizzard>(owner);
+            cards.push_back(card);
+        }
     }
 }
 

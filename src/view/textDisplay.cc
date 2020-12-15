@@ -158,7 +158,7 @@ vector<string> TextDisplay::printMinion(shared_ptr<Minion> minion) {
     vector<string> card = printCardTemplate(minion);
 
     // add attack and defence
-    printLeftBox(card, to_string(minion->getDef()));
+    printLeftBox(card, to_string(minion->getAtk()));
     printRightBox(card, to_string(minion->getDef()));
 
     // add activated ability from minion

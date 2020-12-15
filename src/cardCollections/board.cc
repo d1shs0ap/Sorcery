@@ -5,10 +5,7 @@
 
 using namespace std;
 
-Board::Board() {
-    // initialize minion vector
-    minions = {};
-}
+Board::Board() {}
 
 bool Board::isFull() const{
     return (minions.size()==BOARD_CAP);

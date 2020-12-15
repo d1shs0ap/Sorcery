@@ -4,10 +4,7 @@
 
 using namespace std;
 
-Hand::Hand(){
-    // initialize card vector
-    cards = {};
-}
+Hand::Hand(){}
 
 // Check if hand is already full
 bool Hand::isFull() {
