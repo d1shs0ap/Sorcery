@@ -11,6 +11,7 @@
 #include "../cards/ritual.h"
 #include "../cards/spell.h"
 #include "../cards/card.h"
+#include "../argException.h"
 
 
 using namespace std;
@@ -123,7 +124,7 @@ shared_ptr<Card> Deck::removeCardTop() {
         cards.pop_back();
         return tmp;
     } else {
-        // exception
+        throw ArgException{"Card cannot be drawn from deck because deck is empty."};
     }
 }
 

@@ -5,6 +5,7 @@
 #include "../cards/minion/triggeredAbility.h"
 #include "../cards/ritual.h"
 #include "../cards/minion/minion.h"
+#include "../argException.h"
 
 
 
@@ -27,7 +28,9 @@ void Game::clean() {
         auto minions = player->getBoard()->getMinions();
 
         for(int i = 0; i < minions.size(); ++i) {
-            destroyMinion(player, i);
+            if (player->getBoard()->getMinion(i)->getDef() <= 0){
+                destroyMinion(player, i);
+            }
         }
     }
 }
@@ -39,6 +42,8 @@ void Game::startTurn() {
     // gain magic
     auto player = getActivePlayer();
     player->setMagic(player->getMagic() + 1);
+    // restore actionp oints
+    player->getBoard()->restoreActionAll();
     // draw card
     player->draw();
     // Check all triggered abilities (minions and ritual)
@@ -204,10 +209,17 @@ int Game::getWinner() {
 
 // get the active player
 shared_ptr<Player> Game::getActivePlayer() {
+    if (players.size() - 1 < activePlayer ) {
+        throw ArgException{"Player" + to_string(activePlayer) + " cannot be retrieved because it does not exist."};
+    }
+    
     return players[activePlayer];
 }
 // get the inactive player
 shared_ptr<Player> Game::getInactivePlayer() {
+    if (players.size() - 1 < activePlayer ) {
+        throw ArgException{"Player" + to_string(1-activePlayer) + " cannot be retrieved because it does not exist."};
+    }
     if(activePlayer==0){
         return players[1];
     }
@@ -216,6 +228,9 @@ shared_ptr<Player> Game::getInactivePlayer() {
 
 // get player by index
 shared_ptr<Player> Game::getPlayer(int index) {
+    if (players.size() - 1 < index ) {
+        throw ArgException{"Player" + to_string(index) + " cannot be retrieved because it does not exist."};
+    }
     return players[index];
 }
 

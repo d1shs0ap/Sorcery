@@ -1,6 +1,7 @@
 #include "board.h"
 #include "../cards/minion/minion.h"
 #include "../cards/minion/enchantment.h"
+#include "../argException.h"
 
 using namespace std;
 
@@ -9,12 +10,11 @@ bool Board::isFull() const{
 }
 
 // Add card to hand, called by draw() in Player
-bool Board::addMinionRight(shared_ptr<Minion> minion){
+void Board::addMinionRight(shared_ptr<Minion> minion){
     if (isFull()){ 
-        return false;
+        throw ArgException{"Card cannot be added to board because board is full."};
     }
     minions.push_back(minion);
-    return true;
 }
 
 shared_ptr<Ritual> Board::getRitual() const{
@@ -28,13 +28,14 @@ void Board::setRitual(shared_ptr<Ritual> ritual) {
 shared_ptr<Minion> Board::getMinion(int minion) const {
     if(minions.size() - 1 < minion){
         // then there aren't as many cards as requested index, throw error
+        throw ArgException{"Minion " + to_string(minion) + " cannot be retrieved from board because it does not exist."};
     }
     return minions[minion];
 }
 
 void Board::setMinion(int minion, shared_ptr<Minion> newMinion) {
     if(minions.size() - 1 < minion){
-        // then there aren't as many cards as requested index, throw error
+        throw ArgException{"Minion " + to_string(minion) + " cannot be changed on board because it does not exist."};
     }
     minions[minion] = newMinion;
 }
@@ -42,6 +43,7 @@ void Board::setMinion(int minion, shared_ptr<Minion> newMinion) {
 shared_ptr<Minion> Board::removeMinion(int minion) {
     if(minions.size() - 1 < minion){
         // then there aren't as many cards as requested index, throw error
+        throw ArgException{"Minion"  + to_string(minion) + " cannot be removed from board because it does not exist."};
     }
     auto tmp = minions[minion];
     minions.erase(minions.begin()+minion);

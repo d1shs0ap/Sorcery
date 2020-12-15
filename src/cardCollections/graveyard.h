@@ -13,7 +13,7 @@ class Graveyard {
     public:
         bool isEmpty();
 
-        std::shared_ptr<Minion> getMinionTop() const;
+        std::shared_ptr<Minion> getMinionTop();
         // Add new minion to graveyard top
         void addMinionTop(std::shared_ptr<Minion> minion);
 

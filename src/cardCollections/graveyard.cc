@@ -1,5 +1,6 @@
 #include "graveyard.h"
 #include "../cards/minion/minion.h"
+#include "../argException.h"
 
 using namespace std;
 
@@ -7,7 +8,10 @@ bool Graveyard::isEmpty(){
     return minions.empty();
 }
 
-shared_ptr<Minion> Graveyard::getMinionTop() const {
+shared_ptr<Minion> Graveyard::getMinionTop() {
+    if (isEmpty()){
+        throw ArgException{"Top minion cannot be retrieved from graveyard because graveyard is empty."};
+    }
     return minions.back();
 }
 // Add new minion to graveyard top

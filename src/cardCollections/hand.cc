@@ -1,5 +1,6 @@
 #include "hand.h"
 #include "../cards/card.h"
+#include "../argException.h"
 
 using namespace std;
 
@@ -11,19 +12,19 @@ bool Hand::isFull() {
 }
         
 // Add card to hand, called by draw() in Player
-bool Hand::addCardRight(shared_ptr<Card> card){
+void Hand::addCardRight(shared_ptr<Card> card){
     if (isFull()){
         // throw exception
-        return false;
+        throw ArgException{"Card cannot be added to hand because hand is full."};
     }
     cards.push_back(card);
-    return true;
 }
 
 // Remove a card
 void Hand::removeCard(int card) {
     if(cards.size() - 1 < card){
         // then there aren't as many cards as requested index, throw error
+        throw ArgException{"Card " + to_string(card) + " cannot removed from hand because it does not exist."};
     }
     auto tmp = cards[card];
     cards.erase(cards.begin()+card);
@@ -33,6 +34,7 @@ void Hand::removeCard(int card) {
 shared_ptr<Card> Hand::getCard(int card) {
     if(cards.size() - 1 < card){
         // then there aren't as many cards as requested index, throw error
+        throw ArgException{"Card " + to_string(card) + " cannot retrieved from hand because it does not exist."};
     }
     return cards[card];
 }

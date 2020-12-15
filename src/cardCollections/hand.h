@@ -20,7 +20,7 @@ class Hand {
 
         // Add card to hand, called by draw() in Player
         // Returns true if successfully drawn (hand not full), otherwise return false
-        bool addCardRight(std::shared_ptr<Card> card);
+        void addCardRight(std::shared_ptr<Card> card);
         
         // Removes single card
         void removeCard(int card);

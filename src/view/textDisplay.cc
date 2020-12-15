@@ -186,7 +186,7 @@ vector<string> TextDisplay::printEnchantedMinion(shared_ptr<Enchantment> enchant
 
     // add attack and defence from enchantment
     printLeftBox(card, to_string(enchantment->getDef()));
-    printLeftBox(card, to_string(enchantment->getAtk()));
+    printRightBox(card, to_string(enchantment->getAtk()));
 
     // add activated ability from enchantment
     if(enchantment->hasActAbility()) {
@@ -459,7 +459,7 @@ vector<vector<string>> TextDisplay::getRitualRow(shared_ptr<Player> player) {
 vector<vector<string>> TextDisplay::getMinionRow(shared_ptr<Player> player) {
     auto board = player->getBoard();
     vector<shared_ptr<Minion>> minions = board->getMinions();
-    vector<shared_ptr<Card>> cards (minions.begin(), minions.end());
+    vector<shared_ptr<Card>> cards(minions.begin(), minions.end());
 
     vector<vector<string>> row = getRowString(cards, BOARD);
 

@@ -9,6 +9,7 @@
 #include "../cards/minion/enchantment.h"
 #include "../cards/minion/activatedAbility.h"
 #include "game.h"
+#include "../argException.h"
 
 using namespace std;
 
@@ -42,10 +43,6 @@ shared_ptr<Hand> Player::getHand() {
 // To draw, a player takes a card from their deck and puts it into their hand. A player may only draw if their
 // hand is not full and their deck is not empty.
 void Player::draw() {
-    if (deck->isEmpty() || hand->isFull()) {
-        // throw
-        return;
-    }
     auto topCard = deck->removeCardTop();
     hand->addCardRight(topCard);
 }
@@ -56,40 +53,34 @@ void Player::discard(int card) {
 
 // Plays the ith card in hand from the left
 void Player::play(int card, shared_ptr<Game> game) {
-    try { // checks if removeCard is out of range
-        auto tmpCard = hand->getCard(card);
-        int cost = tmpCard->getCost();
+    auto tmpCard = hand->getCard(card);
+    int cost = tmpCard->getCost();
 
-        if(hasEnoughMagic(cost)) {
-            // play the card
-            if (tmpCard->getType() == "Minion") {
+    if(hasEnoughMagic(cost)) {
+        // play the card
+        if (tmpCard->getType() == "Minion") {
 
-                auto tmpMinion = dynamic_pointer_cast<Minion>(tmpCard);
-                bool addSuccess = board->addMinionRight(tmpMinion);
-                if (!addSuccess) {
-                    // board is full, throw error/print something
-                    cout << "board full";
-                }
-                // otherwise, minion is added to the right
-            
-            } else if (tmpCard->getType() == "Spell") {
-                auto tmpSpell = dynamic_pointer_cast<Spell>(tmpCard);
-                tmpSpell->effect(game); // cause the spell effect, then the spell disappears
-            
-            } else if (tmpCard->getType() == "Ritual") {
-                auto tmpRitual = dynamic_pointer_cast<Ritual>(tmpCard);
-                board->setRitual(tmpRitual); // sets the ritual to new ritual
-            
-            } else {
-                // throw error, cannot play enchantment without target
-            }
-            setMagic(getMagic() - cost);
-            // remove from hand
-            hand->removeCard(card);
+            auto tmpMinion = dynamic_pointer_cast<Minion>(tmpCard);
+            board->addMinionRight(tmpMinion);
+        
+        } else if (tmpCard->getType() == "Spell") {
+            auto tmpSpell = dynamic_pointer_cast<Spell>(tmpCard);
+            tmpSpell->effect(game); // cause the spell effect, then the spell disappears
+        
+        } else if (tmpCard->getType() == "Ritual") {
+            auto tmpRitual = dynamic_pointer_cast<Ritual>(tmpCard);
+            board->setRitual(tmpRitual); // sets the ritual to new ritual
+        
         } else {
-            // error since not enough magic
+            // throw error, cannot play enchantment without target
+            throw ArgException{"play [card] only works with minions, spells, and rituals."};
         }
-    } catch (const out_of_range& oor) {}
+        setMagic(getMagic() - cost);
+        // remove from hand
+        hand->removeCard(card);
+    } else {
+        throw ArgException{"Not enough magic."};
+    }
 }
 
 // Plays the ith card in hand from the left
@@ -118,6 +109,7 @@ void Player::play(int card, int player, int target, shared_ptr<Game> game) {
             targetBoard->setMinion(target, tmpEnchantment);
         } else {
             // throw error, cannot play minion/ritual with target
+            throw ArgException{"play [card] [target-player] [target-minion] only works with spells and enchantments."};
         }
 
         // subtract cost
@@ -126,6 +118,8 @@ void Player::play(int card, int player, int target, shared_ptr<Game> game) {
         hand->removeCard(card);
     } else {
         // error since not enough magic
+        throw ArgException{"Not enough magic."};
+        
     }
 }
 
@@ -134,6 +128,11 @@ void Player::play(int card, int player, shared_ptr<Game> game) {
     // checks if removeCard is out of range
     auto tmpCard = hand->getCard(card);
     int cost = tmpCard->getCost();
+
+    // if ritual does not exist
+    if(game->getPlayer(player)->getBoard()->getRitual()==nullptr){
+        throw ArgException{"Ritual does not exist."};
+    }
 
     // has enough magic cost
     if(hasEnoughMagic(cost)) {
@@ -144,6 +143,7 @@ void Player::play(int card, int player, shared_ptr<Game> game) {
         
         } else {
             // throw error, cannot play minion/ritual with target
+            throw ArgException{"play [card] [target-player] [target-ritual] only works with spells."};
         }
 
         // subtract cost
@@ -152,38 +152,40 @@ void Player::play(int card, int player, shared_ptr<Game> game) {
         hand->removeCard(card);
     } else {
         // error since not enough magic
+        throw ArgException{"Not enough magic."};
     }
 }
 
 void Player::use(std::shared_ptr<Game> game, int minion){
-    try { // checks if minion is out of range
-        auto tmpMinion = board->getMinion(minion);
-        int cost  = tmpMinion->getActAbility()->getCost();
+    auto tmpMinion = board->getMinion(minion);
+    int cost  = tmpMinion->getActAbility()->getCost();
+    
+    if (hasEnoughMagic(cost)) {
+        tmpMinion->useAbility(game);
         
-        if (hasEnoughMagic(cost)) {
-            tmpMinion->useAbility(game);
-            
-            // subtract magic cost
-            setMagic(getMagic() - cost);
-        }
-        
-    } catch (const out_of_range& oor) {}
+        // subtract magic cost
+        setMagic(getMagic() - cost);
+    } else {
+        // error since not enough magic
+        throw ArgException{"Not enough magic."};
+    }
 }
 
 void Player::use(std::shared_ptr<Game> game, int minion, int player, int target) {
-    try { // checks if minion is out of range
-        auto tmpMinion = board->getMinion(minion);
-        int cost  = tmpMinion->getActAbility()->getCost();
+    auto tmpMinion = board->getMinion(minion);
+    int cost  = tmpMinion->getActAbility()->getCost();
 
-        if (hasEnoughMagic(cost)) {
-            tmpMinion->useAbility(game, player, target);
-            
-            // subtract magic cost
-            setMagic(getMagic() - cost);
-        }
+    if (hasEnoughMagic(cost)) {
+        tmpMinion->useAbility(game, player, target);
         
         // subtract magic cost
-    } catch (const out_of_range& oor) {}
+        setMagic(getMagic() - cost);
+    } else {
+        // error since not enough magic
+        throw ArgException{"Not enough magic."};
+    }
+    
+    // subtract magic cost
 }
 
 

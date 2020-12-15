@@ -15,7 +15,7 @@ class Board {
     public:
         bool isFull() const;
 
-        bool addMinionRight(std::shared_ptr<Minion> minion);
+        void addMinionRight(std::shared_ptr<Minion> minion);
 
         std::shared_ptr<Ritual> getRitual() const;
         void setRitual(std::shared_ptr<Ritual> ritual);
