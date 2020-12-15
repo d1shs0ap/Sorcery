@@ -10,9 +10,9 @@ class Game;
 class Card;
 class Minion;
 
-struct ActAbilityArgExn{
+struct UseArgExn{
     std::string message;
-    ActAbilityArgExn(std::string message);
+    UseArgExn(std::string message);
 };
 
 class ActivatedAbility{

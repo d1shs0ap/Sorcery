@@ -1,5 +1,6 @@
 #include "board.h"
 #include "../cards/minion/minion.h"
+#include "../cards/minion/enchantment.h"
 
 using namespace std;
 
@@ -58,7 +59,18 @@ void Board::setMinions(vector<shared_ptr<Minion>> minions) {
 void Board::restoreActionAll(){
     for (auto minion : minions) {
         minion->restoreAction();
+        while(minion->getName().compare("Delay") == 0){
+            std::shared_ptr<Delay> delay  = std::static_pointer_cast<Delay>(minion);
+            if(delay->getRound() == 1){
+                minion = delay->getComponent();
+                minion->setAtk(minion->getAtk() + delay->getAtk());
+                minion->setDef(minion->getDef() + delay->getDef());
+            } else{
+                break;
+            }
+        }
     }
+
 }
 
 void Board::printBoard() {

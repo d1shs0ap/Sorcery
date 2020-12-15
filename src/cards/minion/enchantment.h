@@ -23,6 +23,7 @@ class Enchantment : public Minion{
         std::string getAtkChange() const;
         std::string getDefChange() const;
         std::string getDescription() const;
+        std::shared_ptr<Minion> getComponent() const;
         int computeAtk() const override;
         int computeDef() const override;
         std::shared_ptr<ActivatedAbility> computeActAbility() const override;
@@ -34,14 +35,14 @@ class Enchantment : public Minion{
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 class GiantStrength : public Enchantment{
     public:
-        GiantStrength(int owner);
+        explicit GiantStrength(int owner);
 };
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 class Enrage : public Enchantment{
     public:
-        Enrage(int owner);
+        explicit Enrage(int owner);
 };
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -49,7 +50,7 @@ class Enrage : public Enchantment{
 class Delay : public Enchantment{
     int round = 0;
     public:
-        Delay(int owner);
+        explicit Delay(int owner);
         int getRound() const;
         void restoreAction() override;
 };
@@ -59,7 +60,7 @@ class Delay : public Enchantment{
 
 class MagicFatigue : public Enchantment{
     public:
-        MagicFatigue(int owner);
+        explicit MagicFatigue(int owner);
         void attach(std::shared_ptr<Minion> minion) override;
 };
 
@@ -67,7 +68,8 @@ class MagicFatigue : public Enchantment{
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 class Silence : public Enchantment{
     public:
-        Silence(int owner);
+        explicit Silence(int owner);
+        
 };
 
 #endif

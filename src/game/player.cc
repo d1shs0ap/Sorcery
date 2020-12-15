@@ -103,7 +103,7 @@ void Player::play(int card, int player, int target, shared_ptr<Game> game) {
     
         if (tmpCard->getType() == "Spell") {
             auto tmpSpell = dynamic_pointer_cast<Spell>(tmpCard);
-            tmpSpell->effectWithTarget(player, target); // cause the spell effect, then the spell disappears
+            tmpSpell->effectWithTarget(game, player, target); // cause the spell effect, then the spell disappears
         
         } else if (tmpCard->getType() == "Enchantment") {
             auto targetPlayer = game->getPlayer(player);

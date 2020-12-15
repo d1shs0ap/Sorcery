@@ -5,7 +5,7 @@
 #include "../../game/player.h"
 #include "../../cardCollections/board.h"
 
-ActAbilityArgExn::ActAbilityArgExn(std::string message) : message{message} {}
+UseArgExn::UseArgExn(std::string message) : message{message} {}
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -29,7 +29,7 @@ DamageTarget::DamageTarget() : ActivatedAbility{"Deal 1 damage to target minion"
 
 void DamageTarget::effect(std::shared_ptr<Game> game, std::shared_ptr<Minion> minion) const {
     std::string message = minion->getName() + "'s activated ability needs a target";
-    throw ActAbilityArgExn{message};
+    throw UseArgExn{message};
 }
 
 void DamageTarget::effect(std::shared_ptr<Game> game, std::shared_ptr<Minion> minion, std::shared_ptr<Minion> target) const {
@@ -51,7 +51,7 @@ void SummonOneAirElemental::effect(std::shared_ptr<Game> game, std::shared_ptr<M
 
 void SummonOneAirElemental::effect(std::shared_ptr<Game> game, std::shared_ptr<Minion> minion, std::shared_ptr<Minion> target) const{
     std::string message = minion->getName() + "'s activated ability does not need a target";
-    throw ActAbilityArgExn{message};
+    throw UseArgExn{message};
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -70,5 +70,5 @@ void SummonThreeAirElemental::effect(std::shared_ptr<Game> game, std::shared_ptr
 
 void SummonThreeAirElemental::effect(std::shared_ptr<Game> game, std::shared_ptr<Minion> minion, std::shared_ptr<Minion> target) const{
     std::string message = minion->getName() + "'s activated ability does not need a target";
-    throw ActAbilityArgExn{message};
+    throw UseArgExn{message};
 }

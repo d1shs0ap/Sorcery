@@ -15,6 +15,9 @@ int Ritual::getActivationCost() {
 int Ritual::getCharges() {
     return charges;
 }
+void Ritual::setCharges(int newCharges) {
+    charges = newCharges;
+}
 
 
 shared_ptr<TriggeredAbility> Ritual::getTrgAbility() const

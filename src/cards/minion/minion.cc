@@ -63,14 +63,17 @@ std::vector<std::shared_ptr<Enchantment>> Minion::getEnchantmentList(){
 void Minion::useAbility(std::shared_ptr<Game> game) { 
     if (actions > 0){
         actAbility->effect(game, shared_from_this()); 
+        actions--;
     }
 }
 
 void Minion::useAbility(std::shared_ptr<Game> game, int player, int target) {
     if (actions > 0){
-        std::shared_ptr<Minion> targetMinion = game->getPlayer(player)->getBoard()->getMinion(target);
+        std::shared_ptr<Minion> targetMinion = game->getPlayer(player)->getBoard()->getMinion(target - 1);
         actAbility->effect(game, shared_from_this(), targetMinion);
+        actions--;
     }
+
 }
 
 void Minion::triggered(std::shared_ptr<Game> game) { trgAbility->effect(game, shared_from_this()); }
