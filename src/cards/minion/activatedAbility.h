@@ -10,11 +10,6 @@ class Game;
 class Card;
 class Minion;
 
-struct UseArgExn{
-    std::string message;
-    UseArgExn(std::string message);
-};
-
 class ActivatedAbility{
     std::string description;
     int cost;

@@ -12,6 +12,10 @@ Enchantment::Enchantment(std::string name, int owner, int cost, std::string atkC
 void Enchantment::attach(std::shared_ptr<Minion> minion) { 
     component = minion;
     setOwner(component->getOwner()); 
+    setDef(computeDef());
+    setAtk(computeAtk());
+    setTrgAbility(computeTrgAbility());
+    setActAbility(computeActAbility());
 }
 
 std::string Enchantment::getAtkChange() const{ return atkChange; }
@@ -119,6 +123,9 @@ MagicFatigue::MagicFatigue(int owner) :
 void MagicFatigue::attach(std::shared_ptr<Minion> minion){
     component = minion;
     setOwner(component->getOwner());
+        setDef(computeDef());
+    setAtk(computeAtk());
+    setTrgAbility(computeTrgAbility());
     setActAbility(std::make_shared<ActivatedAbility>(*component->computeActAbility()));
     getActAbility()->setCost(getActAbility()->getCost() + 2);
 }
@@ -127,3 +134,11 @@ void MagicFatigue::attach(std::shared_ptr<Minion> minion){
 // Silence //////////////////////////////////////////////////////////////////////////////////////////
 Silence::Silence(int owner) : 
     Enchantment{"Silence", owner, 1, "", "", "Enchanted minion cannot use abilities"} {}
+
+std::shared_ptr<TriggeredAbility> Silence::computeTrgAbility() const {
+    return nullptr;
+}
+
+std::shared_ptr<ActivatedAbility> Silence::computeActAbility() const {
+    return nullptr;
+}
