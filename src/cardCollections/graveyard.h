@@ -11,6 +11,8 @@ class Graveyard {
     // minions from bottom to top
     std::vector<std::shared_ptr<Minion>> minions;
     public:
+        Graveyard();
+
         bool isEmpty();
 
         std::shared_ptr<Minion> getMinionTop();
@@ -20,6 +22,8 @@ class Graveyard {
         // Accessor and mutator for minions
         std::vector<std::shared_ptr<Minion>> getMinions() const;
         void setMinions(std::vector<std::shared_ptr<Minion>> minions);
+
+        void printGraveyard();
         
 };
 

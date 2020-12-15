@@ -218,7 +218,7 @@ int Game::getWinner() {
 
 // get the active player
 shared_ptr<Player> Game::getActivePlayer() {
-    if (players.size() - 1 < activePlayer ) {
+    if (players.size() <= activePlayer ) {
         throw ArgException{"Player" + to_string(activePlayer) + " cannot be retrieved because it does not exist."};
     }
     
@@ -226,7 +226,7 @@ shared_ptr<Player> Game::getActivePlayer() {
 }
 // get the inactive player
 shared_ptr<Player> Game::getInactivePlayer() {
-    if (players.size() - 1 < activePlayer ) {
+    if (players.size() <= activePlayer ) {
         throw ArgException{"Player" + to_string(1-activePlayer) + " cannot be retrieved because it does not exist."};
     }
     if(activePlayer==0){
@@ -237,7 +237,7 @@ shared_ptr<Player> Game::getInactivePlayer() {
 
 // get player by index
 shared_ptr<Player> Game::getPlayer(int index) {
-    if (players.size() - 1 < index ) {
+    if (players.size() <= index ) {
         throw ArgException{"Player" + to_string(index) + " cannot be retrieved because it does not exist."};
     }
     return players[index];

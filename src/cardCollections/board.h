@@ -13,6 +13,8 @@ class Board {
     std::shared_ptr<Ritual> ritual;
     std::vector<std::shared_ptr<Minion>> minions;
     public:
+        Board();
+
         bool isFull() const;
 
         void addMinionRight(std::shared_ptr<Minion> minion);

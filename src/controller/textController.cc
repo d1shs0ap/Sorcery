@@ -2,6 +2,7 @@
 #include "../game/game.h"
 #include "../game/player.h"
 #include "../cardCollections/board.h"
+#include "../cardCollections/graveyard.h"
 #include "../cards/minion/triggeredAbility.h"
 #include "../cards/minion/minion.h"
 #include "../view/textDisplay.h"

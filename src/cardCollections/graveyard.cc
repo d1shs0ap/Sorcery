@@ -4,6 +4,9 @@
 
 using namespace std;
 
+Graveyard::Graveyard() {}
+
+
 bool Graveyard::isEmpty(){
     return minions.empty();
 }
@@ -25,4 +28,11 @@ vector<shared_ptr<Minion>> Graveyard::getMinions() const {
 }
 void Graveyard::setMinions(vector<shared_ptr<Minion>> minions) {
     this->minions = minions;
+}
+
+void Graveyard::printGraveyard() {
+    cout << "Graveyard: "  << endl;
+    for (auto minion: minions) {
+        cout << minion->getName() << " "<< minion->getAtk() << " " << minion->getDef()<< endl;
+    }
 }
