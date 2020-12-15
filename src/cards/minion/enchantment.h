@@ -23,6 +23,7 @@ class Enchantment : public Minion{
         std::string getAtkChange() const;
         std::string getDefChange() const;
         std::string getDescription() const;
+        std::shared_ptr<Minion> getComponent() const;
         int computeAtk() const override;
         int computeDef() const override;
         std::shared_ptr<ActivatedAbility> computeActAbility() const override;
@@ -68,6 +69,7 @@ class MagicFatigue : public Enchantment{
 class Silence : public Enchantment{
     public:
         explicit Silence(int owner);
+        
 };
 
 #endif
