@@ -4,6 +4,12 @@
 
 using namespace std;
 
+Graveyard::Graveyard() {
+    // initialize minion vector
+    minions = {};
+}
+
+
 bool Graveyard::isEmpty(){
     return minions.empty();
 }

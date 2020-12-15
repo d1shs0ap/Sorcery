@@ -17,7 +17,10 @@
 using namespace std;
 
 Deck::Deck(default_random_engine& rng, int owner)
-    : rng{rng}, owner{owner} {}
+    : rng{rng}, owner{owner} {
+    // initialize card vector
+    cards = {};
+}
 
 void Deck::loadDeck(ifstream &infile)
 {

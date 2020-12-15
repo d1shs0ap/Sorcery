@@ -4,7 +4,10 @@
 
 using namespace std;
 
-Hand::Hand(){}
+Hand::Hand(){
+    // initialize card vector
+    cards = {};
+}
 
 // Check if hand is already full
 bool Hand::isFull() {
@@ -22,7 +25,7 @@ void Hand::addCardRight(shared_ptr<Card> card){
 
 // Remove a card
 void Hand::removeCard(int card) {
-    if(cards.size() - 1 < card){
+    if(cards.size() <= card){
         // then there aren't as many cards as requested index, throw error
         throw ArgException{"Card " + to_string(card) + " cannot removed from hand because it does not exist."};
     }
@@ -32,7 +35,7 @@ void Hand::removeCard(int card) {
 
 // Accessor for a single card
 shared_ptr<Card> Hand::getCard(int card) {
-    if(cards.size() - 1 < card){
+    if(cards.size() <= card){
         // then there aren't as many cards as requested index, throw error
         throw ArgException{"Card " + to_string(card) + " cannot retrieved from hand because it does not exist."};
     }

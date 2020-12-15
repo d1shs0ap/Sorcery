@@ -5,6 +5,11 @@
 
 using namespace std;
 
+Board::Board() {
+    // initialize minion vector
+    minions = {};
+}
+
 bool Board::isFull() const{
     return (minions.size()==BOARD_CAP);
 }
@@ -26,22 +31,23 @@ void Board::setRitual(shared_ptr<Ritual> ritual) {
 }
 
 shared_ptr<Minion> Board::getMinion(int minion) const {
-    if(minions.size() - 1 < minion){
+    if(minions.size() <= minion){
         // then there aren't as many cards as requested index, throw error
         throw ArgException{"Minion " + to_string(minion) + " cannot be retrieved from board because it does not exist."};
     }
+
     return minions[minion];
 }
 
 void Board::setMinion(int minion, shared_ptr<Minion> newMinion) {
-    if(minions.size() - 1 < minion){
+    if(minions.size() <= minion){
         throw ArgException{"Minion " + to_string(minion) + " cannot be changed on board because it does not exist."};
     }
     minions[minion] = newMinion;
 }
 
 shared_ptr<Minion> Board::removeMinion(int minion) {
-    if(minions.size() - 1 < minion){
+    if(minions.size() <= minion){
         // then there aren't as many cards as requested index, throw error
         throw ArgException{"Minion"  + to_string(minion + 1) + " cannot be removed from board because it does not exist."};
     }
