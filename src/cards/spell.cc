@@ -14,9 +14,11 @@ Spell::Spell(std::string name, int owner, int cost, std::string description) :
 
 std::string Spell::getDescription() const{ return description; }
 
-void Spell::effect(std::shared_ptr<Game> game) {}
-void Spell::effectWithTarget(std::shared_ptr<Game> game, int player, int target) {}
-void Spell::effectWithTarget(std::shared_ptr<Game> game, int player) {}
+void Spell::effect(std::shared_ptr<Game> game) { }
+
+void Spell::effectWithTarget(std::shared_ptr<Game> game, int player, int target) { }
+
+void Spell::effectWithTarget(std::shared_ptr<Game> game, int player) { }
 
 Spell::~Spell(){}
 
@@ -34,27 +36,81 @@ void Banish::effectWithTarget(std::shared_ptr<Game> game, int player, int target
     game->destroyMinion(game->getPlayer(player), target);
 }
 
+void Banish::effectWithTarget(std::shared_ptr<Game> game, int player){
+
+}
 //////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////
 
 Unsummon::Unsummon(int owner) : Spell{"Unsummon", owner, 1, "Return target minion to its owner's hand"} {}
+
+void Unsummon::effect(std::shared_ptr<Game> game){
+}
+
+void Unsummon::effectWithTarget(std::shared_ptr<Game> game, int player, int target){
+}
+
+void Unsummon::effectWithTarget(std::shared_ptr<Game> game, int player){
+
+}
+
 
 //////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////
 
 Recharge::Recharge(int owner) : Spell{"Recharge", owner, 1, "Your ritual gains 3 charges"} {}
 
+void Recharge::effect(std::shared_ptr<Game> game){
+}
+
+void Recharge::effectWithTarget(std::shared_ptr<Game> game, int player, int target){
+}
+
+void Recharge::effectWithTarget(std::shared_ptr<Game> game, int player){
+
+}
+
 //////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////
 
 Disenchant::Disenchant(int owner) : Spell{"Disenchant", owner, 1, "Destroy the top enchantment on target minion"} {}
+
+void Disenchant::effect(std::shared_ptr<Game> game){
+}
+
+void Disenchant::effectWithTarget(std::shared_ptr<Game> game, int player, int target){
+}
+
+void Disenchant::effectWithTarget(std::shared_ptr<Game> game, int player){
+
+}
 
 //////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////
 
 RaiseDead::RaiseDead(int owner) : Spell{"Raise Dead", owner, 1, "Resurrect the top minion in your graveyard and set its defence to 1"} {}
 
+void RaiseDead::effect(std::shared_ptr<Game> game){
+}
+
+void RaiseDead::effectWithTarget(std::shared_ptr<Game> game, int player, int target){
+}
+
+void RaiseDead::effectWithTarget(std::shared_ptr<Game> game, int player){
+
+}
+
 //////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////
 
 Blizzard::Blizzard(int owner) : Spell{"Blizzard", owner, 3, "Deal 2 damage to all minions"} {}
+
+void Blizzard::effect(std::shared_ptr<Game> game){
+}
+
+void Blizzard::effectWithTarget(std::shared_ptr<Game> game, int player, int target){
+}
+
+void Blizzard::effectWithTarget(std::shared_ptr<Game> game, int player){
+
+}
