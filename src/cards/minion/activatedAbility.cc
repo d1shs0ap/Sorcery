@@ -66,7 +66,7 @@ void SummonThreeAirElemental::effect(std::shared_ptr<Game> game, std::shared_ptr
     std::shared_ptr<Player> target = game->getPlayer(owner);
     int remain = 3;
     while(target->getBoard()->getMinions().size() <= 5 && remain > 0){
-        target->getBoard()->addMinionRight(std::make_shared<AirElemental>(owner));
+        game->addMinion(owner, std::make_shared<AirElemental>(owner));
         remain--;
     }
 }

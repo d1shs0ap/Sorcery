@@ -51,23 +51,28 @@ void Game::startTurn() {
     // draw card
     player->draw();
     // Check all triggered abilities (minions and ritual)
-    checkTriggered(TriggeredAbilityType::START_TURN);
+    checkTriggered(getActivePlayer(), TriggeredAbilityType::START_TURN);
 }
 
 // Does all the end turn game effects
 void Game::endTurn() {
     // Check all triggered abilities (minions and ritual)
-    checkTriggered(END_TURN);
+    checkTriggered(getActivePlayer(), END_TURN);
 }
 
 // Checks all triggered abilities to see if any is triggered, in a certain context(e.g. endTurn)
-void Game::checkTriggered(int context) {
+void Game::checkTriggered(std::shared_ptr<Player> player, int context) {
     // player and its components
-    auto player = getActivePlayer();
     auto board = player->getBoard();
     auto ritual = board->getRitual();
-
-    auto enemyBoard = getInactivePlayer()->getBoard();
+    
+    std::shared_ptr<Player> enemyPlayer;
+    if(getActivePlayer() == player) {
+        enemyPlayer = getInactivePlayer();
+    } else{
+        enemyPlayer = getActivePlayer();
+    }
+    auto enemyBoard = enemyPlayer->getBoard();
     auto enemyRitual = enemyBoard->getRitual();
 
     if (context==START_TURN || context==END_TURN) {
@@ -220,5 +225,10 @@ void Game::destroyMinion(std::shared_ptr<Player> player, int minion) {
     removed->die(shared_from_this());
     player->getGraveyard()->addMinionTop(removed->getAttachedMinion());
     player->getGraveyard()->getMinionTop()->setDef(0);
+}
+
+void Game::addMinion(int player, std::shared_ptr<Minion> minion){
+    players[player]->getBoard()->addMinionRight(minion);
+    checkTriggered(players[player], MINION_ENTER);
 }
 

@@ -26,7 +26,7 @@ class Game : public std::enable_shared_from_this<Game> {
         // Does all the end turn game effects
         void endTurn();
         // Checks all triggered abilities to see if any is triggered, under a certain situation
-        void checkTriggered(int context);
+        void checkTriggered(std::shared_ptr<Player> player, int context);
         // Changes active player
         void changeActive();
         // Get the winner, if there is one
@@ -38,6 +38,8 @@ class Game : public std::enable_shared_from_this<Game> {
 
         // remove minion from board and add it to graveyard
         void destroyMinion(std::shared_ptr<Player> player, int minion);
+        // add minion to the board and check triggered ability
+        void addMinion(int player, std::shared_ptr<Minion> minion);
 };
 
 #endif
