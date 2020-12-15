@@ -246,7 +246,7 @@ vector<string> TextDisplay::printRitual(shared_ptr<Ritual> ritual) {
 // print a single card
 void TextDisplay::printCard(vector<string> card) {
     for (int i = 0; i < CARD_HEIGHT; ++i) {
-        cout << card[i];
+        cout << card[i] << endl;
     }
 }
 vector<vector<string>> TextDisplay::getRowString(vector<shared_ptr<Card>> cards, int printLocation) {
@@ -367,7 +367,6 @@ void TextDisplay::printInspect(int minion) {
     if (type == "Minion"){
         vector<string> minionStr = printMinion(card);
         printCard(minionStr);
-        cout << endl;
     }
     // if type enchantment, first get the minion under enchantment the n print enchantments
     if (type == "Enchantment"){
@@ -378,7 +377,6 @@ void TextDisplay::printInspect(int minion) {
         auto bottomMinion = topEnchantment->getAttachedMinion();
         vector<string> minionStr = printMinion(bottomMinion);
         printCard(minionStr);
-        cout << endl;
 
         // print all enchantments
         vector<shared_ptr<Enchantment>> enchantments = topEnchantment->getEnchantmentList();
