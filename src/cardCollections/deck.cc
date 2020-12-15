@@ -101,10 +101,6 @@ void Deck::loadDeck(ifstream &infile)
         //     cards.push_back(card);
         // }
     }
-
-    if(cards.size() < 5) {
-        // throw error "too few cards"
-    }
 }
 
 

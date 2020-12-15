@@ -28,15 +28,27 @@ bool Player::hasEnoughMagic(int cost) { return magic >= cost; }
 int Player::getNumber() const { return number; }
 
 shared_ptr<Board> Player::getBoard() {
+    if (board==nullptr){
+        throw ArgException{"Board does not exist for player " + (getName()) + "."};
+    }
     return board;
 }
 shared_ptr<Deck> Player::getDeck() {
+    if (deck==nullptr){
+        throw ArgException{"Deck does not exist for player " + (getName()) + "."};
+    }
     return deck;
 }
 shared_ptr<Graveyard> Player::getGraveyard() {
+    if (graveyard==nullptr){
+        throw ArgException{"Graveyard does not exist for player " + (getName()) + "."};
+    }
     return graveyard;
 }
 shared_ptr<Hand> Player::getHand() {
+    if (hand==nullptr){
+        throw ArgException{"Hand does not exist for player " + (getName()) + "."};
+    }
     return hand;
 }
 
