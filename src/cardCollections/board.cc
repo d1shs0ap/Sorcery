@@ -43,7 +43,7 @@ void Board::setMinion(int minion, shared_ptr<Minion> newMinion) {
 shared_ptr<Minion> Board::removeMinion(int minion) {
     if(minions.size() - 1 < minion){
         // then there aren't as many cards as requested index, throw error
-        throw ArgException{"Minion"  + to_string(minion) + " cannot be removed from board because it does not exist."};
+        throw ArgException{"Minion"  + to_string(minion + 1) + " cannot be removed from board because it does not exist."};
     }
     auto tmp = minions[minion];
     minions.erase(minions.begin()+minion);
