@@ -60,45 +60,69 @@ void Game::checkTriggered(int context) {
     auto player = getActivePlayer();
     auto board = player->getBoard();
     auto ritual = board->getRitual();
-    auto ritualTrgAbility = ritual->getTrgAbility();
 
     // enemy player and its components
     auto enemyPlayer = getInactivePlayer();
     auto enemyBoard = enemyPlayer->getBoard();
     auto enemyRitual = enemyBoard->getRitual();
-    auto enemyRitualTrgAbility = enemyRitual->getTrgAbility();
 
     if (context==START_TURN || context==END_TURN) {
-        // check the active player's ritual and minions for triggered abilities
-        if (ritualTrgAbility->getType()==context) {
-            bool triggered = ritual->useTrgAbility(shared_from_this());
-            if (!triggered) {
-                // print message saying that ritual do not have enoguh charges to continue
+        // check there is ritual
+        if (ritual != nullptr) {
+            auto ritualTrgAbility = ritual->getTrgAbility();
+            
+            // check there is trg ability of ritual
+            if(ritualTrgAbility != nullptr){
+                
+                if(ritualTrgAbility->getType()==context) {
+                    bool triggered = ritual->useTrgAbility(shared_from_this());
+                    if (!triggered) {
+                        // print message saying that ritual do not have enoguh charges to continue
+                    }
+                }
+            } else {
+                // error because all rituals have trg abilities
             }
         }
 
         for(auto minion : board->getMinions()) {
-            auto trgAbility = minion->getTrgAbility();
-            if (trgAbility->getType()==context) {
-                //Use minion to call
-                //trgAbility->effect(shared_from_this());
+            // checks if minion has trg ability
+            if(minion->hasTrgAbility()) {
+                
+                auto trgAbility = minion->getTrgAbility();
+                if (trgAbility->getType()==context) {
+                    //Use minion to call
+                    //trgAbility->effect(shared_from_this());
+                }
             }
         }
         
 
-        // check the enemy player's ritual and minions for triggered abilities
-        if (enemyRitualTrgAbility->getType()==context) {
-            bool triggered = enemyRitual->useTrgAbility(shared_from_this());
-            if (!triggered) {
-                // print message saying that ritual do not have enoguh charges to continue
+        // check there is ritual
+        if (enemyRitual != nullptr) {
+            auto enemyRitualTrgAbility = enemyRitual->getTrgAbility();
+
+            // check if ritual has trg ability
+            if(enemyRitualTrgAbility != nullptr){
+                if (enemyRitualTrgAbility->getType()==context) {
+                    bool triggered = enemyRitual->useTrgAbility(shared_from_this());
+                    if (!triggered) {
+                        // print message saying that ritual do not have enoguh charges to continue
+                    }
+                }
+            } else {
+                // if ritual has no trg ability, error
             }
         }
 
         for(auto minion : enemyBoard->getMinions()) {
-            auto trgAbility = minion->getTrgAbility();
-            if (trgAbility->getType()==context) {
-                //Use minion to call
-                //trgAbility->effect(shared_from_this());
+            // if minion has trg ability
+            if(minion->hasTrgAbility()) {
+                auto trgAbility = minion->getTrgAbility();
+                if (trgAbility->getType()==context) {
+                    //Use minion to call
+                    //trgAbility->effect(shared_from_this());
+                }
             }
         }
     } else if (context == MINION_ENTER) { // when the active player's a minion
@@ -111,10 +135,13 @@ void Game::checkTriggered(int context) {
         }
 
         for(auto minion : board->getMinions()) {
-            auto trgAbility = minion->getTrgAbility();
-            if (trgAbility->getType()==MINION_ENTER || trgAbility->getType()==OWN_MINION_ENTER) {
+            // checks if minion has trg ability
+            if(minion->hasTrgAbility()) {
+                auto trgAbility = minion->getTrgAbility();
+                if (trgAbility->getType()==MINION_ENTER || trgAbility->getType()==OWN_MINION_ENTER) {
 
-                //trgAbility.effect(shared_from_this());
+                    //trgAbility.effect(shared_from_this());
+                }
             }
         }
 
@@ -128,15 +155,15 @@ void Game::checkTriggered(int context) {
         }
 
         for(auto minion : enemyBoard->getMinions()) {
-            auto trgAbility = minion->getTrgAbility();
-            if (trgAbility->getType()==MINION_ENTER || trgAbility->getType()==ENEMY_MINION_ENTER) {
-                //trgAbility.effect(shared_from_this());
+            // checks if minion has trg ability
+            if(minion->hasTrgAbility()) {
+                auto trgAbility = minion->getTrgAbility();
+                if (trgAbility->getType()==MINION_ENTER || trgAbility->getType()==ENEMY_MINION_ENTER) {
+                    //trgAbility.effect(shared_from_this());
+                }
             }
         }
-
     }
-
-    // auto enemyPlayer = getInactivePlayer();
 }
 
 // Changes active player
