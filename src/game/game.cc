@@ -24,13 +24,10 @@ Game::Game(shared_ptr<Player> player1, shared_ptr<Player> player2, mt19937_64& g
 // Removes everything that is no longer on the board
 void Game::clean() {
     for (auto player : players){
-        auto board = player->getBoard();
-        auto minions = board->getMinions();
+        auto minions = player->getBoard()->getMinions();
 
-        for (int i = 0; i < (minions).size(); ++i) {
-            if (minions[i]->getDef() <= 0 ) {
-                board->removeMinion(i);
-            }
+        for(int i = 0; i < minions.size(); ++i) {
+            destroyMinion(player, i);
         }
     }
 }
@@ -226,5 +223,6 @@ shared_ptr<Player> Game::getPlayer(int index) {
 void Game::destroyMinion(std::shared_ptr<Player> player, int minion) {
     auto removed = player->getBoard()->removeMinion(minion);
     player->getGraveyard()->addMinionTop(removed);
+    cout << "Graveyard: " << player->getGraveyard()->getMinionTop()->getName() << endl;
 }
 
