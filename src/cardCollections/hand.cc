@@ -12,7 +12,8 @@ bool Hand::isFull() {
         
 // Add card to hand, called by draw() in Player
 bool Hand::addCardRight(shared_ptr<Card> card){
-    if (isFull()){ 
+    if (isFull()){
+        // throw exception
         return false;
     }
     cards.push_back(card);

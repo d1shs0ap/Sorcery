@@ -59,11 +59,11 @@ public:
     // Plays the ith card in hand from the left
     void play(int card, std::shared_ptr<Game> game);
     void play(int card, int player, int target, std::shared_ptr<Game> game);
-    void play(int card, int player, char ritual, std::shared_ptr<Game> game);
+    void play(int card, int player, std::shared_ptr<Game> game); // for ritual target
 
     void use(std::shared_ptr<Game> game, int minion);
     void use(std::shared_ptr<Game> game, int minion, int player, int target);
-    void use(std::shared_ptr<Game> game, int minion, int player, char ritual);
+    void use(std::shared_ptr<Game> game, int minion, int player); // for ritual target
 };
 
 #endif

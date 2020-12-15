@@ -42,6 +42,10 @@ shared_ptr<Hand> Player::getHand() {
 // To draw, a player takes a card from their deck and puts it into their hand. A player may only draw if their
 // hand is not full and their deck is not empty.
 void Player::draw() {
+    if (deck->isEmpty() || hand->isFull()) {
+        // throw
+        return;
+    }
     auto topCard = deck->removeCardTop();
     hand->addCardRight(topCard);
 }
@@ -57,10 +61,6 @@ void Player::play(int card, shared_ptr<Game> game) {
         int cost = tmpCard->getCost();
 
         if(hasEnoughMagic(cost)) {
-            
-            // remove from hand
-            hand->removeCard(card);
-
             // play the card
             if (tmpCard->getType() == "Minion") {
 
@@ -84,6 +84,8 @@ void Player::play(int card, shared_ptr<Game> game) {
                 // throw error, cannot play enchantment without target
             }
             setMagic(getMagic() - cost);
+            // remove from hand
+            hand->removeCard(card);
         } else {
             // error since not enough magic
         }
@@ -96,10 +98,8 @@ void Player::play(int card, int player, int target, shared_ptr<Game> game) {
     auto tmpCard = hand->getCard(card);
     int cost = tmpCard->getCost();
 
-    // subtract magic cost
+    // has enough magic cost
     if(hasEnoughMagic(cost)) {
-    
-        hand->removeCard(card);
     
         if (tmpCard->getType() == "Spell") {
             auto tmpSpell = dynamic_pointer_cast<Spell>(tmpCard);
@@ -110,6 +110,7 @@ void Player::play(int card, int player, int target, shared_ptr<Game> game) {
             auto targetBoard = targetPlayer->getBoard();
             auto targetMinion = targetBoard->getMinion(target);
             auto tmpEnchantment = dynamic_pointer_cast<Enchantment>(tmpCard);
+
             // attach to the ith game's player's board's target minion
             tmpEnchantment->attach(targetMinion);
             // then point the board minion to the enchantment layer wrapped outside
@@ -117,14 +118,40 @@ void Player::play(int card, int player, int target, shared_ptr<Game> game) {
         } else {
             // throw error, cannot play minion/ritual with target
         }
+
+        // subtract cost
         setMagic(getMagic() - cost);
+        // remove from hand
+        hand->removeCard(card);
     } else {
         // error since not enough magic
     }
 }
 
-// Plays the ith card in hand from the left
-void Player::play(int card, int player, char ritual, shared_ptr<Game> game) {
+// play for ritual
+void Player::play(int card, int player, shared_ptr<Game> game) {
+    // checks if removeCard is out of range
+    auto tmpCard = hand->getCard(card);
+    int cost = tmpCard->getCost();
+
+    // has enough magic cost
+    if(hasEnoughMagic(cost)) {
+    
+        if (tmpCard->getType() == "Spell") {
+            auto tmpSpell = dynamic_pointer_cast<Spell>(tmpCard);
+            tmpSpell->effectWithTarget(game, player); // cause the spell effect, then the spell disappears
+        
+        } else {
+            // throw error, cannot play minion/ritual with target
+        }
+
+        // subtract cost
+        setMagic(getMagic() - cost);
+        // remove from hand
+        hand->removeCard(card);
+    } else {
+        // error since not enough magic
+    }
 }
 
 void Player::use(std::shared_ptr<Game> game, int minion){
@@ -159,7 +186,8 @@ void Player::use(std::shared_ptr<Game> game, int minion, int player, int target)
 }
 
 
-void Player::use(std::shared_ptr<Game> game, int minion, int player, char ritual) {
+// use for ritual
+void Player::use(std::shared_ptr<Game> game, int minion, int player) {
     // try { // checks if minion is out of range
     //     if (ritual=='r'){
     //         auto tmpMinion = board->getMinion(minion);

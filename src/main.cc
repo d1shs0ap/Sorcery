@@ -274,7 +274,7 @@ int main(int argc, char *argv[])
                     } else if (argCount==3){
                         if (arg=="r"){ // if ritual
                             if(sscmd.eof()) { // if only 3 args
-                                textController->play(cardInHand, targetPlayer, 'r');
+                                textController->play(cardInHand, targetPlayer);
                                 break;
                             }
 
@@ -320,7 +320,7 @@ int main(int argc, char *argv[])
                     } else if (argCount==3){
                         if (arg=="r"){ // if ritual
                             if(sscmd.eof()) { // if only 3 args
-                                textController->use(minion, targetPlayer, 'r');
+                                textController->use(minion, targetPlayer);
                                 break;
                             }
 

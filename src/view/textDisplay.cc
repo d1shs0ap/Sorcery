@@ -190,7 +190,7 @@ vector<string> TextDisplay::printEnchantedMinion(shared_ptr<Enchantment> enchant
 
     // add activated ability from enchantment
     if(enchantment->hasActAbility()) {
-        printTopLeftBoxAndDescription(card, enchantment->getActAbility()->getDescription(), to_string(enchantment->getActAbility()->getCost()));
+        printTopLeftBoxAndDescription(card, to_string(enchantment->getActAbility()->getCost()), enchantment->getActAbility()->getDescription());
     }
 
     // add triggered ability from enchantment, after activated ability
@@ -237,7 +237,7 @@ vector<string> TextDisplay::printSpell(shared_ptr<Spell> spell) {
 vector<string> TextDisplay::printRitual(shared_ptr<Ritual> ritual) {
     vector<string> card = printCardTemplate(ritual);
     // add its activation cost and description
-    printTopLeftBoxAndDescription(card, ritual->getTrgAbility()->getDescription(), to_string(ritual->getActivationCost()));
+    printTopLeftBoxAndDescription(card, to_string(ritual->getActivationCost()), ritual->getTrgAbility()->getDescription());
     // add its number of charges
     printRightBox(card, to_string(ritual->getCharges()));
     return card;
@@ -246,7 +246,7 @@ vector<string> TextDisplay::printRitual(shared_ptr<Ritual> ritual) {
 // print a single card
 void TextDisplay::printCard(vector<string> card) {
     for (int i = 0; i < CARD_HEIGHT; ++i) {
-        cout << card[i];
+        cout << card[i] << endl;
     }
 }
 vector<vector<string>> TextDisplay::getRowString(vector<shared_ptr<Card>> cards, int printLocation) {
@@ -367,7 +367,6 @@ void TextDisplay::printInspect(int minion) {
     if (type == "Minion"){
         vector<string> minionStr = printMinion(card);
         printCard(minionStr);
-        cout << endl;
     }
     // if type enchantment, first get the minion under enchantment the n print enchantments
     if (type == "Enchantment"){
@@ -375,10 +374,8 @@ void TextDisplay::printInspect(int minion) {
         // enchantment at the top
         auto topEnchantment = dynamic_pointer_cast<Enchantment>(card);
         // print minion under enchantment
-        auto bottomMinion = topEnchantment->getAttachedMinion();
-        vector<string> minionStr = printMinion(bottomMinion);
+        vector<string> minionStr = printEnchantedMinion(topEnchantment);
         printCard(minionStr);
-        cout << endl;
 
         // print all enchantments
         vector<shared_ptr<Enchantment>> enchantments = topEnchantment->getEnchantmentList();
@@ -410,6 +407,7 @@ vector<string> TextDisplay::printPlayer(shared_ptr<Player> player) {
     vector<string> card = emptyCard();
     // add name to card
     string name = player->getName();
+    name = "Player" + to_string(player->getNumber()+1) + ": " + name;
     card[CARD_HEIGHT/2-2].replace(CARD_WIDTH/2-name.size()/2, name.size(), name);
 
     // add life and magic to card

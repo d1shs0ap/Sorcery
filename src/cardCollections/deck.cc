@@ -7,7 +7,11 @@
 #include <chrono>
 
 #include "../cards/minion/minion.h"
+#include "../cards/minion/enchantment.h"
+#include "../cards/ritual.h"
+#include "../cards/spell.h"
 #include "../cards/card.h"
+
 
 using namespace std;
 
@@ -17,8 +21,8 @@ Deck::Deck(default_random_engine& rng, int owner)
 void Deck::loadDeck(ifstream &infile)
 {
     string cardName;
-    while (getline(infile, cardName))
-    {
+    while (getline(infile, cardName)) {   
+        // minions
         if (cardName=="Air Elemental") {
             auto card = make_shared<AirElemental>(owner);
             cards.push_back(card);
@@ -44,7 +48,36 @@ void Deck::loadDeck(ifstream &infile)
             auto card = make_shared<MasterSummoner>(owner);
             cards.push_back(card);
         }
-        // } else if (cardName=="") {
+        // Enchantments
+        else if (cardName=="Giant Strength") {
+            auto card = make_shared<GiantStrength>(owner);
+            cards.push_back(card);
+        } else if (cardName=="Enrage") {
+            auto card = make_shared<Enrage>(owner);
+            cards.push_back(card);
+        } else if (cardName=="Magic Fatigue") {
+            auto card = make_shared<MagicFatigue>(owner);
+            cards.push_back(card);
+        } 
+        // else if (cardName=="Delay") {
+        //     auto card = make_shared<Delay>(owner);
+        //     cards.push_back(card);
+        // } else if (cardName=="Silence") {
+        //     auto card = make_shared<Silence>(owner);
+        //     cards.push_back(card);
+        // } 
+        // Rituals
+        else if (cardName=="Dark Ritual") {
+            auto card = make_shared<DarkRitual>(owner);
+            cards.push_back(card);
+        } else if (cardName=="Aura of Power") {
+            auto card = make_shared<AuraOfPower>(owner);
+            cards.push_back(card);
+        } else if (cardName=="Standstill") {
+            auto card = make_shared<Standstill>(owner);
+        }
+        // Spells
+        // else if (cardName=="") {
         //     auto card = make_shared<>(owner);
         //     cards.push_back(card);
         // } else if (cardName=="") {
@@ -85,9 +118,13 @@ bool Deck::isEmpty(){
 
 // Return and remove the top card from the deck, called by draw()
 shared_ptr<Card> Deck::removeCardTop() {
-    auto tmp = cards.back();
-    cards.pop_back();
-    return tmp;
+    if (!isEmpty()){
+        auto tmp = cards.back();
+        cards.pop_back();
+        return tmp;
+    } else {
+        // exception
+    }
 }
 
 void Deck::printDeck() {

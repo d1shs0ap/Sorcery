@@ -18,8 +18,7 @@ class Ritual : public Card, public std::enable_shared_from_this<Ritual>
     std::shared_ptr<TriggeredAbility> trgAbility;
 
 public:
-    Ritual(std::string name, int owner, int cost,
-           int activationCost, int charges, std::shared_ptr<TriggeredAbility> trgAbility);
+    Ritual(std::string name, int owner, int cost, int activationCost, int charges, std::shared_ptr<TriggeredAbility> trgAbility);
 
     int getActivationCost();
     int getCharges();
@@ -35,19 +34,19 @@ public:
     ~Ritual();
 };
 
-class DarkRitual : Ritual
+class DarkRitual : public Ritual //passed!
 {
 public:
     explicit DarkRitual(int owner);
 };
 
-class AuraOfPower : Ritual
+class AuraOfPower : public Ritual //passed!
 {
 public:
     explicit AuraOfPower(int owner);
 };
 
-class Standstill : Ritual
+class Standstill : public Ritual
 {
 public:
     explicit Standstill(int owner);

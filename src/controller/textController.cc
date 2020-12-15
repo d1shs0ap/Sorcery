@@ -86,11 +86,11 @@ void TextController::play(int cardInHand, int targetPlayer, int targetMinion) {
         game->checkTriggered(MINION_ENTER);
     }
 }
-void TextController::play(int cardInHand, int targetPlayer, char targetRitual) {
+void TextController::play(int cardInHand, int targetPlayer) {
     auto player = game->getActivePlayer();
     auto card = player->getHand()->getCard(cardInHand - 1);
 
-    player->play(cardInHand - 1, targetPlayer - 1, targetRitual, game);
+    player->play(cardInHand - 1, targetPlayer - 1, game);
 
     if (card->getType()=="Minion") {
         game->checkTriggered(MINION_ENTER);
@@ -111,9 +111,9 @@ void TextController::use(int minion, int targetPlayer, int targetMinion) {
     auto player = game->getActivePlayer();
     player->use(game->shared_from_this(), minion - 1, targetPlayer - 1, targetMinion - 1);
 }
-void TextController::use(int minion, int targetPlayer, char targetRitual) {
+void TextController::use(int minion, int targetPlayer) {
     auto player = game->getActivePlayer();
-    player->use(game->shared_from_this(), minion - 1, targetPlayer - 1, targetRitual);
+    player->use(game->shared_from_this(), minion - 1, targetPlayer - 1);
 }
 
 
