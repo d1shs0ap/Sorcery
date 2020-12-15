@@ -24,6 +24,10 @@ void TextDisplay::addSpace(string &s, int n)
         s += " ";
 }
 
+
+
+
+
 // -------------------- HELPER PRINT FUNCTIONS --------------------
 
 // print template of any card
@@ -88,7 +92,7 @@ void TextDisplay::printRightBox(vector<string> &card, string boxContent) {
 void TextDisplay::printTopLeftBoxAndDescription(vector<string> &card, string boxContent, string description) {
     // box
     card[5].replace(WORD_START, boxContent.size(), boxContent);                                 // | 2
-    card[5].replace(boxContent.size(), 1, "|");                                                 // | 2   |
+    card[5].replace(NUMBER_BORDER_LINE.size(), 1, "|");                                         // | 2   |
     card[6].replace(WORD_START - 1, NUMBER_BORDER_LINE.size(), NUMBER_BORDER_LINE);             // |------
 
     // description
@@ -105,6 +109,8 @@ void TextDisplay::printTopLeftBoxAndDescription(vector<string> &card, string box
         ++counter;
     }
 }
+
+
 
 
 
@@ -156,7 +162,7 @@ vector<string> TextDisplay::printMinion(shared_ptr<Minion> minion) {
 
     // add activated ability from minion
     if(minion->hasActAbility()) {
-        printTopLeftBoxAndDescription(card, minion->computeActAbility()->getDescription(), to_string(minion->computeActAbility()->getCost()));
+        printTopLeftBoxAndDescription(card, to_string(minion->computeActAbility()->getCost()), minion->computeActAbility()->getDescription());
     }
 
     // add triggered ability from enchantment, after activated ability

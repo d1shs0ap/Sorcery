@@ -84,12 +84,9 @@ int main(int argc, char *argv[])
     // Decks are shuffled if not in testing
     if (TESTING==false) {
         deck1->shuffleDeck();
-        deck1->printDeck();
 
         deck2->shuffleDeck();
         deck2->shuffleDeck();
-        deck2->printDeck();
-        
     }
 
 
