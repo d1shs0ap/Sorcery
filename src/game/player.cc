@@ -191,12 +191,4 @@ void Player::use(std::shared_ptr<Game> game, int minion, int player, int target)
 
 // use for ritual
 void Player::use(std::shared_ptr<Game> game, int minion, int player) {
-    // try { // checks if minion is out of range
-    //     if (ritual=='r'){
-    //         auto tmpMinion = board->getMinion(minion);
-    //         tmpMinion->useAbility(player, target);
-    //     } else {
-    //         // throw error
-    //     }
-    // } catch (const out_of_range& oor) {}
 }
