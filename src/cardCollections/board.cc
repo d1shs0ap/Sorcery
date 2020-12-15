@@ -28,7 +28,7 @@ void Board::setRitual(shared_ptr<Ritual> ritual) {
 shared_ptr<Minion> Board::getMinion(int minion) const {
     if(minions.size() - 1 < minion){
         // then there aren't as many cards as requested index, throw error
-        throw ArgException{"Minion " + to_string(minion) + " cannot be retrieved from board because it does not exist."};
+        throw ArgException{"Minion " + to_string(minion + 1) + " cannot be retrieved from board because it does not exist."};
     }
     return minions[minion];
 }
