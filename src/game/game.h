@@ -14,11 +14,11 @@ class Game : public std::enable_shared_from_this<Game> {
     // the two players.
     std::vector<std::shared_ptr<Player>> players;
     int activePlayer; // current turn. this can only be 0 or 1.
-    unsigned seed; // to generate the first active player
+    std::mt19937_64 generator; // to generate the first active player
 
     public:
         // Constructor
-        Game(std::shared_ptr<Player> player1, std::shared_ptr<Player> player2, unsigned seed);
+        Game(std::shared_ptr<Player> player1, std::shared_ptr<Player> player2, std::mt19937_64& generator);
         // Removes everything that is no longer on the board
         void clean();
         // Does all the start turn game effects

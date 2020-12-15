@@ -4,7 +4,7 @@
 #include "triggeredAbility.h"
 #include "activatedAbility.h"
 #include "enchantment.h"
-#include "../../cardcollections/board.h"
+#include "../../cardCollections/board.h"
 
 using namespace std;
 
