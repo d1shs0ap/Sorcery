@@ -5,6 +5,7 @@
 #include "activatedAbility.h"
 #include "enchantment.h"
 #include "../../cardCollections/board.h"
+#include "../../argException.h"
 
 using namespace std;
 
@@ -38,6 +39,8 @@ void Minion::attack(shared_ptr<Player> other)
         int attack = this->getAtk();
         other->setLife(other->getLife() - attack);
         --actions;
+    } else {
+        throw ArgException{"Minion " + getName() + " does not have enough action points to attack."};
     }
 }
 
@@ -48,6 +51,8 @@ void Minion::attack(shared_ptr<Minion> other)
         other->setDef(other->getDef() - this->getAtk());
         this->setDef(this->getDef() - other->getAtk());
         --actions;
+    } else {
+        throw ArgException{"Minion " + getName() + " does not have enough action points to attack."};
     }
 }
 
@@ -64,6 +69,8 @@ void Minion::useAbility(std::shared_ptr<Game> game) {
     if (actions > 0){
         actAbility->effect(game, shared_from_this()); 
         actions--;
+    } else {
+        throw ArgException{"Minion " + getName() + " does not have enough action points to use activated ability."};
     }
 }
 
@@ -72,6 +79,8 @@ void Minion::useAbility(std::shared_ptr<Game> game, int player, int target) {
         std::shared_ptr<Minion> targetMinion = game->getPlayer(player)->getBoard()->getMinion(target - 1);
         actAbility->effect(game, shared_from_this(), targetMinion);
         actions--;
+    } else {
+        throw ArgException{"Minion " + getName() + " does not have enough action points to use activated ability."};
     }
 
 }
