@@ -14,7 +14,7 @@ class Spell : public Card {
         Spell(std::string description);
         void effect(std::shared_ptr<Game> game);
         void effectWithTarget(std::shared_ptr<Game> game, int player, int target);
-        void effectWithTarget(std::shared_ptr<Game> game, int player, char ritual);
+        void effectWithTarget(std::shared_ptr<Game> game, int player);
         std::string getDescription();
 
         virtual ~Spell();
