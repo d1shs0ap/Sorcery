@@ -374,8 +374,7 @@ void TextDisplay::printInspect(int minion) {
         // enchantment at the top
         auto topEnchantment = dynamic_pointer_cast<Enchantment>(card);
         // print minion under enchantment
-        auto bottomMinion = topEnchantment->getAttachedMinion();
-        vector<string> minionStr = printMinion(bottomMinion);
+        vector<string> minionStr = printEnchantedMinion(topEnchantment);
         printCard(minionStr);
 
         // print all enchantments
