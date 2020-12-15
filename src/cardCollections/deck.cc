@@ -59,14 +59,13 @@ void Deck::loadDeck(ifstream &infile)
         } else if (cardName=="Magic Fatigue") {
             auto card = make_shared<MagicFatigue>(owner);
             cards.push_back(card);
+        } else if (cardName=="Delay") {
+            auto card = make_shared<Delay>(owner);
+            cards.push_back(card);
+        } else if (cardName=="Silence") {
+            auto card = make_shared<Silence>(owner);
+            cards.push_back(card);
         } 
-        // else if (cardName=="Delay") {
-        //     auto card = make_shared<Delay>(owner);
-        //     cards.push_back(card);
-        // } else if (cardName=="Silence") {
-        //     auto card = make_shared<Silence>(owner);
-        //     cards.push_back(card);
-        // } 
         // Rituals
         else if (cardName=="Dark Ritual") {
             auto card = make_shared<DarkRitual>(owner);
