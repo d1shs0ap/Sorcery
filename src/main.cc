@@ -200,7 +200,7 @@ int main(int argc, char *argv[])
                     int cardInHand;
                     while(sscmd >> arg) {
                         if(argCount==0){
-                            ++argCount; // get rid of first arg which is "discord" to read the actual args
+                            ++argCount; // get rid of first arg which is "discard" to read the actual args
                             continue;
                         } else if (argCount==1){    
                             cardInHand = stoi(arg); // if input received cannot be converted, entire cmd fails
@@ -211,6 +211,7 @@ int main(int argc, char *argv[])
                                 break;
                             } else {
                                 // throw "too many arguments" error here
+                                throw ArgException{"discard requires 1 argument."};
                                 break;
                             }
                         }
@@ -241,6 +242,7 @@ int main(int argc, char *argv[])
                             break;
                         } else {
                             // throw "too many arguments" error here
+                            throw ArgException{"attack requires 1 or 2 arguments."};
                             break;
                         }
                     }
@@ -269,7 +271,7 @@ int main(int argc, char *argv[])
 
                         if(sscmd.eof()) { // if only 2 args
                             // throw "too few arguments"
-
+                            throw ArgException{"play requires 1 or 3 arguments."};
                             break;
                         }
                     } else if (argCount==3){
@@ -287,6 +289,7 @@ int main(int argc, char *argv[])
                                 break;
                             } else {
                                 // throw "too many arguments" error here
+                                throw ArgException{"play requires 1 or 3 arguments."};
                                 break;
                             }
                         }
@@ -297,7 +300,7 @@ int main(int argc, char *argv[])
                 string arg;
                 int argCount = 0;
                 int minion, targetPlayer, targetMinion;
-                while(getline(sscmd, arg)){
+                while(sscmd >> arg){
                     if(argCount==0){
                         ++argCount; // get rid of first arg which is "attack" to read the actual args
                         continue;
@@ -316,6 +319,7 @@ int main(int argc, char *argv[])
 
                         if(sscmd.eof()) { // if only 2 args
                             // throw "too few arguments"
+                            throw ArgException{"use requires 1 or 3 arguments."};
                             break;
                         }
                     } else if (argCount==3){
@@ -333,6 +337,7 @@ int main(int argc, char *argv[])
                                 break;
                             } else {
                                 // throw "too many arguments" error here
+                                throw ArgException{"use requires 1 or 3 arguments."};
                                 break;
                             }
                         }
@@ -357,6 +362,7 @@ int main(int argc, char *argv[])
                             break;
                         } else {
                             // throw "too many arguments" error here
+                            throw ArgException{"inspect requires 1 argument."};
                             break;
                         }
                     }
@@ -367,6 +373,7 @@ int main(int argc, char *argv[])
                 textController->board();
             } else {
                 // throw invalid input
+                throw ArgException{"Command not recognized."};
             }
             game->clean();
         } catch (const ios::failure& e) {

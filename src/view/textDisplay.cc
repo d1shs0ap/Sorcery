@@ -480,7 +480,6 @@ void TextDisplay::printBoard() {
     vector<vector<string>> ritualRow = getRitualRow(enemy);
     vector<vector<string>> minionRow = getMinionRow(enemy);
     reverse(ritualRow.begin(), ritualRow.end());
-    reverse(minionRow.begin(), minionRow.end());
     printRow(ritualRow, BOARD);
     printRow(minionRow, BOARD);
 
