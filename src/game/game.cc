@@ -127,10 +127,20 @@ void Game::checkTriggered(int context) {
         }
     } else if (context == MINION_ENTER) { // when the active player's a minion
         // for active player's minions, we also have to check that if its triggered ability is of type "OWN_MINION_ENTER"
-        if (ritualTrgAbility->getType()==MINION_ENTER || ritualTrgAbility->getType()==OWN_MINION_ENTER) {
-            bool triggered = ritual->useTrgAbility(shared_from_this());
-            if (!triggered) {
-                // print message saying that ritual do not have enoguh charges to continue
+        // check there is ritual
+        if (ritual != nullptr) {
+            auto ritualTrgAbility = ritual->getTrgAbility();
+
+            // check if ritual has trg ability
+            if(ritualTrgAbility != nullptr){
+                if (ritualTrgAbility->getType()==MINION_ENTER || ritualTrgAbility->getType()==OWN_MINION_ENTER) {
+                    bool triggered = ritual->useTrgAbility(shared_from_this());
+                    if (!triggered) {
+                        // print message saying that ritual do not have enoguh charges to continue
+                    }
+                }
+            } else {
+                // if ritual has no trg ability, error
             }
         }
 
@@ -147,10 +157,20 @@ void Game::checkTriggered(int context) {
 
 
         // for enemy's minions, we also have to check that if its triggered ability is of type "ENEMY_MINION_ENTER"
-        if (enemyRitualTrgAbility->getType()==MINION_ENTER || enemyRitualTrgAbility->getType()==ENEMY_MINION_ENTER) {
-            bool triggered = enemyRitual->useTrgAbility(shared_from_this());
-            if (!triggered) {
-                // print message saying that ritual do not have enoguh charges to continue
+        // check there is ritual
+        if (enemyRitual != nullptr) {
+            auto enemyRitualTrgAbility = enemyRitual->getTrgAbility();
+
+            // check if ritual has trg ability
+            if(enemyRitualTrgAbility != nullptr){
+                if (enemyRitualTrgAbility->getType()==MINION_ENTER || enemyRitualTrgAbility->getType()==ENEMY_MINION_ENTER) {
+                    bool triggered = enemyRitual->useTrgAbility(shared_from_this());
+                    if (!triggered) {
+                        // print message saying that ritual do not have enoguh charges to continue
+                    }
+                }
+            } else {
+                // if ritual has no trg ability, error
             }
         }
 

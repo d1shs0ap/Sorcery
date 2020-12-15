@@ -398,6 +398,21 @@ void TextDisplay::printHand() {
 
 // -------------------- PRINT BOARD --------------------
 
+// print player and enemy player
+vector<string> TextDisplay::printPlayer(shared_ptr<Player> player) {
+    vector<string> card = emptyCard();
+    // add name to card
+    string name = player->getName();
+    card[3].replace(BOARD_WIDTH/2-name.size()/2, name.size(), name);
+
+    // add life and magic to card
+    printLeftBox(card, to_string(player->getLife()));
+    printRightBox(card, to_string(player->getMagic()));
+
+    return card;
+}
+
+
 
 // get row of board including ritual
 vector<vector<string>> TextDisplay::getRitualRow(shared_ptr<Player> player) {
@@ -413,10 +428,14 @@ vector<vector<string>> TextDisplay::getRitualRow(shared_ptr<Player> player) {
     } else {
         row.push_back(printRitual(ritual));
     }
+    
     row.push_back(emptySpace());
+    
     // PRINT PLAYER
-    row.push_back(emptyCard());
+    row.push_back(printPlayer(player));
+
     row.push_back(emptySpace());
+    
     // check if graveyard is empty
     if (graveyard->isEmpty()) {
         row.push_back(emptyCard());
@@ -438,6 +457,9 @@ vector<vector<string>> TextDisplay::getMinionRow(shared_ptr<Player> player) {
     }
     return row;
 }
+
+
+
 
 void TextDisplay::printBoard()
 {

@@ -54,6 +54,8 @@ class TextDisplay {
     std::vector<std::string> emptySpace();
     // empty card
     std::vector<std::string> emptyCard();
+    // print player/enemy player
+    std::vector<std::string> printPlayer(std::shared_ptr<Player> player);
 
 
     // print enchantment when it is on board, attached to minions
@@ -66,8 +68,6 @@ class TextDisplay {
     std::vector<std::string> printSpell(std::shared_ptr<Spell> spell);
     // print ritual
     std::vector<std::string> printRitual(std::shared_ptr<Ritual> ritual);
-    // print player(not implemented)
-    std::vector<std::string> printPlayer(std::shared_ptr<Player> player);
 
     // print a single card
     void printCard(std::vector<std::string> card);
