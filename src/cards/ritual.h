@@ -33,13 +33,13 @@ public:
     ~Ritual();
 };
 
-class DarkRitual : public Ritual
+class DarkRitual : public Ritual //passed!
 {
 public:
     explicit DarkRitual(int owner);
 };
 
-class AuraOfPower : public Ritual
+class AuraOfPower : public Ritual //passed!
 {
 public:
     explicit AuraOfPower(int owner);
