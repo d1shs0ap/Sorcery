@@ -52,9 +52,9 @@ void Unsummon::effect(std::shared_ptr<Game> game){
 
 void Unsummon::effectWithTarget(std::shared_ptr<Game> game, int player, int target){
     if(game->getPlayer(player)->getHand()->isFull()){
-        game->getPlayer(player)->getBoard()->removeMinion(target - 1);
+        game->getPlayer(player)->getBoard()->removeMinion(target);
     } else{
-        game->getPlayer(player)->getHand()->addCardRight(game->getPlayer(player)->getBoard()->removeMinion(target - 1)->getAttachedMinion());
+        game->getPlayer(player)->getHand()->addCardRight(game->getPlayer(player)->getBoard()->removeMinion(target)->getAttachedMinion());
     }
 }
 
@@ -81,7 +81,7 @@ void Recharge::effectWithTarget(std::shared_ptr<Game> game, int player, int targ
 
 void Recharge::effectWithTarget(std::shared_ptr<Game> game, int player){
     std::shared_ptr<Ritual> target = game->getPlayer(player)->getBoard()->getRitual();
-    if(target = nullptr){
+    if(target == nullptr){
         std::string message = "Target ritual cannot be empty";
         throw ArgException{message};
     } else{
@@ -101,7 +101,7 @@ void Disenchant::effect(std::shared_ptr<Game> game){
 }
 
 void Disenchant::effectWithTarget(std::shared_ptr<Game> game, int player, int target){
-    std::shared_ptr<Minion> targetMinion = game->getPlayer(player)->getBoard()->getMinion(target - 1);
+    std::shared_ptr<Minion> targetMinion = game->getPlayer(player)->getBoard()->getMinion(target);
     if(targetMinion->getType().compare("Enchantment") == 0){
         std::shared_ptr<Enchantment> targetEnchantment = std::static_pointer_cast<Enchantment>(targetMinion);
         targetMinion = targetEnchantment->detach();
