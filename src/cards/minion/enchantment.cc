@@ -39,20 +39,20 @@ std::vector<std::shared_ptr<Enchantment>> Enchantment::getEnchantmentList() {
 
 int Enchantment::computeAtk() const {
     if(atkChange.compare("") == 0){
-        return component->computeAtk() + getAtk();
+        return component->getAtk() + getAtk();
     } else{
         if(atkChange.substr(0, 1).compare("+") == 0){
             int magnitude = std::stoi(atkChange.substr(1));
-            return component->computeAtk() + magnitude + getAtk();
+            return component->getAtk() + magnitude + getAtk();
         } else if(atkChange.substr(0, 1).compare("-") == 0){
             int magnitude = std::stoi(atkChange.substr(1));
-            return component->computeAtk() - magnitude + getAtk();
+            return component->getAtk() - magnitude + getAtk();
         } else if(atkChange.substr(0, 1).compare("*") == 0){
             int magnitude = std::stoi(atkChange.substr(1));
-            return component->computeAtk() * magnitude + getAtk();
+            return component->getAtk() * magnitude + getAtk();
         } else{
             int magnitude = std::stoi(atkChange.substr(1));
-            return component->computeAtk() / magnitude + getAtk();
+            return component->getAtk() / magnitude + getAtk();
         }
     }
 
@@ -60,20 +60,20 @@ int Enchantment::computeAtk() const {
 
 int Enchantment::computeDef() const {
     if(defChange.compare("") == 0){
-        return component->computeDef() + getDef();
+        return component->getDef() + getDef();
     } else{
         if(defChange.substr(0, 1).compare("+") == 0){
             int magnitude = std::stoi(defChange.substr(1));
-            return component->computeDef() + magnitude + getDef();
+            return component->getDef() + magnitude + getDef();
         } else if(defChange.substr(0, 1).compare("-") == 0){
             int magnitude = std::stoi(defChange.substr(1));
-            return component->computeDef() - magnitude + getDef();
+            return component->getDef() - magnitude + getDef();
         } else if(defChange.substr(0, 1).compare("*") == 0){
             int magnitude = std::stoi(defChange.substr(1));
-            return component->computeDef() * magnitude + getDef();
+            return component->getDef() * magnitude + getDef();
         } else{
             int magnitude = std::stoi(defChange.substr(1));
-            return component->computeDef() / magnitude + getDef();
+            return component->getDef() / magnitude + getDef();
         }
     }
 
