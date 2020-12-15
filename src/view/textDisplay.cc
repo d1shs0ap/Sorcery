@@ -403,11 +403,16 @@ vector<string> TextDisplay::printPlayer(shared_ptr<Player> player) {
     vector<string> card = emptyCard();
     // add name to card
     string name = player->getName();
-    card[3].replace(BOARD_WIDTH/2-name.size()/2, name.size(), name);
+    card[CARD_HEIGHT/2-2].replace(CARD_WIDTH/2-name.size()/2, name.size(), name);
 
     // add life and magic to card
     printLeftBox(card, to_string(player->getLife()));
     printRightBox(card, to_string(player->getMagic()));
+
+    // if we are printing the active player
+    if(game->getActivePlayer()->getNumber()==player->getNumber()) {
+        reverse(card.begin(), card.end());
+    }
 
     return card;
 }
