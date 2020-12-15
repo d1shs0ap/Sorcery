@@ -37,7 +37,7 @@ void Banish::effectWithTarget(std::shared_ptr<Game> game, int player, int target
 }
 
 void Banish::effectWithTarget(std::shared_ptr<Game> game, int player){
-
+    game->getPlayer(player)->getBoard()->setRitual(nullptr);
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -45,13 +45,17 @@ void Banish::effectWithTarget(std::shared_ptr<Game> game, int player){
 Unsummon::Unsummon(int owner) : Spell{"Unsummon", owner, 1, "Return target minion to its owner's hand"} {}
 
 void Unsummon::effect(std::shared_ptr<Game> game){
+    std::string message = getName() + "needs a target minion";
+    throw ArgException{message};
 }
 
 void Unsummon::effectWithTarget(std::shared_ptr<Game> game, int player, int target){
+    if(game->getPlayer(player)->getHand()->isFull());
 }
 
 void Unsummon::effectWithTarget(std::shared_ptr<Game> game, int player){
-
+    std::string message = getName() + "needs a target minion";
+    throw ArgException{message};
 }
 
 

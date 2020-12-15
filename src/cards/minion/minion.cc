@@ -46,9 +46,9 @@ void Minion::attack(shared_ptr<Minion> other)
     if (actions > 0)
     {
         other->setDef(other->getDef() - this->getAtk());
+        this->setDef(this->getDef() - other->getAtk());
         --actions;
     }
-    this->setDef(this->getDef() - other->getAtk());
 }
 
 std::shared_ptr<Minion> Minion::getAttachedMinion() {

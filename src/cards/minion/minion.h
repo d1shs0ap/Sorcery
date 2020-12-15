@@ -25,7 +25,7 @@ class Minion : public Card, public std::enable_shared_from_this<Minion>{
     // Triggered abilities are activated for free whenever a certain condition is met.
     std::shared_ptr<TriggeredAbility> trgAbility;
     protected:
-        unsigned int actions = 0;
+        unsigned int actions = 1;
         unsigned int actionsCap = 1;
 
 
