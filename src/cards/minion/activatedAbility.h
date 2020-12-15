@@ -23,6 +23,7 @@ class ActivatedAbility{
         void setCost(int newCost);
         virtual void effect(std::shared_ptr<Game> game, std::shared_ptr<Minion> minion) const;
         virtual void effect(std::shared_ptr<Game> game, std::shared_ptr<Minion> minion,  std::shared_ptr<Minion> target) const;
+        virtual ~ActivatedAbility();
 };
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////

@@ -40,6 +40,7 @@ public:
     virtual void effect(std::shared_ptr<Game> game, std::shared_ptr<Ritual> ritual) const;
     TriggeredAbilityType getType() const;
     std::string getDescription() const;
+    virtual ~TriggeredAbility();
 };
 
 class DieDamage : public TriggeredAbility

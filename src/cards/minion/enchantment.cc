@@ -161,7 +161,7 @@ MagicFatigue::MagicFatigue(int owner) :
 void MagicFatigue::attach(std::shared_ptr<Minion> minion){
     component = minion;
     setOwner(component->getOwner());
-        setDef(computeDef());
+    setDef(computeDef());
     setAtk(computeAtk());
     setTrgAbility(computeTrgAbility());
     setActAbility(std::make_shared<ActivatedAbility>(*component->computeActAbility()));

@@ -22,6 +22,8 @@ std::string ActivatedAbility::getDescription() const { return description; }
 void ActivatedAbility::effect(std::shared_ptr<Game> game, std::shared_ptr<Minion> minion) const{}
 void ActivatedAbility::effect(std::shared_ptr<Game> game, std::shared_ptr<Minion> minion,  std::shared_ptr<Minion> target) const{}
 
+ActivatedAbility::~ActivatedAbility() {}
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

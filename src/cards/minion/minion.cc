@@ -76,7 +76,7 @@ void Minion::useAbility(std::shared_ptr<Game> game) {
 
 void Minion::useAbility(std::shared_ptr<Game> game, int player, int target) {
     if (actions > 0){
-        std::shared_ptr<Minion> targetMinion = game->getPlayer(player)->getBoard()->getMinion(target - 1);
+        std::shared_ptr<Minion> targetMinion = game->getPlayer(player - 1)->getBoard()->getMinion(target - 1);
         actAbility->effect(game, shared_from_this(), targetMinion);
         actions--;
     } else {

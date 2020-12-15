@@ -23,6 +23,8 @@ void TriggeredAbility::effect(std::shared_ptr<Game> game, std::shared_ptr<Ritual
 
 }
 
+TriggeredAbility::~TriggeredAbility() {}
+
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 DieDamage::DieDamage()
