@@ -28,28 +28,30 @@ class Minion : public Card, public std::enable_shared_from_this<Minion>{
         unsigned int actions = 0;
         unsigned int actionsCap = 1;
 
+
     public:
         Minion();
         Minion(std::string name, int owner, int cost, int atk, int def, std::string type = "Minion");
 
         int getAtk() const;
-        virtual int computeAtk() const;
         void setAtk(int new_atk);
         int getDef() const;
-        virtual int computeDef() const;
         void setDef(int new_def);
 
         virtual void restoreAction();
 
         bool hasActAbility() const;
         std::shared_ptr<ActivatedAbility> getActAbility() const;
-        virtual std::shared_ptr<ActivatedAbility> computeActAbility() const;
         void setActAbility(std::shared_ptr<ActivatedAbility> ability);
         // checks if minion has triggered ability
         bool hasTrgAbility() const;
         std::shared_ptr<TriggeredAbility> getTrgAbility() const;
-        virtual std::shared_ptr<TriggeredAbility> computeTrgAbility() const;
         void setTrgAbility(std::shared_ptr<TriggeredAbility> ability);
+
+        virtual int computeAtk() const;
+        virtual int computeDef() const;
+        virtual std::shared_ptr<ActivatedAbility> computeActAbility() const;
+        virtual std::shared_ptr<TriggeredAbility> computeTrgAbility() const;
 
         void attack(std::shared_ptr<Player> player);
         void attack(std::shared_ptr<Minion> minion);

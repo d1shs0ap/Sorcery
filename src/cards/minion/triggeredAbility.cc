@@ -101,7 +101,7 @@ EnterDestroy::EnterDestroy()
 
 
 void EnterDestroy::effect(std::shared_ptr<Game> game, std::shared_ptr<Ritual> minion) const {
-    int index = game->getActivePlayer()->getBoard()->getMinions().size();
-    std::shared_ptr<Minion> target = game->getActivePlayer()->getBoard()->getMinion(index);
-    game->destroyMinion(target);
+    int minionIndex = game->getActivePlayer()->getBoard()->getMinions().size();
+    game->destroyMinion(game->getActivePlayer(), minionIndex - 1);
 }
+

@@ -26,8 +26,8 @@ class Enchantment : public Minion{
         std::shared_ptr<Minion> getComponent() const;
         int computeAtk() const override;
         int computeDef() const override;
-        std::shared_ptr<ActivatedAbility> computeActAbility() const override;
-        std::shared_ptr<TriggeredAbility> computeTrgAbility() const override;
+        virtual std::shared_ptr<ActivatedAbility> computeActAbility() const override;
+        virtual std::shared_ptr<TriggeredAbility> computeTrgAbility() const override;
         ~Enchantment();
 };
 
@@ -69,6 +69,8 @@ class MagicFatigue : public Enchantment{
 class Silence : public Enchantment{
     public:
         explicit Silence(int owner);
+        std::shared_ptr<TriggeredAbility> computeTrgAbility() const override;
+        std::shared_ptr<ActivatedAbility> computeActAbility() const override;
         
 };
 

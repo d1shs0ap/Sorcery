@@ -35,7 +35,7 @@ void Minion::attack(shared_ptr<Player> other)
 {
     if (actions > 0)
     {
-        int attack = this->computeAtk();
+        int attack = this->getAtk();
         other->setLife(other->getLife() - attack);
         --actions;
     }
@@ -45,10 +45,10 @@ void Minion::attack(shared_ptr<Minion> other)
 {
     if (actions > 0)
     {
-        other->setDef(other->getDef() - this->computeAtk());
+        other->setDef(other->getDef() - this->getAtk());
         --actions;
     }
-    this->setDef(this->getDef() - other->computeAtk());
+    this->setDef(this->getDef() - other->getAtk());
 }
 
 std::shared_ptr<Minion> Minion::getAttachedMinion() {
