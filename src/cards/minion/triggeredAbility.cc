@@ -35,13 +35,8 @@ void DieDamage::effect(std::shared_ptr<Game> game, std::shared_ptr<Minion> minio
 {
     int opp = (minion->getOwner() + 1) % 2;
     int atk = minion->getAtk();
-    for (int i = 0; i < 5; i++)
-    {
-        std::shared_ptr<Minion> oppMinion = game->getPlayer(opp)->getBoard()->getMinion(i);
-        if (oppMinion != nullptr)
-        {
-            oppMinion->setDef(oppMinion->getDef() - atk);
-        }
+    for(auto oppMinion : game->getPlayer(opp)->getBoard()->getMinions()){
+        oppMinion->setDef(oppMinion->getDef() - atk);
     }
 }
 

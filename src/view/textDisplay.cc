@@ -185,8 +185,8 @@ vector<string> TextDisplay::printEnchantedMinion(shared_ptr<Enchantment> enchant
     vector<string> card = printCardTemplate(minion);
 
     // add attack and defence from enchantment
-    printLeftBox(card, to_string(enchantment->getDef()));
-    printRightBox(card, to_string(enchantment->getAtk()));
+    printLeftBox(card, to_string(enchantment->getAtk()));
+    printRightBox(card, to_string(enchantment->getDef()));
 
     // add activated ability from enchantment
     if(enchantment->hasActAbility()) {

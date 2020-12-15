@@ -26,11 +26,15 @@ Game::Game(shared_ptr<Player> player1, shared_ptr<Player> player2, mt19937_64& g
 void Game::clean() {
     for (auto player : players){
         auto minions = player->getBoard()->getMinions();
-
+        std::vector<shared_ptr<Minion>> v;
         for(int i = 0; i < minions.size(); ++i) {
             if (player->getBoard()->getMinion(i)->getDef() <= 0){
-                destroyMinion(player, i);
+                v.push_back(player->getBoard()->getMinion(i));
             }
+        }
+        for(auto toBeRemoved : v){
+            int index = player->getBoard()->findMinion(toBeRemoved);
+            if(index >= 0){ destroyMinion(player, index); }
         }
     }
 }
@@ -63,9 +67,7 @@ void Game::checkTriggered(int context) {
     auto board = player->getBoard();
     auto ritual = board->getRitual();
 
-    // enemy player and its components
-    auto enemyPlayer = getInactivePlayer();
-    auto enemyBoard = enemyPlayer->getBoard();
+    auto enemyBoard = getInactivePlayer()->getBoard();
     auto enemyRitual = enemyBoard->getRitual();
 
     if (context==START_TURN || context==END_TURN) {
@@ -96,37 +98,6 @@ void Game::checkTriggered(int context) {
                 auto trgAbility = minion->getTrgAbility();
                 if (trgAbility->getType()==context) {
                     
-                    //Use minion to call
-                    trgAbility->effect(shared_from_this(), minion);
-                }
-            }
-        }
-        
-
-        // check there is ritual
-        if (enemyRitual != nullptr) {
-            auto enemyRitualTrgAbility = enemyRitual->getTrgAbility();
-
-            // check if ritual has trg ability
-            if(enemyRitualTrgAbility != nullptr){
-                if (enemyRitualTrgAbility->getType()==context) {
-                    bool triggered = enemyRitual->useTrgAbility(shared_from_this());
-                    if (!triggered) {
-                        // print message saying that ritual do not have enoguh charges to continue
-                        throw ArgException{"Ritual " + enemyRitual->getName() + " does not have enough charges to be triggered."};
-                    }
-                }
-            } else {
-                // if ritual has no trg ability, error
-                throw ArgException{"Ritual " + enemyRitual->getName() + " does not have triggered ability."};
-            }
-        }
-
-        for(auto minion : enemyBoard->getMinions()) {
-            // if minion has trg ability
-            if(minion->hasTrgAbility()) {
-                auto trgAbility = minion->getTrgAbility();
-                if (trgAbility->getType()==context) {
                     //Use minion to call
                     trgAbility->effect(shared_from_this(), minion);
                 }
@@ -246,6 +217,8 @@ shared_ptr<Player> Game::getPlayer(int index) {
 // destroy the minion
 void Game::destroyMinion(std::shared_ptr<Player> player, int minion) {
     auto removed = player->getBoard()->removeMinion(minion);
-    player->getGraveyard()->addMinionTop(removed);
+    removed->die(shared_from_this());
+    player->getGraveyard()->addMinionTop(removed->getAttachedMinion());
+    player->getGraveyard()->getMinionTop()->setDef(0);
 }
 

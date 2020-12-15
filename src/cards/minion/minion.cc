@@ -40,7 +40,7 @@ void Minion::attack(shared_ptr<Player> other)
         other->setLife(other->getLife() - attack);
         --actions;
     } else {
-        throw ArgException{"Minion " + getName() + " does not have enough action points to attack."};
+        throw ArgException{"Minion " + getAttachedMinion()->getName() + " does not have enough action points to attack."};
     }
 }
 
@@ -52,7 +52,7 @@ void Minion::attack(shared_ptr<Minion> other)
         this->setDef(this->getDef() - other->getAtk());
         --actions;
     } else {
-        throw ArgException{"Minion " + getName() + " does not have enough action points to attack."};
+        throw ArgException{"Minion " + getAttachedMinion()->getName() + " does not have enough action points to attack."};
     }
 }
 
@@ -70,22 +70,28 @@ void Minion::useAbility(std::shared_ptr<Game> game) {
         actAbility->effect(game, shared_from_this()); 
         actions--;
     } else {
-        throw ArgException{"Minion " + getName() + " does not have enough action points to use activated ability."};
+        throw ArgException{"Minion " + getAttachedMinion()->getName() + " does not have enough action points to use activated ability."};
     }
 }
 
 void Minion::useAbility(std::shared_ptr<Game> game, int player, int target) {
     if (actions > 0){
-        std::shared_ptr<Minion> targetMinion = game->getPlayer(player - 1)->getBoard()->getMinion(target - 1);
+        std::shared_ptr<Minion> targetMinion = game->getPlayer(player)->getBoard()->getMinion(target);
         actAbility->effect(game, shared_from_this(), targetMinion);
         actions--;
     } else {
-        throw ArgException{"Minion " + getName() + " does not have enough action points to use activated ability."};
+        throw ArgException{"Minion " + getAttachedMinion()->getName() + " does not have enough action points to use activated ability."};
     }
 
 }
 
 void Minion::triggered(std::shared_ptr<Game> game) { trgAbility->effect(game, shared_from_this()); }
+
+void Minion::die(std::shared_ptr<Game> game) {
+    if(getTrgAbility() != nullptr && getTrgAbility()->getType() == MINION_DEATH){
+        getTrgAbility()->effect(game, shared_from_this());
+    }
+}
 
 Minion::~Minion(){}
 

@@ -29,7 +29,7 @@ Spell::~Spell(){}
 Banish::Banish(int owner) : Spell{"Banish", owner, 2, "Destroy target minion or ritual"} {}
 
 void Banish::effect(std::shared_ptr<Game> game){
-    std::string message = getName() + "needs a target";
+    std::string message = getName() + " needs a target";
     throw ArgException{message};
 }
 
@@ -46,7 +46,7 @@ void Banish::effectWithTarget(std::shared_ptr<Game> game, int player){
 Unsummon::Unsummon(int owner) : Spell{"Unsummon", owner, 1, "Return target minion to its owner's hand"} {}
 
 void Unsummon::effect(std::shared_ptr<Game> game){
-    std::string message = getName() + "needs a target minion";
+    std::string message = getName() + " needs a target minion";
     throw ArgException{message};
 }
 
@@ -59,7 +59,7 @@ void Unsummon::effectWithTarget(std::shared_ptr<Game> game, int player, int targ
 }
 
 void Unsummon::effectWithTarget(std::shared_ptr<Game> game, int player){
-    std::string message = getName() + "needs a target minion";
+    std::string message = getName() + " needs a target minion";
     throw ArgException{message};
 }
 
@@ -70,12 +70,12 @@ void Unsummon::effectWithTarget(std::shared_ptr<Game> game, int player){
 Recharge::Recharge(int owner) : Spell{"Recharge", owner, 1, "Your ritual gains 3 charges"} {}
 
 void Recharge::effect(std::shared_ptr<Game> game){
-    std::string message = getName() + "needs a target ritual";
+    std::string message = getName() + " needs a target ritual";
     throw ArgException{message};
 }
 
 void Recharge::effectWithTarget(std::shared_ptr<Game> game, int player, int target){
-    std::string message = getName() + "needs a target ritual";
+    std::string message = getName() + " needs a target ritual";
     throw ArgException{message};
 }
 
@@ -96,7 +96,7 @@ void Recharge::effectWithTarget(std::shared_ptr<Game> game, int player){
 Disenchant::Disenchant(int owner) : Spell{"Disenchant", owner, 1, "Destroy the top enchantment on target minion"} {}
 
 void Disenchant::effect(std::shared_ptr<Game> game){
-    std::string message = getName() + "needs a target minion";
+    std::string message = getName() + " needs a target minion";
     throw ArgException{message};
 }
 
@@ -109,7 +109,7 @@ void Disenchant::effectWithTarget(std::shared_ptr<Game> game, int player, int ta
 }
 
 void Disenchant::effectWithTarget(std::shared_ptr<Game> game, int player){
-    std::string message = getName() + "needs a target minion";
+    std::string message = getName() + " needs a target minion";
     throw ArgException{message};
 
 }
@@ -131,13 +131,13 @@ void RaiseDead::effect(std::shared_ptr<Game> game){
 }
 
 void RaiseDead::effectWithTarget(std::shared_ptr<Game> game, int player, int target){
-    std::string message = getName() + "does not need a target";
+    std::string message = getName() + " does not need a target";
     throw ArgException{message};
 
 }
 
 void RaiseDead::effectWithTarget(std::shared_ptr<Game> game, int player){
-    std::string message = getName() + "does not need a target";
+    std::string message = getName() + " does not need a target";
     throw ArgException{message};
 }
 
@@ -156,11 +156,11 @@ void Blizzard::effect(std::shared_ptr<Game> game){
 }
 
 void Blizzard::effectWithTarget(std::shared_ptr<Game> game, int player, int target){
-    std::string message = getName() + "does not need a target";
+    std::string message = getName() + " does not need a target";
     throw ArgException{message};
 }
 
 void Blizzard::effectWithTarget(std::shared_ptr<Game> game, int player){
-    std::string message = getName() + "does not need a target";
+    std::string message = getName() + " does not need a target";
     throw ArgException{message};
 }

@@ -53,6 +53,13 @@ shared_ptr<Minion> Board::removeMinion(int minion) {
     return tmp;
 }
 
+int Board::findMinion(std::shared_ptr<Minion> target) const{
+    for(int i = 0; i < minions.size(); i++){
+        if(minions[i] == target) { return i; }
+    }
+    return -1;
+}
+
 vector<shared_ptr<Minion>> Board::getMinions() const{
     return minions;
 }

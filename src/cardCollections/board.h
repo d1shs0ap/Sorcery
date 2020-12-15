@@ -25,6 +25,7 @@ class Board {
         std::shared_ptr<Minion> getMinion(int minion) const;
         void setMinion(int minion, std::shared_ptr<Minion> newMinion);
         std::shared_ptr<Minion> removeMinion(int minion);
+        int findMinion(std::shared_ptr<Minion> target) const;
 
         std::vector<std::shared_ptr<Minion>> getMinions() const;
         void setMinions(std::vector<std::shared_ptr<Minion>> minions);
