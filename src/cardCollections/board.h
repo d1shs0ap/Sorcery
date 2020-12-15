@@ -29,6 +29,11 @@ class Board {
         
         // Calls all restoreActions() on player's minions
         void restoreActionAll();
+
+
+
+        // for testing
+        void printBoard();
 };
 
 #endif

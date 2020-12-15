@@ -129,6 +129,7 @@ vector<string> TextDisplay::emptySpace() {
     }
     return emptySpace;
 }
+
 // empty card
 vector<string> TextDisplay::emptyCard() {
     vector<string> emptyCard;

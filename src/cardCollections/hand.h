@@ -23,7 +23,7 @@ class Hand {
         bool addCardRight(std::shared_ptr<Card> card);
         
         // Removes single card
-        std::shared_ptr<Card> removeCard(int card);
+        void removeCard(int card);
         std::shared_ptr<Card> getCard(int card);
 
         // Accessor and mutator methods for cards
