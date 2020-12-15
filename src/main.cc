@@ -3,6 +3,8 @@
 #include <sstream>
 #include <vector>
 #include <fstream>
+#include <random>
+#include <chrono>
 
 #include "game/game.h"
 #include "view/textDisplay.h"

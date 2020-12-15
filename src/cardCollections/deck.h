@@ -3,6 +3,7 @@
 #include <fstream>
 #include <memory>
 #include <vector>
+#include <random>
 
 class Card;
 
@@ -11,11 +12,11 @@ class Deck {
     std::vector<std::shared_ptr<Card>> cards;
 
     // use a time-based seed for the default seed value
-    default_random_engine rng;
+    std::default_random_engine rng;
     int owner;
 
     public:
-        Deck(default_random_engine& rng, int owner);
+        Deck(std::default_random_engine& rng, int owner);
 
         void loadDeck(std::ifstream &infile);
         void shuffleDeck();
