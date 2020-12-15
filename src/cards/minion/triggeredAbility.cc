@@ -87,8 +87,7 @@ EnterGainAtkDef::EnterGainAtkDef()
                        TriggeredAbilityType::OWN_MINION_ENTER} {}
 
 
-void EnterGainAtkDef::effect(std::shared_ptr<Game> game, std::shared_ptr<Ritual> ritual) const
-{
+void EnterGainAtkDef::effect(std::shared_ptr<Game> game, std::shared_ptr<Ritual> ritual) const {
     int index = game->getPlayer(ritual->Card::getOwner())->getBoard()->getMinions().size() - 1;
     std::shared_ptr<Minion> target = game->getPlayer(ritual->Card::getOwner())->getBoard()->getMinion(index);
     target->setAtk(target->getAtk() + 1);
