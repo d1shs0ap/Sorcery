@@ -11,11 +11,11 @@ class Deck {
     std::vector<std::shared_ptr<Card>> cards;
 
     // use a time-based seed for the default seed value
-    unsigned seed;
+    default_random_engine rng;
     int owner;
 
     public:
-        Deck(unsigned seed, int owner);
+        Deck(default_random_engine& rng, int owner);
 
         void loadDeck(std::ifstream &infile);
         void shuffleDeck();

@@ -11,8 +11,9 @@
 
 using namespace std;
 
-Deck::Deck(unsigned seed, int owner)
-    : seed{seed}, owner{owner} {}
+Deck::Deck(default_random_engine& rng, int owner)
+    : rng{rng}, owner{owner} {
+}
 
 void Deck::loadDeck(ifstream &infile)
 {
@@ -75,7 +76,6 @@ void Deck::loadDeck(ifstream &infile)
 
 
 void Deck::shuffleDeck(){
-	default_random_engine rng{seed};
     shuffle(cards.begin(), cards.end(), rng);
 }
 

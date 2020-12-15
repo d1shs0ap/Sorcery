@@ -53,10 +53,14 @@ int main(int argc, char *argv[])
     // -------------------- create and load decks --------------------
 
     // random seed
-    unsigned seed = chrono::system_clock::now().time_since_epoch().count();
+    unsigned seed1 = chrono::system_clock::now().time_since_epoch().count();
+    unsigned seed2 = chrono::system_clock::now().time_since_epoch().count();
+
+    default_random_engine rng1{seed1};
+    default_random_engine rng2{seed2};
     
-    auto deck1 = make_shared<Deck>(seed, 0);
-    auto deck2 = make_shared<Deck>(seed, 1);
+    auto deck1 = make_shared<Deck>(rng1, 0);
+    auto deck2 = make_shared<Deck>(rng2, 1);
 
     // default deck
     ifstream defaultDeck1File{"../decks/default.deck"};
@@ -78,7 +82,12 @@ int main(int argc, char *argv[])
     // Decks are shuffled if not in testing
     if (TESTING==false) {
         deck1->shuffleDeck();
+        deck1->printDeck();
+
         deck2->shuffleDeck();
+        deck2->shuffleDeck();
+        deck2->printDeck();
+        
     }
 
 
@@ -122,7 +131,12 @@ int main(int argc, char *argv[])
     auto player1 = std::make_shared<Player>(name1, 0, board1, deck1, graveyard1, hand1);
     auto player2 = std::make_shared<Player>(name2, 1, board2, deck2, graveyard2, hand2);
 
-    auto game = std::make_shared<Game>(player1, player2, seed);
+    // game seed generator
+    unsigned gameSeed = chrono::system_clock::now().time_since_epoch().count();
+    mt19937_64 generator{gameSeed};
+
+    // game, text display, text controller
+    auto game = std::make_shared<Game>(player1, player2, generator);
     auto textDisplay = std::make_shared<TextDisplay>(game);
     auto textController = std::make_unique<TextController>(game, textDisplay);
     
