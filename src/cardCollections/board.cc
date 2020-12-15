@@ -38,7 +38,7 @@ shared_ptr<Minion> Board::getMinion(int minion) const {
 
 void Board::setMinion(int minion, shared_ptr<Minion> newMinion) {
     if(minions.size() <= minion){
-        throw ArgException{"Minion " + to_string(minion) + " cannot be changed on board because it does not exist."};
+        throw ArgException{"Minion " + to_string(minion + 1) + " cannot be changed on board because it does not exist."};
     }
     minions[minion] = newMinion;
 }

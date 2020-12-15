@@ -60,11 +60,8 @@ EndGainDef::EndGainDef()
 void EndGainDef::effect(std::shared_ptr<Game> game, std::shared_ptr<Minion> minion) const
 {
     std::shared_ptr<Player> owner = game->getPlayer(minion->getOwner());
-    int len = owner->getBoard()->getMinions().size();
-    for (int i = 0; i < len; i++)
-    {
-        std::shared_ptr<Minion> target = owner->getBoard()->getMinion(i);
-        target->setDef(target->getDef() + 1);
+    for(auto minion : owner->getBoard()->getMinions()){
+        minion->setDef(minion->getDef() + 1);
     }
 }
 

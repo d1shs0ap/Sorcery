@@ -24,7 +24,7 @@ void Hand::addCardRight(shared_ptr<Card> card){
 void Hand::removeCard(int card) {
     if(cards.size() <= card){
         // then there aren't as many cards as requested index, throw error
-        throw ArgException{"Card " + to_string(card) + " cannot removed from hand because it does not exist."};
+        throw ArgException{"Card " + to_string(card + 1) + " cannot removed from hand because it does not exist."};
     }
     auto tmp = cards[card];
     cards.erase(cards.begin()+card);
@@ -34,7 +34,7 @@ void Hand::removeCard(int card) {
 shared_ptr<Card> Hand::getCard(int card) {
     if(cards.size() <= card){
         // then there aren't as many cards as requested index, throw error
-        throw ArgException{"Card " + to_string(card) + " cannot retrieved from hand because it does not exist."};
+        throw ArgException{"Card " + to_string(card + 1) + " cannot retrieved from hand because it does not exist."};
     }
     return cards[card];
 }

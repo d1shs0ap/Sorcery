@@ -76,6 +76,7 @@ void Deck::loadDeck(ifstream &infile)
             cards.push_back(card);
         } else if (cardName=="Standstill") {
             auto card = make_shared<Standstill>(owner);
+            cards.push_back(card);
         }
         // Spells
         else if (cardName=="Banish") {
