@@ -18,6 +18,44 @@ void Enchantment::attach(std::shared_ptr<Minion> minion) {
     setActAbility(computeActAbility());
 }
 
+std::shared_ptr<Minion> Enchantment::detach() {
+    if(atkChange.compare("") == 0){
+        component->setAtk(getAtk());
+    } else{
+        if(atkChange.substr(0, 1).compare("+") == 0){
+            int magnitude = std::stoi(atkChange.substr(1));
+            component->setAtk(getAtk() - magnitude);
+        } else if(atkChange.substr(0, 1).compare("-") == 0){
+            int magnitude = std::stoi(atkChange.substr(1));
+            component->setAtk(getAtk() + magnitude);
+        } else if(atkChange.substr(0, 1).compare("*") == 0){
+            int magnitude = std::stoi(atkChange.substr(1));
+            component->setAtk(getAtk() / magnitude);
+        } else{
+            int magnitude = std::stoi(atkChange.substr(1));
+            component->setAtk(getAtk() * magnitude);
+        }
+    }
+    if(defChange.compare("") == 0){
+        component->setDef(getDef());
+    } else{
+        if(defChange.substr(0, 1).compare("+") == 0){
+            int magnitude = std::stoi(defChange.substr(1));
+            component->setDef(getDef() - magnitude);
+        } else if(defChange.substr(0, 1).compare("-") == 0){
+            int magnitude = std::stoi(defChange.substr(1));
+            component->setDef(getDef() + magnitude);
+        } else if(defChange.substr(0, 1).compare("*") == 0){
+            int magnitude = std::stoi(defChange.substr(1));
+            component->setDef(getDef() / magnitude);
+        } else{
+            int magnitude = std::stoi(defChange.substr(1));
+            component->setDef(getDef() * magnitude);
+        }
+    }
+    return component;
+}
+
 std::string Enchantment::getAtkChange() const{ return atkChange; }
 
 std::string Enchantment::getDefChange() const { return defChange; }
