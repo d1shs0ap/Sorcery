@@ -79,11 +79,13 @@ void Game::checkTriggered(int context) {
                 if(ritualTrgAbility->getType()==context) {
                     bool triggered = ritual->useTrgAbility(shared_from_this());
                     if (!triggered) {
-                        // print message saying that ritual do not have enoguh charges to continue
+                        // print message saying that ritual do not have enough charges to continue
+                        throw ArgException{"Ritual " + ritual->getName() + " does not have enough charges to be triggered."};
                     }
                 }
             } else {
                 // error because all rituals have trg abilities
+                throw ArgException{"Ritual " + ritual->getName() + " does not have triggered ability."};
             }
         }
 
@@ -93,8 +95,9 @@ void Game::checkTriggered(int context) {
                 
                 auto trgAbility = minion->getTrgAbility();
                 if (trgAbility->getType()==context) {
+                    
                     //Use minion to call
-                    //trgAbility->effect(shared_from_this());
+                    trgAbility->effect(shared_from_this(), minion);
                 }
             }
         }
