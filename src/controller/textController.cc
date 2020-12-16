@@ -112,10 +112,6 @@ void TextController::use(int minion, int targetPlayer, int targetMinion, bool te
     auto player = game->getActivePlayer();
     player->use(game->shared_from_this(), minion - 1, targetPlayer - 1, targetMinion - 1, testing);
 }
-void TextController::use(int minion, int targetPlayer, bool testing) {
-    auto player = game->getActivePlayer();
-    player->use(game->shared_from_this(), minion - 1, targetPlayer - 1, testing);
-}
 
 
 // ------------------- Display methods --------------------
