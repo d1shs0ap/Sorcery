@@ -164,8 +164,12 @@ void MagicFatigue::attach(std::shared_ptr<Minion> minion){
     setDef(computeDef());
     setAtk(computeAtk());
     setTrgAbility(computeTrgAbility());
-    setActAbility(std::make_shared<ActivatedAbility>(*component->computeActAbility()));
-    getActAbility()->setCost(getActAbility()->getCost() + 2);
+    if(computeActAbility() != nullptr){
+        setActAbility(std::make_shared<ActivatedAbility>(*component->computeActAbility()));
+        getActAbility()->setCost(getActAbility()->getCost() + 2);
+    } else{
+        setActAbility(computeActAbility());
+    }
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
