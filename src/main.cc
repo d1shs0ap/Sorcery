@@ -148,10 +148,51 @@ int main(int argc, char *argv[])
                 if (name2.size() > NAME_CAP) {
                     throw ArgException{"Name cannot exceed "+ to_string(NAME_CAP) +" characters."};
                 }
+                if (name2 == name1) {
+                    throw ArgException{"Player2 must have a different name than Player1."};
+                }
             } catch (ArgException& e) {
                 name2 = "";
                 cout << e.message << endl;
             }
+        }
+
+
+        // -------------------- Get player's corresponding elo by name --------------------
+        int elo1 = -1;
+        int elo2 = -1;
+        try {
+            ifstream player1Data{"../data/"+ name1 +".txt"};
+            ifstream player2Data{"../data/"+ name2 +".txt"};
+
+            // if the player1 file can be read
+            if(player1Data) {
+                string arg;
+                player1Data >> arg;
+                elo1 = stoi(arg);
+                if(!player1Data.eof()){ // must be EOF since elo takes in only one argument
+                    elo1 = -1; // strong gurantee, set elo back to -1
+                    // throw cannot read file
+                    throw ArgException{name1 +".txt"+" file is not in the right format."};
+                }
+            }
+            // if the player2 file can be read
+            if(player2Data) {
+                string arg;
+                player2Data >> arg;
+                elo2 = stoi(arg);
+                if(!player1Data.eof()){ // must be EOF since elo takes in only one argument
+                    elo2 = -1; // strong gurantee, set elo back to -1
+                    // throw cannot read file
+                    throw ArgException{name2 +".txt"+" file is not in the right format."};
+                }
+            }
+        } catch (const ios::failure& e) {
+            cout << e.what() << endl;
+        } catch (const invalid_argument& e) { // this is for stoi
+            cout << "Cannot convert integer in file. " << endl;
+        } catch (const ArgException& e) {
+            cout << e.message << endl;
         }
 
 
@@ -171,6 +212,14 @@ int main(int argc, char *argv[])
         // construct the players
         auto player1 = make_shared<Player>(name1, 0, board1, deck1, graveyard1, hand1);
         auto player2 = make_shared<Player>(name2, 1, board2, deck2, graveyard2, hand2);
+
+        // set elos, if they exist
+        if (elo1 != -1) {
+            player1->setElo(elo1);
+        }
+        if (elo2 != -1) {
+            player2->setElo(elo2);
+        }
 
         // game seed generator
         unsigned gameSeed = chrono::system_clock::now().time_since_epoch().count();
@@ -436,13 +485,30 @@ int main(int argc, char *argv[])
         }
 
         cout << "Game over! ";
-        if (game->getWinner() == 0) {
+        int winner = game->getWinner();
+        if (winner == 0) {
             cout << "Tie game!" << endl;
-        } else if (game->getWinner() == 1) {
+        } else if (winner == 1) {
             cout << game->getPlayer(0)->getName() << " wins!" << endl;
-        } else if (game->getWinner() == 2) {
+        } else if (winner == 2) {
             cout << game->getPlayer(1)->getName() << " wins!" << endl;
         }
+
+        // compute the elo
+        player1->computeElo(player2->getElo(), winner);
+        player2->computeElo(player1->getElo(), winner);
+
+        cout << player1->getName() << "'s new elo: " << player1->getElo() << endl;
+        cout << player2->getName() << "'s new elo: " << player2->getElo() << endl;
+
+        ofstream file1{"../data/"+player1->getName()+".txt"};
+        ofstream file2{"../data/"+player2->getName()+".txt"};
+        
+        file1 << player1->getElo();
+        file2 << to_string(player2->getElo());
+
+        file1.close();
+        file2.close();
 
         return 0;
     } catch (ArgException& e) {
