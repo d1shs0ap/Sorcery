@@ -110,25 +110,38 @@ int main(int argc, char *argv[])
 
         // read in name1 and name2
         string name1, name2;
-        if (initFile) { // if initFile loads
-            if (!(getline(initFile, name1))){
+        while (name1 == ""){
+            if (initFile) { // if initFile loads
+                if (!(getline(initFile, name1))){
+                    cout << "Enter Player1's name:" << endl;
+                    getline(cin, name1);
+                }
+            } else {
                 cout << "Enter Player1's name:" << endl;
                 getline(cin, name1);
             }
-        } else {
-            cout << "Enter Player1's name:" << endl;
-            getline(cin, name1);
+
+            if (name1.size() > 30) {
+                throw ArgException{"Name cannot exceed 30 characters."};
+            }
         }
         
-        if (initFile) { // if initFile loads
-            if (!(getline(initFile, name2))){
+        while (name2 == "") {
+            if (initFile) { // if initFile loads
+                if (!(getline(initFile, name2))){
+                    cout << "Enter Player2's name:" << endl;
+                    getline(cin, name2);
+                }
+            } else {
                 cout << "Enter Player2's name:" << endl;
                 getline(cin, name2);
             }
-        } else {
-            cout << "Enter Player2's name:" << endl;
-            getline(cin, name2);
+
+            if (name2.size() > 30) {
+                throw ArgException{"Name cannot exceed 30 characters."};
+            }
         }
+
 
 
         // -------------------- Creating other game objects --------------------
