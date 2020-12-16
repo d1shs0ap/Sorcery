@@ -1,25 +1,16 @@
-#include <iostream>
-#include "window.h"
+// #include <iostream>
+// #include "window.h"
 
-using namespace std;
+// using namespace std;
 
-int main() {
-    Xwindow w(1000,1000);
+// int main() {
+//     Xwindow w(900, 900);
 
-    for (int i = Xwindow::White ; i <= Xwindow::Blue; i++) {
-        w.fillRectangle(50 * i, 200, 50, 250, i);
-    }
+//     w.drawRectangle(50, 50, 800, 600);
 
-    w.drawString(50, 50, "Hello!");
-    w.drawString(50, 100, "ABCD");
-    w.drawString(50, 150, "Hello!");
-
-    Xwindow w2(199, 199);
-    w2.drawString(50, 100, "ABCD");
-
-    // Wait for the user to input a character, which lets us see the windows; otherwise,
-    // they'll be immediately destroyed when the program ends.
-    char c;
-    cin >> c;
-}
+//     // Wait for the user to input a character, which lets us see the windows; otherwise,
+//     // they'll be immediately destroyed when the program ends.
+//     char c;
+//     cin >> c;
+// }
 

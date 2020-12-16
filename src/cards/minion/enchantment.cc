@@ -144,7 +144,7 @@ Enrage::Enrage(int owner) :
 // Delay //////////////////////////////////////////////////////////////////////////////////////////
 Delay::Delay(int owner) : 
     Enchantment{"Delay", owner, 1, "", "", 
-        "Enchanted minion does not gain an action on their next round. This enchantment is automatically destroyed after 1 turn"} {}
+        "Enchanted minion does not gain an action on their next turn. This enchantment is automatically destroyed after 1 turn"} {}
 
 int Delay::getRound() const { return round;}
 

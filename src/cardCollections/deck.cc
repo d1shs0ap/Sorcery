@@ -90,7 +90,7 @@ void Deck::loadDeck(ifstream &infile)
         } else if (cardName=="Disenchant") {
             auto card = make_shared<Disenchant>(owner);
             cards.push_back(card);
-        } else if (cardName=="RaiseDead") {
+        } else if (cardName=="Raise Dead") {
             auto card = make_shared<RaiseDead>(owner);
             cards.push_back(card);
         } else if (cardName=="Blizzard") {

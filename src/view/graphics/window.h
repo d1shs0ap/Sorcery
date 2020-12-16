@@ -19,11 +19,15 @@ class Xwindow {
 
     enum {White=0, Black, Red, Green, Blue}; // Available colours.
 
-    // Draws a rectangle
+    // Fills a rectangle
     void fillRectangle(int x, int y, int width, int height, int colour=Black);
+
+    // Draws an empty rectangle
+    void drawRectangle(int x, int y, int width, int height, int colour=Black);
 
     // Draws a string
     void drawString(int x, int y, std::string msg);
+
 };
 
 #endif
