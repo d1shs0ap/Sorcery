@@ -99,18 +99,28 @@ void Minion::die(std::shared_ptr<Game> game) {
     }
 }
 
+bool Minion::isSubType(MinionSubType type){
+    return subType[type];
+}
+
 Minion::~Minion(){}
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /// AirElemental /////////////////////////////////////////////////////////////////////////////////////////////////////
 AirElemental::AirElemental(int owner)
-    : Minion{"Air Elemental", owner, 0, 1, 1} {}
+    : Minion{"Air Elemental", owner, 0, 1, 1} {
+        subType[ELEMENTAL] = true;
+        subType[SUMMONER] = false;
+    }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /// EarthElemental /////////////////////////////////////////////////////////////////////////////////////////////////////
 
 EarthElemental::EarthElemental(int owner)
-    : Minion{"Earth Elemental", owner, 3, 4, 4} {}
+    : Minion{"Earth Elemental", owner, 3, 4, 4} {
+        subType[ELEMENTAL] = true;
+        subType[SUMMONER] = false;
+    }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /// Bomb /////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -119,6 +129,8 @@ Bomb::Bomb(int owner)
     : Minion{"Bomb", owner, 2, 1, 2}
 {
     Minion::setTrgAbility(std::make_shared<DieDamage>());
+    subType[ELEMENTAL] = false;
+    subType[SUMMONER] = false;
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -128,6 +140,8 @@ FireElemental::FireElemental(int owner)
     : Minion{"Fire Elemental", owner, 2, 2, 2}
 {
     Minion::setTrgAbility(std::make_shared<EnterDamage>());
+    subType[ELEMENTAL] = true;
+    subType[SUMMONER] = false;
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -137,6 +151,8 @@ PotionSeller::PotionSeller(int owner)
     : Minion{"Potion Seller", owner, 2, 1, 3}
 {
     Minion::setTrgAbility(std::make_shared<EndGainDef>());
+    subType[ELEMENTAL] = false;
+    subType[SUMMONER] = false;
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -146,6 +162,8 @@ NovicePyromancer::NovicePyromancer(int owner)
     : Minion{"Novice Pyromancer", owner, 1, 0, 1}
 {
     Minion::setActAbility(std::make_shared<DamageTarget>());
+    subType[ELEMENTAL] = false;
+    subType[SUMMONER] = false;
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -155,6 +173,8 @@ ApprenticeSummoner::ApprenticeSummoner(int owner)
     : Minion{"Apprentice Summoner", owner, 2, 1, 3}
 {
     Minion::setActAbility(std::make_shared<SummonOneAirElemental>());
+    subType[ELEMENTAL] = false;
+    subType[SUMMONER] = true;
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -164,4 +184,6 @@ MasterSummoner::MasterSummoner(int owner)
     : Minion{"Master Summoner", owner, 3, 2, 3}
 {
     Minion::setActAbility(std::make_shared<SummonThreeAirElemental>());
+    subType[ELEMENTAL] = false;
+    subType[SUMMONER] = true;
 }

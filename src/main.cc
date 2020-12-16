@@ -419,6 +419,7 @@ int main(int argc, char *argv[])
                 cout << "Please input a valid integer. " << endl;
             } catch (const ArgException& e) {
                 cout << e.message << endl;
+                game->clean();
             }
 
         }

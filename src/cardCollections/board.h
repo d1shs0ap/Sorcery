@@ -3,6 +3,7 @@
 
 #include <memory>
 #include <vector>
+#include <map>
 
 const int BOARD_CAP = 5;
 
@@ -12,6 +13,8 @@ class Minion;
 class Board {
     std::shared_ptr<Ritual> ritual;
     std::vector<std::shared_ptr<Minion>> minions;
+
+    std::map<int, int> subTypeCount;
     public:
         // Default constructor
         Board();
@@ -39,6 +42,13 @@ class Board {
         
         // Calls all restoreActions() on player's minions
         void restoreActionAll();
+
+        // return the number of minion in board that is type
+        int checkMinionSubType(int type) const;
+
+        // When there are more than or equal to 3 ELEMENTAL on board each one +1/+1
+        // when there are more than or equal to 2 SUMMONER on board each one +0/*2
+        void MinionSubTypeEffect();
 
 
 

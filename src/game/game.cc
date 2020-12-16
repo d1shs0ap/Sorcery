@@ -23,7 +23,7 @@ Game::Game(shared_ptr<Player> player1, shared_ptr<Player> player2, mt19937_64& g
     activePlayer = distribution(generator);
 }
 
-// Removes everything that is no longer on the board
+// Removes everything that is no longer on the board and check subtypeeffect of each board.
 void Game::clean() {
     for (auto player : players){
         auto minions = player->getBoard()->getMinions();
@@ -38,6 +38,7 @@ void Game::clean() {
             int index = player->getBoard()->findMinion(toBeRemoved);
             if(index >= 0){ destroyMinion(player, index); }
         }
+        player->getBoard()->MinionSubTypeEffect();
     }
 }
 
@@ -238,6 +239,7 @@ void Game::destroyMinion(std::shared_ptr<Player> player, int minion) {
     auto removed = player->getBoard()->removeMinion(minion);
     removed->die(shared_from_this());
     player->getGraveyard()->addMinionTop(removed->getAttachedMinion());
+    player->getGraveyard()->getMinionTop()->setDef(0);
 }
 
 void Game::addMinion(int player, std::shared_ptr<Minion> minion){

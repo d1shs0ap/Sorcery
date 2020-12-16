@@ -4,6 +4,7 @@
 #include <memory>
 #include <string>
 #include <iostream>
+#include <map>
 
 #include "../card.h"
 
@@ -12,6 +13,11 @@ class TriggeredAbility;
 class ActivatedAbility;
 class Enchantment;
 class Game;
+
+enum MinionSubType{
+    ELEMENTAL,
+    SUMMONER
+};
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 class Minion : public Card, public std::enable_shared_from_this<Minion>{
@@ -23,11 +29,13 @@ class Minion : public Card, public std::enable_shared_from_this<Minion>{
 
     // Triggered abilities are activated for free whenever a certain condition is met.
     std::shared_ptr<TriggeredAbility> trgAbility;
+
     protected:
         // actions is the number of times it is allowed to attack or use an ability in one turn. this can only be 0 or 1 for now.
         unsigned int actions = 1;
         unsigned int actionsCap = 1;
-
+        // mapping if minion is corresponding subType
+        std::map<MinionSubType, bool> subType;
 
     public:
         // Default constructor
@@ -82,9 +90,13 @@ class Minion : public Card, public std::enable_shared_from_this<Minion>{
         // Get the Enchantments list that are attached to the minion
         virtual std::vector<std::shared_ptr<Enchantment>> getEnchantmentList();
 
+        // check if minion is type
+        bool isSubType(MinionSubType type);
+
         // Destructor
         virtual ~Minion();
 };
+
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////

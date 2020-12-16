@@ -5,7 +5,10 @@
 
 using namespace std;
 
-Board::Board() {}
+Board::Board() {
+    subTypeCount[ELEMENTAL] = 0;
+    subTypeCount[SUMMONER] = 0;
+}
 
 bool Board::isFull() const{
     return (minions.size()==BOARD_CAP);
@@ -85,9 +88,89 @@ void Board::restoreActionAll(){
 
 }
 
+int Board::checkMinionSubType(int type) const{
+    int count = 0;
+    MinionSubType enumType;
+    if(type == ELEMENTAL) { enumType = ELEMENTAL; }
+    else{ enumType = SUMMONER; }
+    for(auto minion : minions){
+        if(minion->isSubType(enumType)){ count++; }
+    }
+    return count;
+}
+
+void Board::MinionSubTypeEffect(){
+    if(checkMinionSubType(ELEMENTAL) != subTypeCount[ELEMENTAL]){
+        if(checkMinionSubType(ELEMENTAL) > subTypeCount[ELEMENTAL]){
+            if(subTypeCount[ELEMENTAL] >= 3){
+                int remain = checkMinionSubType(ELEMENTAL) - subTypeCount[ELEMENTAL];
+                for(int i = minions.size() - 1; i >= 0; i--){
+                    if(minions[i]->isSubType(ELEMENTAL)){
+                        minions[i]->setAtk(minions[i]->getAtk() + 1);
+                        minions[i]->setDef(minions[i]->getDef() + 1);
+                        remain--;
+                    }
+                    if(remain == 0) { break; }
+                }
+            } else if(subTypeCount[ELEMENTAL] < 3 && checkMinionSubType(ELEMENTAL) >= 3){
+                for(int i = 0; i< minions.size(); i++){
+                    if(minions[i]->isSubType(ELEMENTAL)){
+                        minions[i]->setAtk(minions[i]->getAtk() + 1);
+                        minions[i]->setDef(minions[i]->getDef() + 1);
+                    }
+                }
+
+            }
+        } else if(checkMinionSubType(ELEMENTAL) < subTypeCount[ELEMENTAL]){
+            if(checkMinionSubType(ELEMENTAL) < 3 && subTypeCount[ELEMENTAL] >= 3){
+                for(int i = 0; i< minions.size(); i++){
+                    if(minions[i]->isSubType(ELEMENTAL)){
+                        minions[i]->setAtk(minions[i]->getAtk() - 1);
+                        minions[i]->setDef(minions[i]->getDef() - 1);
+                    }
+                }
+            }
+        }
+        subTypeCount[ELEMENTAL] = checkMinionSubType(ELEMENTAL);
+    }
+    if(checkMinionSubType(SUMMONER) != subTypeCount[SUMMONER]){
+        if(checkMinionSubType(SUMMONER) > subTypeCount[SUMMONER]){
+            if(subTypeCount[SUMMONER] >= 2){
+                int remain = checkMinionSubType(SUMMONER) - subTypeCount[SUMMONER];
+                for(int i = minions.size() - 1; i >= 0; i--){
+                    if(minions[i]->isSubType(SUMMONER)){
+                        minions[i]->setDef(minions[i]->getDef() * 2);
+                        remain--;
+                    }
+                    if(remain == 0) { break; }
+                }
+            } else if(subTypeCount[SUMMONER] < 2 && checkMinionSubType(SUMMONER) >= 2){
+                for(int i = 0; i< minions.size(); i++){
+                    if(minions[i]->isSubType(SUMMONER)){
+                        minions[i]->setDef(minions[i]->getDef() * 2);
+                    }
+                }
+
+            }
+
+        } else if(checkMinionSubType(SUMMONER) < subTypeCount[SUMMONER]){
+            if(checkMinionSubType(SUMMONER) < 2 && subTypeCount[SUMMONER] >= 2){
+                for(int i = 0; i< minions.size(); i++){
+                    if(minions[i]->isSubType(SUMMONER)){
+                        minions[i]->setDef(minions[i]->getDef() / 2);
+                    }
+                }
+            }
+        }
+
+    }
+    subTypeCount[SUMMONER] = checkMinionSubType(SUMMONER);
+}
+
 void Board::printBoard() {
     for (auto card : minions){
         cout << card->getName() << endl;
     }
 }
+
 
