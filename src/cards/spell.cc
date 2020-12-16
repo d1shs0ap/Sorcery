@@ -104,7 +104,7 @@ void Disenchant::effect(std::shared_ptr<Game> game, int player, int target){
     std::shared_ptr<Minion> targetMinion = game->getPlayer(player)->getBoard()->getMinion(target);
     if(targetMinion->getType().compare("Enchantment") == 0){
         std::shared_ptr<Enchantment> targetEnchantment = std::static_pointer_cast<Enchantment>(targetMinion);
-        targetMinion = targetEnchantment->detach();
+        game->getPlayer(player)->getBoard()->setMinion(target, targetEnchantment->detach());
     }
 }
 

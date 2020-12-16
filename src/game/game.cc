@@ -5,6 +5,7 @@
 #include "../cards/minion/triggeredAbility.h"
 #include "../cards/ritual.h"
 #include "../cards/minion/minion.h"
+#include "../cards/minion/enchantment.h"
 #include "../argException.h"
 
 
@@ -28,8 +29,9 @@ void Game::clean() {
         auto minions = player->getBoard()->getMinions();
         std::vector<shared_ptr<Minion>> v;
         for(int i = 0; i < minions.size(); ++i) {
-            if (player->getBoard()->getMinion(i)->getDef() <= 0){
-                v.push_back(player->getBoard()->getMinion(i));
+            std::shared_ptr<Minion> target = player->getBoard()->getMinion(i);
+            if (target->getDef() <= 0){
+                v.push_back(target);
             }
         }
         for(auto toBeRemoved : v){
@@ -58,6 +60,18 @@ void Game::startTurn() {
 void Game::endTurn() {
     // Check all triggered abilities (minions and ritual)
     checkTriggered(getActivePlayer(), END_TURN);
+    auto player = getActivePlayer();
+    auto board = player->getBoard();
+    for(int i = 0; i < board->getMinions().size(); i++){
+        std::shared_ptr<Minion> minion = board->getMinion(i);
+        if(minion->getName().compare("Delay") == 0){
+            std::shared_ptr<Delay> delay = std::static_pointer_cast<Delay>(minion);
+            if(delay->getRound() == 1){
+                getActivePlayer()->getBoard()->setMinion(i, delay->detach());
+
+            }
+        }
+    }
 }
 
 // Checks all triggered abilities to see if any is triggered, in a certain context(e.g. endTurn)
