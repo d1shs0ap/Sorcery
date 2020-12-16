@@ -407,7 +407,7 @@ vector<string> TextDisplay::printPlayer(shared_ptr<Player> player) {
     vector<string> card = emptyCard();
     // add name to card
     string name = player->getName();
-    name = "Player" + to_string(player->getNumber()+1) + ": " + name;
+    name = "Player" + to_string(player->getNumber()+1) + ": " + name + " (" + to_string(player->getElo()) + ")";
     card[CARD_HEIGHT/2-2].replace(CARD_WIDTH/2-name.size()/2, name.size(), name);
 
     // add life and magic to card

@@ -21,6 +21,9 @@ class Player
     int magic;
     int number;
 
+    // player elo
+    int elo = 1000;
+
     // A player’s board is a collection of cards that they have played and which have not been moved to another zone.
     std::shared_ptr<Board> board;
     // A players’ deck is a collection of cards that they may draw from.
@@ -45,6 +48,11 @@ public:
     bool hasEnoughMagic(int cost);
     // Getter of number
     int getNumber() const;
+    
+    // getter/setter of elo
+    int getElo() const;
+    void setElo(int elo);
+
     // Getters
     std::shared_ptr<Board> getBoard();
     std::shared_ptr<Deck> getDeck();

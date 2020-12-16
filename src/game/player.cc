@@ -27,6 +27,10 @@ bool Player::hasEnoughMagic(int cost) { return magic >= cost; }
 
 int Player::getNumber() const { return number; }
 
+// getter/setter of elo
+int Player::getElo() const { return elo; }
+void Player::setElo(int elo) { this->elo = elo; }
+
 shared_ptr<Board> Player::getBoard() {
     if (board==nullptr){
         throw ArgException{"Board does not exist for player " + (getName()) + "."};

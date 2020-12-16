@@ -24,6 +24,8 @@ using namespace std;
 int main(int argc, char *argv[])
 {
     try {
+        const int NAME_CAP = 10;
+
         // -------------------- processing argv --------------------
         
         bool TESTING = false;
@@ -121,8 +123,13 @@ int main(int argc, char *argv[])
                 getline(cin, name1);
             }
 
-            if (name1.size() > 30) {
-                throw ArgException{"Name cannot exceed 30 characters."};
+            try {
+                if (name1.size() > NAME_CAP) {
+                    throw ArgException{"Name cannot exceed "+ to_string(NAME_CAP) +" characters."};
+                }
+            } catch (ArgException& e) {
+                name1 = "";
+                cout << e.message << endl;
             }
         }
         
@@ -137,8 +144,13 @@ int main(int argc, char *argv[])
                 getline(cin, name2);
             }
 
-            if (name2.size() > 30) {
-                throw ArgException{"Name cannot exceed 30 characters."};
+            try {
+                if (name2.size() > NAME_CAP) {
+                    throw ArgException{"Name cannot exceed "+ to_string(NAME_CAP) +" characters."};
+                }
+            } catch (ArgException& e) {
+                name2 = "";
+                cout << e.message << endl;
             }
         }
 
