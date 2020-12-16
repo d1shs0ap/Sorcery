@@ -505,7 +505,7 @@ int main(int argc, char *argv[])
         ofstream file2{"../data/"+player2->getName()+".txt"};
         
         file1 << player1->getElo();
-        file2 << to_string(player2->getElo());
+        file2 << player2->getElo();
 
         file1.close();
         file2.close();
