@@ -14,7 +14,7 @@ bool Board::isFull() const{
 // Add card to hand, called by draw() in Player
 void Board::addMinionRight(shared_ptr<Minion> minion){
     if (isFull()){ 
-        throw ArgException{"Card cannot be added to board because board is full."};
+        throw ArgException{minion->getName() +" cannot be added to board because board is full."};
     }
     minions.push_back(minion);
 }

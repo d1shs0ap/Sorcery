@@ -28,13 +28,13 @@ class TextController {
         void attack(int minion);
         void attack(int minion, int enemyMinion);
         // Plays cardInHand (on player 1/2's card, which can be a minion or ritual)
-        void play(int cardInHand);
-        void play(int cardInHand, int targetPlayer, int targetMinion);
-        void play(int cardInHand, int targetPlayer);
+        void play(int cardInHand, bool testing = false);
+        void play(int cardInHand, int targetPlayer, int targetMinion, bool testing = false);
+        void play(int cardInHand, int targetPlayer, bool testing = false);
         // Uses minion's ability (on player 1/2's card, which can be a minion or ritual)
-        void use(int minion);
-        void use(int minion, int targetPlayer, int targetMinion);
-        void use(int minion, int targetPlayer);
+        void use(int minion, bool testing = false);
+        void use(int minion, int targetPlayer, int targetMinion, bool testing = false);
+        void use(int minion, int targetPlayer, bool testing = false);
         
         // Displays list of commands and their formats
         void help();
