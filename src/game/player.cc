@@ -96,10 +96,24 @@ void Player::play(int card, shared_ptr<Game> game, bool testing) {
         hand->removeCard(card);
     } else {
         // if testing mode and we are playing a spell
-        if(testing && tmpCard->getType() == "Spell") {
-            auto tmpSpell = dynamic_pointer_cast<Spell>(tmpCard);
-            tmpSpell->effect(game); // cause the spell effect, then the spell disappears
+        if(testing) {
+            // play the card
+            if (tmpCard->getType() == "Minion") {
+            auto tmpMinion = dynamic_pointer_cast<Minion>(tmpCard);
+            board->addMinionRight(tmpMinion);
+        
+            } else if (tmpCard->getType() == "Spell") {
+                auto tmpSpell = dynamic_pointer_cast<Spell>(tmpCard);
+                tmpSpell->effect(game); // cause the spell effect, then the spell disappears
             
+            } else if (tmpCard->getType() == "Ritual") {
+                auto tmpRitual = dynamic_pointer_cast<Ritual>(tmpCard);
+                board->setRitual(tmpRitual); // sets the ritual to new ritual
+            
+            } else {
+                // throw error, cannot play enchantment without target
+                throw ArgException{"play [card] only works with minions, spells, and rituals."};
+            }
             // subtract cost
             setMagic(0);
             // remove from hand
@@ -118,11 +132,13 @@ void Player::play(int card, int player, int target, shared_ptr<Game> game, bool 
 
     // has enough magic cost
     if(hasEnoughMagic(cost)) {
-    
+        
+        // play spell
         if (tmpCard->getType() == "Spell") {
             auto tmpSpell = dynamic_pointer_cast<Spell>(tmpCard);
             tmpSpell->effect(game, player, target); // cause the spell effect, then the spell disappears
         
+        // play enchantment
         } else if (tmpCard->getType() == "Enchantment") {
             auto targetPlayer = game->getPlayer(player);
             auto targetBoard = targetPlayer->getBoard();
@@ -145,10 +161,28 @@ void Player::play(int card, int player, int target, shared_ptr<Game> game, bool 
         hand->removeCard(card);
     } else {
         // if testing mode and we are playing a spell
-        if(testing && tmpCard->getType() == "Spell") {
-            auto tmpSpell = dynamic_pointer_cast<Spell>(tmpCard);
-            tmpSpell->effect(game, player, target); // cause the spell effect, then the spell disappears
+        if(testing) {
+            // play spell
+            if (tmpCard->getType() == "Spell") {
+                auto tmpSpell = dynamic_pointer_cast<Spell>(tmpCard);
+                tmpSpell->effect(game, player, target); // cause the spell effect, then the spell disappears
             
+            // play enchantment
+            } else if (tmpCard->getType() == "Enchantment") {
+                auto targetPlayer = game->getPlayer(player);
+                auto targetBoard = targetPlayer->getBoard();
+                auto targetMinion = targetBoard->getMinion(target);
+                auto tmpEnchantment = dynamic_pointer_cast<Enchantment>(tmpCard);
+
+                // attach to the ith game's player's board's target minion
+                tmpEnchantment->attach(targetMinion);
+
+                // then point the board minion to the enchantment layer wrapped outside
+                targetBoard->setMinion(target, tmpEnchantment);
+            } else {
+                // throw error, cannot play minion/ritual with target
+                throw ArgException{"play [card] [target-player] [target-minion] only works with spells and enchantments."};
+            }
             // subtract cost
             setMagic(0);
             // remove from hand
@@ -189,14 +223,19 @@ void Player::play(int card, int player, shared_ptr<Game> game, bool testing) {
         hand->removeCard(card);
     } else {
         // if testing mode and we are playing a spell
-        if(testing && tmpCard->getType() == "Spell") {
-            auto tmpSpell = dynamic_pointer_cast<Spell>(tmpCard);
-            tmpSpell->effect(game, player); // cause the spell effect, then the spell disappears
-            
-            // subtract cost
-            setMagic(0);
-            // remove from hand
-            hand->removeCard(card);
+        if(testing) {
+            if(tmpCard->getType() == "Spell") {
+                auto tmpSpell = dynamic_pointer_cast<Spell>(tmpCard);
+                tmpSpell->effect(game, player); // cause the spell effect, then the spell disappears
+                
+                // subtract cost
+                setMagic(0);
+                // remove from hand
+                hand->removeCard(card);
+            } else {
+                // throw error, cannot play minion/ritual with target
+                throw ArgException{"play [card] [target-player] [target-minion] only works with spells and enchantments."};
+            }
         } else {
             // error since not enough magic
             throw ArgException{"Not enough magic."};
@@ -221,9 +260,10 @@ void Player::use(std::shared_ptr<Game> game, int minion, bool testing){
             tmpMinion->useAbility(game);
             // subtract magic cost
             setMagic(0);
+        } else {
+            // error since not enough magic
+            throw ArgException{"Not enough magic."};
         }
-        // error since not enough magic
-        throw ArgException{"Not enough magic."};
     }
 }
 
@@ -241,9 +281,10 @@ void Player::use(std::shared_ptr<Game> game, int minion, int player, int target,
             tmpMinion->useAbility(game);
             // subtract magic cost
             setMagic(0);
+        } else {
+            // error since not enough magic
+            throw ArgException{"Not enough magic."};
         }
-        // error since not enough magic
-        throw ArgException{"Not enough magic."};
     }
     
     // subtract magic cost
