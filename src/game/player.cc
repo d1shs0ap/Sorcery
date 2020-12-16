@@ -246,7 +246,3 @@ void Player::use(std::shared_ptr<Game> game, int minion, int player, int target,
     // subtract magic cost
 }
 
-
-// use for ritual
-void Player::use(std::shared_ptr<Game> game, int minion, int player, bool testing) {
-}
