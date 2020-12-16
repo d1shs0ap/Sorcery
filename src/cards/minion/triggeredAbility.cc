@@ -41,7 +41,7 @@ void DieDamage::effect(std::shared_ptr<Game> game, std::shared_ptr<Minion> minio
 }
 
 EnterDamage::EnterDamage()
-    : TriggeredAbility{"Whenever an opponent's minion enters play, deal 1 damage to it",
+    : TriggeredAbility{"Whenever an opponent's minionenters play, deal 1 damage toit",
                        TriggeredAbilityType::ENEMY_MINION_ENTER} {}
 
 
@@ -54,7 +54,7 @@ void EnterDamage::effect(std::shared_ptr<Game> game, std::shared_ptr<Minion> min
 }
 
 EndGainDef::EndGainDef()
-    : TriggeredAbility{"At the end of your turn, all yout minions gain +0/+1",
+    : TriggeredAbility{"At the end of your turn, all your minions gain +0/+1",
                        TriggeredAbilityType::END_TURN} {}
 
 void EndGainDef::effect(std::shared_ptr<Game> game, std::shared_ptr<Minion> minion) const
@@ -77,7 +77,7 @@ void StartGainMagic::effect(std::shared_ptr<Game> game, std::shared_ptr<Ritual> 
 }
 
 EnterGainAtkDef::EnterGainAtkDef()
-    : TriggeredAbility{"Whenever a minion enters play under your control, it gains+1/+1",
+    : TriggeredAbility{"Whenever a minion enters play under your control, it gains +1/+1",
                        TriggeredAbilityType::OWN_MINION_ENTER} {}
 
 
