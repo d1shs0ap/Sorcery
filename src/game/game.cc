@@ -27,14 +27,14 @@ Game::Game(shared_ptr<Player> player1, shared_ptr<Player> player2, mt19937_64& g
 void Game::clean() {
     for (auto player : players){
         auto minions = player->getBoard()->getMinions();
-        std::vector<shared_ptr<Minion>> v;
+        std::vector<shared_ptr<Minion>> deadMinions;
         for(int i = 0; i < minions.size(); ++i) {
             std::shared_ptr<Minion> target = player->getBoard()->getMinion(i);
             if (target->getDef() <= 0){
-                v.push_back(target);
+                deadMinions.push_back(target);
             }
         }
-        for(auto toBeRemoved : v){
+        for(auto toBeRemoved : deadMinions){
             int index = player->getBoard()->findMinion(toBeRemoved);
             if(index >= 0){ destroyMinion(player, index); }
         }
