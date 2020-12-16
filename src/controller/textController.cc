@@ -67,31 +67,31 @@ void TextController::attack(int minion, int enemyMinion) {
 
 
 // Plays cardInHand (on player 1/2's card, which can be a minion or ritual)
-void TextController::play(int cardInHand) {
+void TextController::play(int cardInHand, bool testing) {
     auto player = game->getActivePlayer();
     auto card = player->getHand()->getCard(cardInHand - 1);
 
-    player->play(cardInHand - 1, game);
+    player->play(cardInHand - 1, game, testing);
 
     if (card->getType()=="Minion") {
         game->checkTriggered(game->getActivePlayer(), MINION_ENTER);
     }
 }
-void TextController::play(int cardInHand, int targetPlayer, int targetMinion) {
+void TextController::play(int cardInHand, int targetPlayer, int targetMinion, bool testing) {
     auto player = game->getActivePlayer();
     auto card = player->getHand()->getCard(cardInHand - 1);
 
-    player->play(cardInHand - 1, targetPlayer - 1, targetMinion - 1, game);
+    player->play(cardInHand - 1, targetPlayer - 1, targetMinion - 1, game, testing);
 
     if (card->getType()=="Minion") {
         game->checkTriggered(game->getActivePlayer(), MINION_ENTER);
     }
 }
-void TextController::play(int cardInHand, int targetPlayer) {
+void TextController::play(int cardInHand, int targetPlayer, bool testing) {
     auto player = game->getActivePlayer();
     auto card = player->getHand()->getCard(cardInHand - 1);
 
-    player->play(cardInHand - 1, targetPlayer - 1, game);
+    player->play(cardInHand - 1, targetPlayer - 1, game, testing);
 
     if (card->getType()=="Minion") {
         game->checkTriggered(game->getActivePlayer(), MINION_ENTER);
@@ -104,17 +104,17 @@ void TextController::play(int cardInHand, int targetPlayer) {
 
 
 // Uses minion's ability (on player 1/2's card, which can be a minion or ritual)
-void TextController::use(int minion) {
+void TextController::use(int minion, bool testing) {
     auto player = game->getActivePlayer();
-    player->use(game->shared_from_this(), minion - 1);
+    player->use(game->shared_from_this(), minion - 1, testing);
 }
-void TextController::use(int minion, int targetPlayer, int targetMinion) {
+void TextController::use(int minion, int targetPlayer, int targetMinion, bool testing) {
     auto player = game->getActivePlayer();
-    player->use(game->shared_from_this(), minion - 1, targetPlayer - 1, targetMinion - 1);
+    player->use(game->shared_from_this(), minion - 1, targetPlayer - 1, targetMinion - 1, testing);
 }
-void TextController::use(int minion, int targetPlayer) {
+void TextController::use(int minion, int targetPlayer, bool testing) {
     auto player = game->getActivePlayer();
-    player->use(game->shared_from_this(), minion - 1, targetPlayer - 1);
+    player->use(game->shared_from_this(), minion - 1, targetPlayer - 1, testing);
 }
 
 

@@ -57,13 +57,13 @@ public:
     void discard(int card);
 
     // Plays the ith card in hand from the left
-    void play(int card, std::shared_ptr<Game> game);
-    void play(int card, int player, int target, std::shared_ptr<Game> game);
-    void play(int card, int player, std::shared_ptr<Game> game); // for ritual target
+    void play(int card, std::shared_ptr<Game> game, bool testing);
+    void play(int card, int player, int target, std::shared_ptr<Game> game, bool testing);
+    void play(int card, int player, std::shared_ptr<Game> game, bool testing); // for ritual target
 
-    void use(std::shared_ptr<Game> game, int minion);
-    void use(std::shared_ptr<Game> game, int minion, int player, int target);
-    void use(std::shared_ptr<Game> game, int minion, int player); // for ritual target
+    void use(std::shared_ptr<Game> game, int minion, bool testing);
+    void use(std::shared_ptr<Game> game, int minion, int player, int target, bool testing);
+    void use(std::shared_ptr<Game> game, int minion, int player, bool testing); // for ritual target
 };
 
 #endif

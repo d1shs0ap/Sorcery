@@ -5,6 +5,7 @@
 #include <fstream>
 #include <random>
 #include <chrono>
+#include <algorithm>
 
 #include "game/game.h"
 #include "view/textDisplay.h"
@@ -154,13 +155,21 @@ int main(int argc, char *argv[])
         auto game = make_shared<Game>(player1, player2, generator);
         auto textDisplay = make_shared<TextDisplay>(game);
         auto textController = make_unique<TextController>(game, textDisplay);
-        
+
+        // deck sizes before drawing any cards
+        int deck1Size = deck1->getSize();
+        int deck2Size = deck2->getSize();
 
         // Both players draw 5 cards
-        for (int i = 0; i < 5; ++i){
+        for (int i = 0; i < min(5, deck1Size); ++i){
             player1->draw();
+        }
+
+        for (int i = 0; i < min(5, deck2Size); ++i){
             player2->draw();
         }
+
+
 
         // -------------------- Game loop --------------------
 
@@ -198,7 +207,7 @@ int main(int argc, char *argv[])
                     return 0;
                 } else if (cmd == "draw") {
                     if (TESTING == false)
-                        cout << "Command draw is only avaliable in testing mode." << endl;
+                        cout << "Command draw is only avalaible in testing mode." << endl;
                     else {
                         textController->draw();
                     }
@@ -207,7 +216,7 @@ int main(int argc, char *argv[])
                     //       function Player::draw.
                 } else if (cmd.substr(0, 8) == "discard ") { // takes in 1 argument
                     if (TESTING == false)
-                        cout << "Command discard is only avaliable in testing mode." << endl;
+                        cout << "Command discard is only avalaible in testing mode." << endl;
                     else {
                         stringstream sscmd {cmd};
                         string arg;
@@ -276,7 +285,7 @@ int main(int argc, char *argv[])
                             ++argCount;
 
                             if(sscmd.eof()) { // if only 1 arg
-                                textController->play(cardInHand);
+                                textController->play(cardInHand, TESTING);
                                 break;
                             }
                             continue;
@@ -292,7 +301,7 @@ int main(int argc, char *argv[])
                         } else if (argCount==3){
                             if (arg=="r"){ // if ritual
                                 if(sscmd.eof()) { // if only 3 args
-                                    textController->play(cardInHand, targetPlayer);
+                                    textController->play(cardInHand, targetPlayer, TESTING);
                                     break;
                                 }
 
@@ -300,7 +309,7 @@ int main(int argc, char *argv[])
                                 targetMinion = stoi(arg); // if input received cannot be converted, entire cmd fails
 
                                 if(sscmd.eof()) { // if only 3 args
-                                    textController->play(cardInHand, targetPlayer, targetMinion);
+                                    textController->play(cardInHand, targetPlayer, targetMinion, TESTING);
                                     break;
                                 } else {
                                     // throw "too many arguments" error here
@@ -324,7 +333,7 @@ int main(int argc, char *argv[])
                             ++argCount;
 
                             if(sscmd.eof()) { // if only 1 arg
-                                textController->use(minion);
+                                textController->use(minion, TESTING);
                                 break;
                             }
                             continue;
@@ -340,7 +349,7 @@ int main(int argc, char *argv[])
                         } else if (argCount==3){
                             if (arg=="r"){ // if ritual
                                 if(sscmd.eof()) { // if only 3 args
-                                    textController->use(minion, targetPlayer);
+                                    textController->use(minion, targetPlayer, TESTING);
                                     break;
                                 }
 
@@ -348,7 +357,7 @@ int main(int argc, char *argv[])
                                 targetMinion = stoi(arg); // if input received cannot be converted, entire cmd fails
 
                                 if(sscmd.eof()) { // if only 3 args
-                                    textController->use(minion, targetPlayer, targetMinion);
+                                    textController->use(minion, targetPlayer, targetMinion, TESTING);
                                     break;
                                 } else {
                                     // throw "too many arguments" error here

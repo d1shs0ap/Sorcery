@@ -113,13 +113,18 @@ bool Deck::isEmpty(){
 
 // Return and remove the top card from the deck, called by draw()
 shared_ptr<Card> Deck::removeCardTop() {
-    if (!isEmpty()){
-        auto tmp = cards.back();
-        cards.pop_back();
-        return tmp;
-    } else {
+    if (isEmpty()){
         throw ArgException{"Card cannot be drawn from deck because deck is empty."};
     }
+
+    auto tmp = cards.back();
+    cards.pop_back();
+    return tmp;
+}
+
+
+int Deck::getSize() {
+    return cards.size();
 }
 
 void Deck::printDeck() {
