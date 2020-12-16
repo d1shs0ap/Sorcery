@@ -135,4 +135,5 @@ void TextController::hand() {
 // Displays board
 void TextController::board() {
     textDisplay->printBoard();
+    game->getActivePlayer()->getGraveyard()->printGraveyard();
 }
