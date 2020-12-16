@@ -11,6 +11,7 @@ class Spell : public Card {
     std::string description;
 
     public:
+        Spell();
         Spell(std::string name, int owner, int cost, std::string description);
         virtual void effect(std::shared_ptr<Game> game);
         virtual void effect(std::shared_ptr<Game> game, int player, int target);

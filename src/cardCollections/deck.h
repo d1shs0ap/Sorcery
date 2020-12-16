@@ -16,14 +16,17 @@ class Deck {
     int owner;
 
     public:
+        // Constructor
         Deck(std::default_random_engine& rng, int owner);
-
+        
+        // Read in card from infile and add them to cards
         void loadDeck(std::ifstream &infile);
+        // shuffle cards
         void shuffleDeck();
 
         // Checks if deck is empty;
         bool isEmpty();
-
+        // Get the length of cards
         int getSize();
 
         // Return and remove the top card from the deck, called by draw()

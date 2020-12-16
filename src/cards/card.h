@@ -5,7 +5,7 @@
 #include <memory>
 #include <vector>
 
-// Abstract class for all cards
+// Class for all cards
 class Card
 {
     std::string name;
@@ -14,9 +14,12 @@ class Card
     int cost;
 
 public:
+    // Default Constructor
     Card();
+    // Constructor
     Card(std::string name, std::string type, int owner, int cost);
 
+    // Getters and Setters
     std::string getName() const;
     std::string getType() const;
     int getOwner() const;
@@ -24,6 +27,7 @@ public:
     int getCost() const;
     void setCost(int newCost);
 
+    // Destructor
     virtual ~Card();
 };
 

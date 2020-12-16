@@ -16,6 +16,7 @@ class Hand {
     public:
         Hand();
 
+        // Check if the length of Cards >= HAND_CAP
         bool isFull();
 
         // Add card to hand, called by draw() in Player

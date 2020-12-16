@@ -18,8 +18,12 @@ class Ritual : public Card, public std::enable_shared_from_this<Ritual>
     std::shared_ptr<TriggeredAbility> trgAbility;
 
 public:
+    // Default Constructor
+    Ritual();
+    // Constructor
     Ritual(std::string name, int owner, int cost, int activationCost, int charges, std::shared_ptr<TriggeredAbility> trgAbility);
 
+    // Getters and Setters
     int getActivationCost();
     int getCharges();
     void setCharges(int newCharges);
@@ -28,28 +32,26 @@ public:
     std::shared_ptr<TriggeredAbility> getTrgAbility() const;
     void setTrgAbility(std::shared_ptr<TriggeredAbility> ability);
 
-    // Trigger the triggered ability while reducing charges
+    // Trigger the triggered ability while reducing charges, called by Game::checkTriggered 
     bool useTrgAbility(std::shared_ptr<Game> game);
 
+    // Destructor
     ~Ritual();
 };
 
-class DarkRitual : public Ritual //passed!
-{
-public:
-    explicit DarkRitual(int owner);
+class DarkRitual : public Ritual{
+    public:
+        explicit DarkRitual(int owner);
 };
 
-class AuraOfPower : public Ritual //passed!
-{
-public:
-    explicit AuraOfPower(int owner);
+class AuraOfPower : public Ritual{
+    public:
+        explicit AuraOfPower(int owner);
 };
 
-class Standstill : public Ritual
-{
-public:
-    explicit Standstill(int owner);
+class Standstill : public Ritual{
+    public:
+        explicit Standstill(int owner);
 };
 
 #endif

@@ -20,8 +20,7 @@ enum TriggeredAbilityType
     OWN_MINION_ENTER
 };
 
-class TriggeredAbility
-{
+class TriggeredAbility{
     // Description of the ability displayed on the view
     std::string description;
     /* 0 for at the start of the turn
@@ -33,62 +32,70 @@ class TriggeredAbility
     */
     TriggeredAbilityType type;
 
-public:
-    TriggeredAbility();
-    TriggeredAbility(std::string description, TriggeredAbilityType type);
-    virtual void effect(std::shared_ptr<Game> game, std::shared_ptr<Minion> minion) const;
-    virtual void effect(std::shared_ptr<Game> game, std::shared_ptr<Ritual> ritual) const;
-    TriggeredAbilityType getType() const;
-    std::string getDescription() const;
-    virtual ~TriggeredAbility();
+    public:
+        // Default constructor
+        TriggeredAbility();
+        // Constructor
+        TriggeredAbility(std::string description, TriggeredAbilityType type);
+        // Making effect, called by Game::checkTriggered or Minion::die
+        virtual void effect(std::shared_ptr<Game> game, std::shared_ptr<Minion> minion) const;
+        // Making effect, called by Ritual::useTrgAbility
+        virtual void effect(std::shared_ptr<Game> game, std::shared_ptr<Ritual> ritual) const;
+
+        // Getters
+        TriggeredAbilityType getType() const;
+        std::string getDescription() const;
+
+        // Destructor
+        virtual ~TriggeredAbility();
 };
 
-class DieDamage : public TriggeredAbility
-{
+class DieDamage : public TriggeredAbility{
 
-public:
-    DieDamage();
-    void effect(std::shared_ptr<Game> game, std::shared_ptr<Minion> minion) const override;
+    public:
+        DieDamage();
+        // Deal damage equal to minion->getAtk() to all opponent minions 
+        void effect(std::shared_ptr<Game> game, std::shared_ptr<Minion> minion) const override;
 };
 
-class EnterDamage : public TriggeredAbility
-{
+class EnterDamage : public TriggeredAbility{
 
-public:
-    EnterDamage();
-    void effect(std::shared_ptr<Game> game, std::shared_ptr<Minion> minion) const override;
+    public:
+        EnterDamage();
+        // Deal 1 damage to opponent's top Minion on board
+        void effect(std::shared_ptr<Game> game, std::shared_ptr<Minion> minion) const override;
 };
 
-class EndGainDef : public TriggeredAbility
-{
+class EndGainDef : public TriggeredAbility{
 
-public:
-    EndGainDef();
-    void effect(std::shared_ptr<Game> game, std::shared_ptr<Minion> minion) const override;
+    public:
+        EndGainDef();
+        // All owner's Minions gain +0/+1
+        void effect(std::shared_ptr<Game> game, std::shared_ptr<Minion> minion) const override;
 };
 
-class StartGainMagic : public TriggeredAbility
-{
+class StartGainMagic : public TriggeredAbility{
 
-public:
-    StartGainMagic();
-    void effect(std::shared_ptr<Game> game, std::shared_ptr<Ritual> ritual) const override;
+    public:
+        StartGainMagic();
+        // Owner gain 1 magic
+        void effect(std::shared_ptr<Game> game, std::shared_ptr<Ritual> ritual) const override;
 };
 
-class EnterGainAtkDef : public TriggeredAbility
-{
+class EnterGainAtkDef : public TriggeredAbility{
 
-public:
-    EnterGainAtkDef();
-    void effect(std::shared_ptr<Game> game, std::shared_ptr<Ritual> ritual) const override;
+    public:
+        EnterGainAtkDef();
+        // Owner's top Minion on Board gain +1/+1
+        void effect(std::shared_ptr<Game> game, std::shared_ptr<Ritual> ritual) const override;
 };
 
-class EnterDestroy : public TriggeredAbility
-{
+class EnterDestroy : public TriggeredAbility{
 
-public:
-    EnterDestroy();
-    void effect(std::shared_ptr<Game> game, std::shared_ptr<Ritual> ritual) const override;
+    public:
+        EnterDestroy();
+        // Destroy top Minion on the Board of game->getActivePlayer
+        void effect(std::shared_ptr<Game> game, std::shared_ptr<Ritual> ritual) const override;
 };
 
 #endif
