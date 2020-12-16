@@ -125,7 +125,9 @@ void RaiseDead::effect(std::shared_ptr<Game> game){
         throw ArgException{message};
     } else{
         if(!(game->getActivePlayer()->getBoard()->isFull())){
-            game->getActivePlayer()->getBoard()->addMinionRight(game->getActivePlayer()->getGraveyard()->getMinionTop());
+            game->getActivePlayer()->getBoard()->addMinionRight(game->getActivePlayer()->getGraveyard()->removeMinionTop());
+            game->getActivePlayer()->getBoard()->getMinion(game->getActivePlayer()->getBoard()->getMinions().size() - 1)->setDef(1);
+
         }
     }
 }

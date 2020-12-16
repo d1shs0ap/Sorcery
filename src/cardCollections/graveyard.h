@@ -18,6 +18,7 @@ class Graveyard {
         std::shared_ptr<Minion> getMinionTop();
         // Add new minion to graveyard top
         void addMinionTop(std::shared_ptr<Minion> minion);
+        std::shared_ptr<Minion> removeMinionTop();
 
         // Accessor and mutator for minions
         std::vector<std::shared_ptr<Minion>> getMinions() const;

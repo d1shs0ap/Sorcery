@@ -22,6 +22,13 @@ void Graveyard::addMinionTop(shared_ptr<Minion> minion) {
     minions.push_back(minion);
 }
 
+std::shared_ptr<Minion> Graveyard::removeMinionTop(){
+    auto top = getMinionTop();
+    minions.erase(minions.begin() + minions.size() - 1);
+    return top;
+}
+
+
 // Accessor and mutator for minions
 vector<shared_ptr<Minion>> Graveyard::getMinions() const {
     return minions;
