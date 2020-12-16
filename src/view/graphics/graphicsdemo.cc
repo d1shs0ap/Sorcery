@@ -4,7 +4,7 @@
 using namespace std;
 
 int main() {
-    Xwindow w;
+    Xwindow w(1000,1000);
 
     for (int i = Xwindow::White ; i <= Xwindow::Blue; i++) {
         w.fillRectangle(50 * i, 200, 50, 250, i);
