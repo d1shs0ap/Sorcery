@@ -10,7 +10,7 @@ Hearthstone-like game built with C++. Final project for CS246.
 - includes decks that can be loaded into the game
 
 /docs:
-- includes documentation
+- includes documentation, including demo.pdf, uml-final.pdf, and design.pdf
 
 /src
 - includes all source code
