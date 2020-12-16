@@ -16,13 +16,19 @@ class ActivatedAbility{
 
 
     public:
+        // Default constructor 
         ActivatedAbility();
+        // Constructor
         ActivatedAbility(std::string description, int cost);
+        // Getters
         std::string getDescription() const;
         int getCost() const;
+        // Setter
         void setCost(int newCost);
+        // Making effect, called by Minion::useAbility
         virtual void effect(std::shared_ptr<Game> game, std::shared_ptr<Minion> minion) const;
         virtual void effect(std::shared_ptr<Game> game, std::shared_ptr<Minion> minion,  std::shared_ptr<Minion> target) const;
+        // Destructor
         virtual ~ActivatedAbility();
 };
 
