@@ -206,6 +206,9 @@ void Player::play(int card, int player, shared_ptr<Game> game, bool testing) {
 
 void Player::use(std::shared_ptr<Game> game, int minion, bool testing){
     auto tmpMinion = board->getMinion(minion);
+    if(tmpMinion->getActAbility() == nullptr) { 
+        throw ArgException{"Minion " + tmpMinion->getAttachedMinion()->getName() + " does not have activated ability."};
+        }
     int cost = tmpMinion->getActAbility()->getCost();
     
     if (hasEnoughMagic(cost)) {

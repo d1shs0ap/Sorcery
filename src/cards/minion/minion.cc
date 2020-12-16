@@ -67,8 +67,12 @@ std::vector<std::shared_ptr<Enchantment>> Minion::getEnchantmentList(){
 
 void Minion::useAbility(std::shared_ptr<Game> game) { 
     if (actions > 0){
-        actAbility->effect(game, shared_from_this()); 
-        actions--;
+        if(getActAbility() != nullptr){
+            getActAbility()->effect(game, shared_from_this()); 
+            actions--;
+        } else{
+            throw ArgException{"Minion " + getAttachedMinion()->getName() + " does not have activated ability."};
+        }
     } else {
         throw ArgException{"Minion " + getAttachedMinion()->getName() + " does not have enough action points to use activated ability."};
     }
@@ -76,9 +80,13 @@ void Minion::useAbility(std::shared_ptr<Game> game) {
 
 void Minion::useAbility(std::shared_ptr<Game> game, int player, int target) {
     if (actions > 0){
-        std::shared_ptr<Minion> targetMinion = game->getPlayer(player)->getBoard()->getMinion(target);
-        actAbility->effect(game, shared_from_this(), targetMinion);
-        actions--;
+        if(getActAbility() != nullptr){
+            std::shared_ptr<Minion> targetMinion = game->getPlayer(player)->getBoard()->getMinion(target);
+            actAbility->effect(game, shared_from_this(), targetMinion);
+            actions--;
+        } else{
+            throw ArgException{"Minion " + getAttachedMinion()->getName() + " does not have activated ability."};
+        }
     } else {
         throw ArgException{"Minion " + getAttachedMinion()->getName() + " does not have enough action points to use activated ability."};
     }
