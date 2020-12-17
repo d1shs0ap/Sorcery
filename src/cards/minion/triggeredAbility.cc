@@ -117,3 +117,33 @@ void EnterDestroy::effect(std::shared_ptr<Game> game, std::shared_ptr<Ritual> mi
     game->destroyMinion(game->getActivePlayer(), minionIndex - 1);
 }
 
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/// EndDestroy ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+EndDestroy::EndDestroy()
+    : TriggeredAbility{"At the end of each turn, move all minions with attack 1 or less to the graveyard",
+                       TriggeredAbilityType::END_TURN} {}
+
+
+void EndDestroy::effect(std::shared_ptr<Game> game, std::shared_ptr<Ritual> ritual) const {
+    auto player = game->getActivePlayer();
+    auto playerMinions = player->getBoard()->getMinions();
+
+    // loop through all minions and check which has attack <= 1, keep track of them
+    for (int i = 0; i < playerMinions.size(); ++i) {
+        if(playerMinions[i]->getAtk() <= 1) {
+            player->getBoard()->setMinion(i, nullptr);
+        }
+    }
+
+    // now the same for the enemy
+    auto enemy = game->getInactivePlayer();
+    auto enemyMinions = enemy->getBoard()->getMinions();
+
+    for (int i = 0; i < enemyMinions.size(); ++i) {
+        if(enemyMinions[i]->getAtk() <= 1) {
+            enemy->getBoard()->setMinion(i, nullptr);
+        }
+    }
+}

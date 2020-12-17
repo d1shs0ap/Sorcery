@@ -54,4 +54,9 @@ class Standstill : public Ritual{
         explicit Standstill(int owner);
 };
 
+class ContemptOfTheWeak : public Ritual{
+    public:
+        explicit ContemptOfTheWeak(int owner);
+};
+
 #endif

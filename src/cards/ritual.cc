@@ -51,3 +51,6 @@ AuraOfPower::AuraOfPower(int owner)
 
 Standstill::Standstill(int owner)
     : Ritual{"Standstill", owner, 3, 2, 4, make_shared<EnterDestroy>()} {}
+
+ContemptOfTheWeak::ContemptOfTheWeak(int owner)
+    : Ritual{"Contempt of the Weak", owner, 1, 1, 3, make_shared<EndDestroy>()} {}

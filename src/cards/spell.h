@@ -71,4 +71,20 @@ class Blizzard : public Spell{
         void effect(std::shared_ptr<Game> game, int player) override;
 };
 
+class AChangeOfLuck : public Spell{
+    public: 
+        explicit AChangeOfLuck(int owner);
+        void effect(std::shared_ptr<Game> game) override;
+        void effect(std::shared_ptr<Game> game, int player, int target) override;
+        void effect(std::shared_ptr<Game> game, int player) override;
+};
+
+class Nullify : public Spell{
+    public: 
+        explicit Nullify(int owner);
+        void effect(std::shared_ptr<Game> game) override;
+        void effect(std::shared_ptr<Game> game, int player, int target) override;
+        void effect(std::shared_ptr<Game> game, int player) override;
+};
+
 #endif

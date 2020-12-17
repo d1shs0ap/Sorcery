@@ -239,7 +239,6 @@ void Game::destroyMinion(std::shared_ptr<Player> player, int minion) {
     auto removed = player->getBoard()->removeMinion(minion);
     removed->die(shared_from_this());
     player->getGraveyard()->addMinionTop(removed->getAttachedMinion());
-    player->getGraveyard()->getMinionTop()->setDef(0);
 }
 
 void Game::addMinion(int player, std::shared_ptr<Minion> minion){
