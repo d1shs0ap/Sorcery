@@ -8,6 +8,7 @@
 #include "../cardCollections/board.h"
 #include "../cardCollections/hand.h"
 #include "../cardCollections/graveyard.h"
+#include "../cardCollections/deck.h"
 #include "../argException.h"
 
 Spell::Spell(std::string name, int owner, int cost, std::string description) :
@@ -166,3 +167,44 @@ void Blizzard::effect(std::shared_ptr<Game> game, int player){
     std::string message = getName() + " does not need a target.";
     throw ArgException{message};
 }
+
+
+//////////////////////////////////////////////////////////////////////////////////////////
+/// AChangeOfLuck /////////////////////////////////////////////////////////////////////////////////
+
+AChangeOfLuck::AChangeOfLuck(int owner) : Spell{"A Change of Luck", owner, 1, "Shuffle you and your opponent's decks"} {}
+
+void AChangeOfLuck::effect(std::shared_ptr<Game> game){
+    game->getActivePlayer()->getDeck()->shuffleDeck();
+    game->getInactivePlayer()->getDeck()->shuffleDeck();
+}
+
+void AChangeOfLuck::effect(std::shared_ptr<Game> game, int player, int target){
+    std::string message = getName() + " does not need a target.";
+    throw ArgException{message};
+}
+
+void AChangeOfLuck::effect(std::shared_ptr<Game> game, int player){
+    std::string message = getName() + " does not need a target.";
+    throw ArgException{message};
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////
+/// Nullify /////////////////////////////////////////////////////////////////////////////////
+
+Nullify::Nullify(int owner) : Spell{"Nullify", owner, 2, "Destroy your enemy's ritual"} {}
+
+void Nullify::effect(std::shared_ptr<Game> game){
+    game->getInactivePlayer()->getBoard()->setRitual(nullptr);
+}
+
+void Nullify::effect(std::shared_ptr<Game> game, int player, int target){
+    std::string message = getName() + " does not need a target.";
+    throw ArgException{message};
+}
+
+void Nullify::effect(std::shared_ptr<Game> game, int player){
+    std::string message = getName() + " does not need a target.";
+    throw ArgException{message};
+}
+

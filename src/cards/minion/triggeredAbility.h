@@ -4,6 +4,7 @@
 #include <memory>
 #include <string>
 #include <vector>
+#include <iostream>
 
 
 class Game;
@@ -94,6 +95,13 @@ class EnterDestroy : public TriggeredAbility{
 
     public:
         EnterDestroy();
+        // Destroy top Minion on the Board of game->getActivePlayer
+        void effect(std::shared_ptr<Game> game, std::shared_ptr<Ritual> ritual) const override;
+};
+
+class EndDestroy : public TriggeredAbility {
+    public:
+        EndDestroy();
         // Destroy top Minion on the Board of game->getActivePlayer
         void effect(std::shared_ptr<Game> game, std::shared_ptr<Ritual> ritual) const override;
 };

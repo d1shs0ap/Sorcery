@@ -76,6 +76,9 @@ void Deck::loadDeck(ifstream &infile)
         } else if (cardName=="Standstill") {
             auto card = make_shared<Standstill>(owner);
             cards.push_back(card);
+        } else if (cardName=="Contempt of the Weak") {
+            auto card = make_shared<ContemptOfTheWeak>(owner);
+            cards.push_back(card);
         }
         // Spells
         else if (cardName=="Banish") {
@@ -95,6 +98,12 @@ void Deck::loadDeck(ifstream &infile)
             cards.push_back(card);
         } else if (cardName=="Blizzard") {
             auto card = make_shared<Blizzard>(owner);
+            cards.push_back(card);
+        } else if (cardName=="A Change of Luck") {
+            auto card = make_shared<AChangeOfLuck>(owner);
+            cards.push_back(card);
+        } else if (cardName=="Nullify") {
+            auto card = make_shared<Nullify>(owner);
             cards.push_back(card);
         }
     }
