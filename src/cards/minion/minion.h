@@ -32,7 +32,7 @@ class Minion : public Card, public std::enable_shared_from_this<Minion>{
 
     protected:
         // actions is the number of times it is allowed to attack or use an ability in one turn. this can only be 0 or 1 for now.
-        unsigned int actions = 1;
+        unsigned int actions = 0;
         unsigned int actionsCap = 1;
         // mapping if minion is corresponding subType
         std::map<MinionSubType, bool> subType;
