@@ -5,7 +5,7 @@
 #include "minion.h"
 #include "../../cardCollections/board.h"
 #include "../ritual.h"
-
+#include "../../argException.h"
 
 TriggeredAbility::TriggeredAbility(std::string description, TriggeredAbilityType type)
     : description{description}, type{type} {}
@@ -54,6 +54,7 @@ void EnterDamage::effect(std::shared_ptr<Game> game, std::shared_ptr<Minion> min
 {
     int opp = (minion->getOwner() + 1) % 2;
     int len = game->getPlayer(opp)->getBoard()->getMinions().size();
+    if(len == 0) { throw ArgException{minion->getName() + "'s triggered ability cannot be triggered, because the board is empty. "}; }
     std::shared_ptr<Minion> target = game->getPlayer(opp)->getBoard()->getMinion(len - 1);
     target->setDef(target->getDef() - 1);
 }
@@ -112,6 +113,7 @@ EnterDestroy::EnterDestroy()
 
 void EnterDestroy::effect(std::shared_ptr<Game> game, std::shared_ptr<Ritual> minion) const {
     int minionIndex = game->getActivePlayer()->getBoard()->getMinions().size();
+    if(minionIndex == 0) { throw ArgException{minion->getName() + "'s triggered ability cannot be triggered, because the board is empty. "}; }
     game->destroyMinion(game->getActivePlayer(), minionIndex - 1);
 }
 
