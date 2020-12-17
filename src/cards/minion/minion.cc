@@ -170,7 +170,7 @@ NovicePyromancer::NovicePyromancer(int owner)
 /// ApprenticeSummoner /////////////////////////////////////////////////////////////////////////////////////////////////////
 
 ApprenticeSummoner::ApprenticeSummoner(int owner)
-    : Minion{"Apprentice Summoner", owner, 2, 1, 3}
+    : Minion{"Apprentice Summoner", owner, 1, 1, 1}
 {
     Minion::setActAbility(std::make_shared<SummonOneAirElemental>());
     subType[ELEMENTAL] = false;
