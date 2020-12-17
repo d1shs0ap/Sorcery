@@ -2,3 +2,5 @@
 .json
 *.d
 *.o
+src/sorcery
+.DS_Store
