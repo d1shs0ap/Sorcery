@@ -48,6 +48,9 @@ void Deck::loadDeck(ifstream &infile)
         } else if (cardName=="Master Summoner") {
             auto card = make_shared<MasterSummoner>(owner);
             cards.push_back(card);
+        } else if (cardName=="Grand Summoner"){
+            auto card = make_shared<GrandSummoner>(owner);
+            cards.push_back(card);
         }
         // Enchantments
         else if (cardName=="Giant Strength") {

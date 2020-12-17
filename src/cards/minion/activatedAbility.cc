@@ -75,3 +75,21 @@ void SummonThreeAirElemental::effect(std::shared_ptr<Game> game, std::shared_ptr
     std::string message = minion->getName() + "'s activated ability does not need a target.";
     throw ArgException{message};
 }
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/// SummonOneFireElemental ///////////////////////////////////////////////////////////////////////////////////////////////
+
+SummonOneFireElemental::SummonOneFireElemental() : ActivatedAbility{"Summon a 2/2 fire elemental", 1} {}
+
+void SummonOneFireElemental::effect(std::shared_ptr<Game> game, std::shared_ptr<Minion> minion) const{
+    int owner = minion->getOwner();
+    std::shared_ptr<Player> target = game->getPlayer(owner);
+    if(target->getBoard()->getMinions().size() < 5){
+        target->getBoard()->addMinionRight(std::make_shared<FireElemental>(owner));
+    }
+}
+
+void SummonOneFireElemental::effect(std::shared_ptr<Game> game, std::shared_ptr<Minion> minion, std::shared_ptr<Minion> target) const{
+    std::string message = minion->getName() + "'s activated ability does not need a target.";
+    throw ArgException{message};
+}

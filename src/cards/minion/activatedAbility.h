@@ -59,4 +59,11 @@ class SummonThreeAirElemental : public ActivatedAbility{
         void effect(std::shared_ptr<Game> game, std::shared_ptr<Minion> minion,  std::shared_ptr<Minion> target) const override;
 };
 
+class SummonOneFireElemental : public ActivatedAbility{
+    public:
+        SummonOneFireElemental();
+        void effect(std::shared_ptr<Game> game, std::shared_ptr<Minion> minion) const override;
+        void effect(std::shared_ptr<Game> game, std::shared_ptr<Minion> minion,  std::shared_ptr<Minion> target) const override;
+};
+
 #endif
