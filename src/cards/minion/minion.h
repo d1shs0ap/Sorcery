@@ -148,6 +148,11 @@ public:
     explicit MasterSummoner(int owner);
 };
 
+class GrandSummoner : public Minion{
+    public:
+        explicit GrandSummoner(int owner);
+};
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 #endif

@@ -187,3 +187,14 @@ MasterSummoner::MasterSummoner(int owner)
     subType[ELEMENTAL] = false;
     subType[SUMMONER] = true;
 }
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/// GrandSummoner /////////////////////////////////////////////////////////////////////////////////////////////////////
+
+GrandSummoner::GrandSummoner(int owner) 
+    : Minion{"Grand Summoner", owner, 5, 2, 5}
+    {
+        Minion::setActAbility(std::make_shared<SummonOneFireElemental>());
+        subType[ELEMENTAL] = false;
+        subType[SUMMONER] = true;
+    }
