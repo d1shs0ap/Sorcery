@@ -21,6 +21,11 @@ class Player
     int magic;
     int number;
 
+    // player elo
+    int elo = 1000;
+    // constant for computing elo
+    const double ELO_K = 50;
+
     // A player’s board is a collection of cards that they have played and which have not been moved to another zone.
     std::shared_ptr<Board> board;
     // A players’ deck is a collection of cards that they may draw from.
@@ -45,6 +50,11 @@ public:
     bool hasEnoughMagic(int cost);
     // Getter of number
     int getNumber() const;
+    
+    // getter/setter of elo
+    int getElo() const;
+    void setElo(int elo);
+
     // Getters
     std::shared_ptr<Board> getBoard();
     std::shared_ptr<Deck> getDeck();
@@ -66,6 +76,8 @@ public:
     // Use the activated abilityy of the ith minion in board from the left , called by textController::play
     void use(std::shared_ptr<Game> game, int minion, bool testing); // for activated ability with no target
     void use(std::shared_ptr<Game> game, int minion, int player, int target, bool testing); // for activated ability with target
+
+    void computeElo(int otherElo, int winner);
 };
 
 #endif

@@ -27,6 +27,10 @@ bool Player::hasEnoughMagic(int cost) { return magic >= cost; }
 
 int Player::getNumber() const { return number; }
 
+// getter/setter of elo
+int Player::getElo() const { return elo; }
+void Player::setElo(int elo) { this->elo = elo; }
+
 shared_ptr<Board> Player::getBoard() {
     if (board==nullptr){
         throw ArgException{"Board does not exist for player " + (getName()) + "."};
@@ -288,5 +292,20 @@ void Player::use(std::shared_ptr<Game> game, int minion, int player, int target,
     }
     
     // subtract magic cost
+}
+
+void Player::computeElo(int otherElo, int winner) {
+    // probability that the player wins
+    double dOtherElo = otherElo;
+    double dElo = elo;
+    double p = 1.0 * 1.0 / (1 + 1.0 *  pow(10, 1.0 * (dOtherElo - dElo) / 400)); 
+    if(winner==0){ // if tie
+        dElo += (ELO_K * (1-p) + ELO_K * (0-p))/2;
+    } else if (winner - 1 == getNumber()) { // if player wins
+        dElo += ELO_K * (1-p);
+    } else { // if player loses
+        dElo += ELO_K * (0-p);
+    }
+    elo = round(dElo);
 }
 
