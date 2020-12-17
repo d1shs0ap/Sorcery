@@ -113,7 +113,7 @@ void Board::MinionSubTypeEffect(){
                     if(remain == 0) { break; }
                 }
             } else if(subTypeCount[ELEMENTAL] < 3 && checkMinionSubType(ELEMENTAL) >= 3){
-                for(int i = 0; i< minions.size(); i++){
+                for(int i = 0; i < minions.size(); i++){
                     if(minions[i]->isSubType(ELEMENTAL)){
                         minions[i]->setAtk(minions[i]->getAtk() + 1);
                         minions[i]->setDef(minions[i]->getDef() + 1);
