@@ -5,6 +5,7 @@
 #include "minion.h"
 #include "../../cardCollections/board.h"
 #include "../ritual.h"
+#include "../../argException.h"
 
 
 TriggeredAbility::TriggeredAbility(std::string description, TriggeredAbilityType type)
@@ -125,23 +126,36 @@ EndDestroy::EndDestroy()
 
 
 void EndDestroy::effect(std::shared_ptr<Game> game, std::shared_ptr<Ritual> ritual) const {
-    auto player = game->getActivePlayer();
+
+    int counter = 0;
+
+    auto player = game->getPlayer(0);
     auto playerMinions = player->getBoard()->getMinions();
 
-    // loop through all minions and check which has attack <= 1, keep track of them
-    for (int i = 0; i < playerMinions.size(); ++i) {
-        if(playerMinions[i]->getAtk() <= 1) {
-            player->getBoard()->setMinion(i, nullptr);
+    try {
+        // loop through all minions and check which has attack <= 1, keep track of them
+        while (counter < playerMinions.size()){
+            if(player->getBoard()->getMinion(counter)->getAtk() <= 1) {
+                player->getBoard()->removeMinion(counter);
+            } else {
+                ++counter;
+            }
         }
-    }
+    } catch (ArgException &e) {}
+
+    counter = 0;
 
     // now the same for the enemy
-    auto enemy = game->getInactivePlayer();
+    auto enemy = game->getPlayer(1);
     auto enemyMinions = enemy->getBoard()->getMinions();
 
-    for (int i = 0; i < enemyMinions.size(); ++i) {
-        if(enemyMinions[i]->getAtk() <= 1) {
-            enemy->getBoard()->setMinion(i, nullptr);
+    try {
+        while (counter < enemyMinions.size()){
+            if(enemy->getBoard()->getMinion(counter)->getAtk() <= 1) {
+                enemy->getBoard()->removeMinion(counter);
+            } else {
+                ++counter;
+            }
         }
-    }
+    } catch (ArgException &e) {}
 }
