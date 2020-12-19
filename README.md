@@ -2,6 +2,8 @@ Hearthstone-like game built with C++. Final project for CS246.
 
 For the tutorial, please go to /docs/demo.pdf.
 
+To install, please download/clone the program, ```cd src```, and ```make```
+
 /codeForStudents
 - includes code for students, given by CS246
 
